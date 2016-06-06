@@ -1,0 +1,107 @@
+<div class="tbl jumbotron col-md-10" id="info">
+   <table class="table table-inverse col-md-8 " dir="rtl" align="center">
+      <thead>
+        <tr align="center">
+            <td font-size="16"><b>סוג מידע</b></td>
+            <td><b>פירוט</b></td>
+        </tr>
+         
+      </thead>
+      <tbody>
+           <tr align="center">
+               <td>תאריך התחלה</td>
+               <td>נוסד ב 1982</td>
+           </tr>
+           <tr align="center">
+               <td>שעות</td>
+               <td>
+                       <li>ראשון: 19:00 - 21:00</li>
+                       <li>שני: 16:45 - 21:00</li>
+                       <li>שלישי: נבחרת ישראל (תלוי בגיל)</li>
+                       <li>רביעי: 18:00 - 19:30</li>
+                       <li>חמישי: 16:45 - 21:00</li>
+                       <li>שישי: 15:00 - 17:30</li>
+                       <!-- Button trigger modal -->
+                       <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#moreInfo">
+                            לפרטים מלאים
+                       </button>
+               </td>
+           </tr>
+           <tr align="center">
+               <td>השתייכות</td>
+               <td>אגודת מיטב בת - ים</td>
+           </tr>
+           <tr align="center">
+               <td>חברים</td>
+               <td>
+                   ג'ודו - דרך למצוינות.<br/>
+                   חינוך למצוינות בכל התחומים בחיים.<br/>
+                   המטרה - לעמוד בכל המטלות (לימודים, משפחה, חברים, עיסוק בספורט)<br/>
+                   באופן המתקרב לשלמות.
+                </td>
+           </tr>
+           <tr align="center">
+               <td>תיאור קצר</td>
+               <td>מועדון הג'ודו מספר 1 בארץ!</td>
+           </tr>
+           <tr align="center">
+               <td>פרסים</td>
+               <td>בין חניכי המועדון אין ספור אלופי ישראל.<br/>
+                    כמו כן אלופי אירפה ומשחקים אולימפיים לנוער.<br/>
+                    החשוב ביותר - צוות מגובש ...אפשר לסמוך <br/>
+                    אל כל אחד ואחת הנותנים דוגמא אישית בכל מקום !!!!!!</td>
+           </tr>
+           <tr align="center">
+               <td>טלפון</td>
+               <td>052-978-6668</td>
+           </tr>
+           <tr align="center">
+               <td>דוא"ל</td>
+               <td>liorland6@walla.co.il</td>
+           </tr>
+           <tr align="center">
+
+           </tr>
+       </tbody>
+   </table>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="moreInfo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <!--Content-->
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h3 class="modal-title" id="myModalLabel">פרטי אימונים</h3>
+            </div>
+            <!--Body-->
+            <div class="modal-body">
+                יום א - טכניקה אישית <br/>
+                    יום ב' ה' - 16-45 - גיל 12 - 16 <br/>
+                    17-45 - גיל 8 -11 <br/>
+                    18-45 - גיל 4 - 7 <br/>
+                    19-15 - גיל 17 - 100 <br/>
+                    יום ד' - אקרובטיקה ,כושר גופני ,משחקים <br/>
+                    יום ו' - קרבות עם ספורטאים ממועדונים שונים .
+            </div>
+            <!--Footer-->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">סגור</button>
+            </div>
+        </div>
+        <!--/.Content-->
+    </div>
+</div>
+<!-- /.Live preview-->
+                        
+<script type="text/javascript">
+    window.setTimeout(function() {window.scrollTo(0, 900);}, 100);
+    $('#moreinfo').on('shown.bs.modal', function () {
+        $('#myInput').focus()
+    }) 
+</script>

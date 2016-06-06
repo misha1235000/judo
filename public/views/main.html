@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Judo Lior</title>
+    <!--The Links-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/assets/stylesheets/bootstrap.css">
+    <link rel="stylesheet" href="/assets/stylesheets/mdb.css">
+    <link rel="stylesheet" href="/assets/stylesheets/main.css">
+  </head>
+  <body ng-app="judoApp" ng-controller="mainCont">
+       <div class="navbar navbar-inverse navbar-fixed-top">
+          <div class="container">
+            <div class="navbar-header">
+                <a href="/#" class="navbar-brand" font-size="28px"><b>דף בית</b></a>
+              <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+            </div>
+            <div class="navbar-collapse collapse" id="navbar-main">
+              <ul class="nav navbar-nav">
+                <li>
+                  <a href="/#info" onclick="scrollDown(0)">מידע על המועדון</a>
+                </li> 
+                <li>
+                  <a href="/#achieve" onclick="scrollDown(0)">הישגי הספורטאים</a>
+                </li>
+                <li>
+                  <a href="/#compet" ng-hide="1==1" onclick="scrollDown(0)">לוח תחרויות</a>
+                </li>
+                <li>
+                  <a href="/#contact" onclick="scrollDown(1);">צור קשר</a>
+                </li> 
+                <li>
+                    <a data-toggle="modal" data-target="#loginm" ng-show="usr.firstName==''" class="loginbtnstyle">
+                        <b>התחבר</b>
+                    </a>
+                </li>
+                <li>
+                    <a ng-click="showNews()" data-toggle="modal" data-target="#newsm" ng-show="usr.firstName != ''" class="msgbtnstyle">
+                        <b>מודעות</b>
+                    </a>
+                </li>
+                <li>
+                    <a ng-click="showPics()" data-toggle="modal" data-target="#gallerym" ng-show="usr.firstName != ''" class="picbtnstyle">
+                        <b>גלריה</b>
+                    </a>
+                </li>
+                <li>
+                    <!-- Button trigger modal -->
+                    <a data-toggle="modal" data-target="#registerm" ng-show="usr.firstName==''" class="regbtnstyle">
+                        <b>הרשמה</b>
+                    </a>
+                  </li>
+                   <h4 id="moveitright" ng-show="usr.firstName != ''">
+                       שלום <a href="/#myuser" class="fullname"><b>{{usr.firstName}} {{usr.lastName}}</b></a>, <a ng-click="logout()">התנתק</a>
+                  </h4>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="log hoverable hm-black-light">
+           <img src="/assets/images/slogo.jpg" class="strech2 hoverable hm-zoom">
+           <img src="/assets/images/judologo.jpg" class="strech hoverable hm-zoom">
+        </div>
+            <div class="col-md-7" id="viewit" align="center" ng-view></div>
+            
+            
+ <!-- Modal Login -->
+        <div class="modal fade modal-ext" id="loginm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <!--Content-->
+                <div class="modal-content">
+                    <!--Header-->
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h3><i class="fa fa-user"></i> התחברות</h3>
+                    </div>
+                    <!--Body-->
+                    <div class="modal-body">
+                        <div class="md-form">
+                            <i class="fa fa-envelope prefix"></i>
+                            <input type="text" id="username" class="form-control">
+                            <label for="form2">שם משתמש</label>
+                        </div>
+
+                        <div class="md-form">
+                            <i class="fa fa-lock prefix"></i>
+                            <input type="password" id="pass" class="form-control">
+                            <label for="form3">סיסמא</label>
+                        </div>
+                         <div id="wronglog" dir="rtl">
+
+                        </div>
+                        <div class="text-xs-center">
+                            <button class="btn btn-primary btn-lg" ng-click="login()">התחברות</button>
+                        </div>
+                    </div>
+                    <!--Footer-->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" data-clear="modal">סגור</button>
+                    </div>
+                </div>
+                <!--/.Content-->
+            </div>
+        </div>
+        <!-- /.Login Modal END-->
+        
+         <!-- Messages Modal -->
+        <div class="modal fade" id="newsm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" ng-controller="mainCont">
+            <div class="modal-dialog" role="document">
+                <!--Content-->
+                <div class="modal-content">
+                    <!--Header-->
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <center><h3 class="modal-title" id="myModalLabel">מודעות</h3></center>
+                    </div>
+                    <!--Body-->
+                    <div class="modal-body">
+                        <form class="form-inline">
+                            <table class="table table-hover" dir="rtl">
+
+                                <tr>
+                                    <!--<td><b>מספר</b></td>-->
+                                    <td><b>שם הכותב</b></td>
+                                    <td><b>הודעה</b></td>
+                                    <td><b>תאריך</b></td>
+                                    <td><b>שעה</b></td>
+                                </tr>
+                                <tr ng-repeat="new in news | orderBy:'-id'" ng-hide="hideit">
+                                    <!--<td>{{new.id}}</td>-->
+                                    <td>{{new.authorname}}</td>
+                                    <td>{{new.message}}</td>
+                                    <td>{{new.date}}</td>
+                                    <td>{{new.time}}</td>
+                                    <td><button class="btn btn-danger btn-sm" ng-click="deleteNew(new.id)" ng-show="usr.perm >= 2" data-dismiss="modal">X</button></td>
+                                </tr>
+                            </table>
+                        </form>
+                <!-- <button class="btn btn-primary btn-lg" ng-click="addNews()">הוסף מודעה</button>-->
+                   <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#addnewm" ng-show="usr.perm >= 2">
+                    הוסף מודעה
+                </button>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">סגור</button>
+                    </div>
+                </div>
+                <!--/.Content-->
+            </div>
+        </div>
+      </div>
+        <!-- /.MESSAGES Modal END-->
+        
+        
+        <!-- NEW MESSAGE MODAL -->
+<div class="modal fade" id="addnewm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <!--Content-->
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">מודעה חדשה</h4>
+            </div>
+            <!--Body-->
+            <div class="modal-body">
+                <!--Textarea with icon prefix-->
+                <div class="md-form">
+                    <i class="fa fa-pencil prefix"></i>
+                    <textarea type="text" id="message" class="md-textarea" dir="rtl"></textarea>
+                    <label for="form8"></label>
+                </div>
+                <button type="button" class="btn btn-primary" ng-click="addNews()" data-dismiss="modal">הוסף</button>
+            </div>
+            <!--Footer-->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" dir="rtl">סגור</button>
+            </div>
+        </div>
+        <!--/.Content-->
+    </div>
+</div>
+<!-- /.NEW MESSAGE MODAL END-->
+
+<!-- Modal Register -->
+        <div class="modal fade modal-ext" id="registerm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <!--Content-->
+                <div class="modal-content">
+                    <!--Header-->
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h3><i class="fa fa-user"></i>הרשמה</h3>
+                    </div>
+                    <!--Body-->
+                    <div class="modal-body">
+                        <!--Email validation-->
+                        <div class="md-form">
+                            <i class="fa fa-user prefix"></i>
+                            <input type="text" id="regname" class="form-control">
+                            <label for="form2">שם פרטי</label>
+                        </div>
+                        <div class="md-form">
+                            <i class="fa fa-user prefix"></i>
+                            <input type="text" id="reglastname" class="form-control">
+                            <label for="form2">שם משפחה</label>
+                        </div>
+                        <div class="md-form">
+                            <i class="fa fa-envelope prefix"></i>
+                            <input type="email" id="regemail" class="form-control validate">
+                            <label for="form9" data-error="לא-חוקי" data-success="חוקי">דוא"ל</label>
+                        </div>
+
+                        <div class="md-form">
+                            <i class="fa fa-user prefix"></i>
+                            <input type="text" id="reguser" class="form-control">
+                            <label for="form2">שם משתמש</label>
+                        </div>
+                       
+                        <div class="md-form">
+                            <i class="fa fa-lock prefix"></i>
+                            <input type="password" id="regpass" class="form-control">
+                            <label for="form3">סיסמא</label>
+                        </div>
+
+                        <div class="md-form">
+                            <i class="fa fa-lock prefix"></i>
+                            <input type="password" id="regpassconf" class="form-control">
+                            <label for="form4">אימות סיסמא</label>
+                        </div>
+                        
+                        <div id="wrongreg" dir="rtl">
+                        </div>
+                        
+                        <div class="text-xs-center">
+                            <button class="btn btn-primary btn-lg" ng-click="checkValid()">הירשם</button>
+                        </div>
+                    </div>
+                    <!--Footer-->
+                    <div class="modal-footer">
+                        <div class="options">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">סגור</button>
+                        </div>
+                    </div>
+                <!--/.Content-->
+                </div>
+            </div>
+        </div>
+        <!--Register MODAL END!!--> 
+        <!--Gallery MODAL-->
+        <div class="modal fade modal-lg" id="gallerym" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+            <!--Content-->
+                <div class="modal-content">
+                    <!--Header-->
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <center><h4 class="modal-title" id="myModalLabel">גלריה</h4></center>
+                    </div>
+                    <!--Main wrapper-->
+
+    <!--First row-->
+    <div class="row z-depth-1"  dir="rtl" ng-repeat="pic in pics | orderBy:'-id'">
+        <!--Content column-->
+        <div class="col-sm-8">
+            <a><h2>{{pic.title}}</h2></a>
+
+            <div class="card-data">
+                <ul>
+                    <li><i class="fa fa-clock-o"></i> {{pic.date}} {{pic.time}}</li>
+                    <li><a><i class="fa fa-comments-o"></i>12</a></li>
+                </ul>
+            </div>
+
+            <p>{{pic.info}}</p>
+            <hr>
+        </div>
+        <!--/.Content column-->
+        <!--Image column-->
+        <div class="col-sm-4">
+            <div class="view overlay hm-white-slight">
+                <img id="img{{pic.id}}" ng-src="{{pic.src}}" height="190px" class="img-fluid" alt="">
+                <a href="{{pic.src}}">
+                    <div class="mask"></div>
+                </a>
+            </div>
+            <hr>
+        </div>
+        <hr>
+        <!--/.Image column-->
+    </div>
+    <!--/.First row-->
+<!--/.Main wrapper-->
+                   <div class="modal-footer">
+                       <center><button type="button" class="btn btn-default" data-dismiss="modal">סגור</button></center>
+            </div>
+                    <!--Footer-->
+                </div>
+            <!--/.Content-->
+            </div>
+      </div>
+        
+        <!--The scripts-->
+        <script src="https://maps.googleapis.com/maps/api/js?sensor=false" type="text/javascript"></script>
+        <script type="text/javascript" src="/assets/javascripts/jquery-2.2.3.min.js"></script>
+        <script type="text/javascript" src="/assets/javascripts/gmap3.js"></script>
+        <script type="text/javascript" src="/assets/javascripts/angular.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular-route.min.js"></script>
+        <script type="text/javascript" src="/assets/javascripts/main.js"></script>
+        <script type="text/javascript" src="/assets/javascripts/bootstrap.min.js"></script>
+        <script type="text/javascript" src="/assets/javascripts/mdb.js"></script>
+        <script type="text/javascript" src="/assets/javascripts/tether.js"></script>
+        <script type="text/javascript">function scrollDown(isreload) { setTimeout(function() {window.scrollTo(0, 900)}, 100); if(isreload == 1) {setTimeout(init_map, 100)}}</script>
+        <script type="text/javascript">
+            $('#fm').on('shown.bs.modal', function () {
+                $('#myInput').focus()
+            });
+             $('#newsm').on('shown.bs.modal', function () {
+                $('#myInput').focus()
+            });
+             $('#addnewm').on('shown.bs.modal', function () {
+                $('#message').focus()
+            });
+            $('#addnewm').on('hide.bs.modal', function() {
+               $('#message').val("");
+            });
+             $('#registerm').on('shown.bs.modal', function () {
+                $('#regname').focus()
+                
+            });
+            $('#registerm').on('hide.bs.modal', function() {
+               $('#reguser').val("");
+               $('#regpass').val("");
+               $('#regemail').val("");
+               $('#regpassconf').val("");
+               $('#regname').val("");
+               $('#reglastname').val("");
+               $('#wrongreg').html("");
+            });
+             $('#gallerym').on('show.bs.modal', function() {
+                 /////////COMING SOON//////////
+             });
+            $('#gallerym').on('hide.bs.modal', function() {
+               ////////COMING SOON/////////
+            });
+            $('#loginm').on('show.bs.modal', function() {
+                 $('#username').focus()
+             });
+            $('#loginm').on('hide.bs.modal', function() {
+               $('#username').val("");
+               $('#pass').val("");
+               $('#wronglog').html("");
+            });
+            
+        </script>
+    </body>
+</html>

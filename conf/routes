@@ -1,0 +1,17 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# An example controller showing a sample home page
+GET 	/					controllers.Assets.at(path="/public/views", file="main.html")
+GET		/login/:username/:pass	controllers.mainCont.login(username: String, pass: String)
+GET		/logout					controllers.mainCont.logout
+GET		/news/add/:message		controllers.mainCont.addNews(message: String)
+GET		/news/delete/:id		controllers.mainCont.deleteANew(id: Integer)
+GET		/news					controllers.mainCont.getAllNews
+GET		/session				controllers.mainCont.getSession
+#POST	/register				controllers.mainCont.register
+GET		/register/:name/:lastname/:email/:user/:pass/:passconf	controllers.mainCont.register(name: String, lastname: String, email: String, user: String, pass: String, passconf: String)
+GET		/pics					controllers.mainCont.getAllPics
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
