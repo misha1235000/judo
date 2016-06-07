@@ -25,14 +25,33 @@ import views.html.helper.form;
 
 public class mainCont extends Controller {
 	
-	Date   dt    = new Date();
-	String st    = "";
-	String dtStr = "";
-	String nHoursToAdd;
-	String nMinutesToAdd;
-	String nSecondsToAdd;
-	String nDaysToAdd;
-	String nMonthsToAdd;
+	Date       dt    = new Date();
+	Connection con = null;
+	String 	   st    = "";
+	String 	   dtStr = "";
+	String 	   nHoursToAdd;
+	String 	   nMinutesToAdd;
+	String 	   nSecondsToAdd;
+	String 	   nDaysToAdd;
+	String 	   nMonthsToAdd;
+	
+	private void getConn() {
+		if (con == null) {
+			try {
+				Class.forName("org.postgresql.Driver");
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+	
+			try {
+				con = DriverManager.getConnection(
+						"jdbc:postgresql://127.0.0.1:5432/mydb", "postgres",
+						"postgres");
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 	
 	public void Filldtst() {
 		if (dt.getHours() < 10) {
@@ -72,19 +91,7 @@ public class mainCont extends Controller {
 	}*/
 	public Result login(String username, String pass) {
 		Date dt=  new Date();
-		try {
-			Class.forName("org.postgresql.Driver");
-		} catch (ClassNotFoundException e) {
-		}
-		Connection con = null;
-
-		try {
-			con = DriverManager.getConnection(
-					"jdbc:postgresql://127.0.0.1:5432/mydb", "postgres",
-					"postgres");
-		} catch (SQLException e) {
-		}
-		
+		getConn();
 		if (con != null) {
 			try {
 		    Statement stmt = con.createStatement();
@@ -99,7 +106,6 @@ public class mainCont extends Controller {
 					session().put("lastname", rs.getString("lastname"));
 					session().put("email", rs.getString("email"));
 		    		session().put("perm", rs.getString("perm"));
-		    		con.close();
 		    		return ok(rs.getString("firstname"));
 		    	}
 		    }
@@ -121,20 +127,7 @@ public class mainCont extends Controller {
 	
 	/************ALL NEWS METHODS*************/
 	public Result addNews(String message) {
-		
-		try {
-			Class.forName("org.postgresql.Driver");
-		} catch (ClassNotFoundException e) {
-		}
-		Connection con = null;
-
-		try {
-			con = DriverManager.getConnection(
-					"jdbc:postgresql://127.0.0.1:5432/mydb", "postgres",
-					"postgres");
-		} catch (SQLException e) {
-		}
-		
+		getConn();
 		if (con != null) {
 			int nIndex = 0;
 			try {
@@ -156,22 +149,11 @@ public class mainCont extends Controller {
 		    	ex.printStackTrace();
 		    }
 		}
-		return ok("BAD IN SERVER");
+		return ok("BAD IN SERVER (NO CONNECTION TO DB)");
 	}
 	
 	public Result getAllNews() {
-		try {
-			Class.forName("org.postgresql.Driver");
-		} catch (ClassNotFoundException e) {
-		}
-		Connection con = null;
-
-		try {
-			con = DriverManager.getConnection(
-					"jdbc:postgresql://127.0.0.1:5432/mydb", "postgres",
-					"postgres");
-		} catch (SQLException e) {
-		}
+		getConn();
 		if (con != null) {
 			try {
 				List<Message> lstMessages = new ArrayList<Message>();
@@ -195,18 +177,7 @@ public class mainCont extends Controller {
 	}
 	
 	public Result deleteANew(int id) {
-		try {
-			Class.forName("org.postgresql.Driver");
-		} catch (ClassNotFoundException e) {
-		}
-		Connection con = null;
-
-		try {
-			con = DriverManager.getConnection(
-					"jdbc:postgresql://127.0.0.1:5432/mydb", "postgres",
-					"postgres");
-		} catch (SQLException e) {
-		}
+		getConn();
 		if (con != null) {
 			try {
 			    Statement stmt = con.createStatement();
@@ -227,18 +198,7 @@ public class mainCont extends Controller {
 	
 	/***************ALL PICS METHODS*****************/
 	public Result getAllPics() {
-		try {
-			Class.forName("org.postgresql.Driver");
-		} catch (ClassNotFoundException e) {
-		}
-		Connection con = null;
-
-		try {
-			con = DriverManager.getConnection(
-					"jdbc:postgresql://127.0.0.1:5432/mydb", "postgres",
-					"postgres");
-		} catch (SQLException e) {
-		}
+		getConn();
 		if (con != null) {
 			try {
 				List<Picture> lstPictures = new ArrayList<Picture>();
@@ -263,18 +223,7 @@ public class mainCont extends Controller {
 	}
 	
 	public Result addPicture(String info, String title) {
-		try {
-			Class.forName("org.postgresql.Driver");
-		} catch (ClassNotFoundException e) {
-		}
-		Connection con = null;
-
-		try {
-			con = DriverManager.getConnection(
-					"jdbc:postgresql://127.0.0.1:5432/mydb", "postgres",
-					"postgres");
-		} catch (SQLException e) {
-		}
+		getConn();
 		if (con != null) {
 			try {
 				int       nIndex = 0;
@@ -324,19 +273,7 @@ public class mainCont extends Controller {
 		System.out.println("Name = " + name + "\n"
 						 + "Email = " + email);*/
 		
-		try {
-			Class.forName("org.postgresql.Driver");
-		} catch (ClassNotFoundException e) {
-		}
-		Connection con = null;
-
-		try {
-			con = DriverManager.getConnection(
-					"jdbc:postgresql://127.0.0.1:5432/mydb", "postgres",
-					"postgres");
-		} catch (SQLException e) {
-		}
-		
+		getConn();
 		if (con != null) {
 			int nIndex = 0;
 			try {
