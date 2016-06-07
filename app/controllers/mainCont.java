@@ -45,7 +45,7 @@ public class mainCont extends Controller {
 	
 			try {
 				con = DriverManager.getConnection(
-						"postgres://postgres:postgres@liorjudo-8524.postgresql.dbs.appsdeck.eu/liorjudo_8524");
+						"postgresql://postgres:postgres@liorjudo-8524.postgresql.dbs.appsdeck.eu/liorjudo_8524");
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
