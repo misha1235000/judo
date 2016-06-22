@@ -1,0 +1,50 @@
+                   <div class="myglry container">
+                                <div class="row z-depth-1"  dir="rtl" ng-repeat="pic in pics | orderBy:'-id'">
+                                    <span style="color: darkgrey; margin-right: 85%; font-size: 14px;" class="label label-pill pull-xs-left">{{pic.date}} {{pic.time}}<i class="fa fa-clock-o"></i></span>
+                                   
+                                    <!--Content column-->
+                                    <div class="col-sm-8">
+                                      
+
+                                        <div class="card-data" >
+                                           <table dir="rtl" class="table table-striped table-hover">
+                                               <tr><td><h1>{{pic.title}}</h1></td></tr>
+                                               <tr><td><h3>{{pic.posterName}} {{pic.posterLastName}}</h3></td></tr>
+                                               <tr><td><p>{{pic.info}}</p></td></tr>
+                                               </table>
+<!--                                                <li><a><i class="fa fa-comments-o"></i>12</a></li>-->
+                                        </div>
+
+                                    </div>
+                                    <!--/.Content column-->
+                                    <!--Image column-->
+                                    <div class="col-sm-4">
+                                        <div class="view overlay hm-white-slight hm-zoom">
+                                            <img id="img{{pic.id}}" ng-src="{{pic.src}}" height="290px" class="img-fluid" alt="" style="margin-top: 0px;">
+                                            <a ng-click="changeSrc(pic.src, pic.title, pic.info, pic.id);" data-toggle="modal" ng-init="numis = 5;" data-target="#currimg">
+                                                <div class="mask"></div>
+                                            </a>
+                                        </div>
+                                        <hr>
+                                    </div>
+                                    <hr>
+                                    <!--/.Image column-->
+                                </div>
+                    </div>
+
+                                       <div class="view overlay hm-white-slight hm-zoom img-circle" style="position: fixed;
+                                                                   bottom: 20px;
+                                                                   right: 20px;
+                                                                   width: 100px;
+                                                                   height: 100px;">
+                                       <img class="img-circle z-depth-1" src="/assets/images/signs/plus.png" style="position: fixed;
+                                                                   bottom: 30px;
+                                                                   right: 30px;
+                                                                   width: 80px;
+                                                                   height: 80px;">
+                                       <a  data-toggle="modal" data-target="#addimg" data-toggle="tooltip" data-placement="top" title="פרסם תמונה">        
+                                                <div class="mask"></div>
+                                            </a>
+                                        </div>
+                   <script type="text/javascript">
+                                      setTimeout(function() {window.scrollTo(0, 900)}, 200);</script>

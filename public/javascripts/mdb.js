@@ -5095,7 +5095,9 @@ $(function () {
             body.addEventListener('touchend', TouchHandler.registerEvent, false);
         }
 
-        body.addEventListener('mousedown', showEffect, false);
+        if (body != null) {
+            body.addEventListener('mousedown', showEffect, false);
+        }
     };
 
 

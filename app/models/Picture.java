@@ -7,17 +7,46 @@ public class Picture {
 	private String title;
 	private String date;
 	private String time;
+	private int	   posterId;
+	private String posterName;
+	private String posterLastName;
 	
-	public Picture(int id, String src, String info, String title, String date, String time) {
+	public Picture(int id, String src, String info, String title, String date, String time, int posterId, String posterName, String posterLastName) {
 		this.id = id;
 		this.src = src;
 		this.info = info;
 		this.title = title;
 		this.date = date;
 		this.time = time;
+		this.posterId = posterId;
+		this.posterName = posterName;
+		this.posterLastName = posterLastName;
 	}
 	
-	
+	public String getPosterName() {
+		return posterName;
+	}
+
+	public void setPosterName(String posterName) {
+		this.posterName = posterName;
+	}
+
+	public String getPosterLastName() {
+		return posterLastName;
+	}
+
+	public void setPosterLastName(String posterLastName) {
+		this.posterLastName = posterLastName;
+	}
+
+	public int getPosterId() {
+		return posterId;
+	}
+
+	public void setPosterId(int posterId) {
+		this.posterId = posterId;
+	}
+
 	public String getTitle() {
 		return title;
 	}
