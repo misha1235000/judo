@@ -1,37 +1,7 @@
-New log file opened at Wed Jun 22 10:26:41 IDT 2016 by 24483@flex-HP-ProDesk-600-G1-DM
-Taking next connection to: 40008
-New client attempting to connect on port: 44730-40008
-  Address = /127.0.1.1:40008
-This client on port 44730 has uuid 83ee68c7-e10f-48ce-8c53-17fc05ed3d65 configName play-fork-run humanReadableName Play Fork Run protocolVersion 1 featureTags Vector()
-Connected Clients: play-fork-run-83ee68c7-e10f-48ce-8c53-17fc05ed3d65
-Taking next connection to: 40008
-Checking to see if clients are empty...
-We have 1 non-daemon clients, continuing serving connections.
-Taking next connection to: 40008
-Checking to see if clients are empty...
-We have 1 non-daemon clients, continuing serving connections.
-Taking next connection to: 40008
-Checking to see if clients are empty...
-We have 1 non-daemon clients, continuing serving connections.
-Taking next connection to: 40008
-Checking to see if clients are empty...
-We have 1 non-daemon clients, continuing serving connections.
-Taking next connection to: 40008
-Checking to see if clients are empty...
-We have 1 non-daemon clients, continuing serving connections.
-Taking next connection to: 40008
-Checking to see if clients are empty...
-We have 1 non-daemon clients, continuing serving connections.
-Taking next connection to: 40008
-Checking to see if clients are empty...
-We have 1 non-daemon clients, continuing serving connections.
-Taking next connection to: 40008
-Checking to see if clients are empty...
-We have 1 non-daemon clients, continuing serving connections.
-Taking next connection to: 40008
-Checking to see if clients are empty...
-We have 1 non-daemon clients, continuing serving connections.
-Taking next connection to: 40008
-Checking to see if clients are empty...
-We have 1 non-daemon clients, continuing serving connections.
-Taking next connection to: 40008
+New log file opened at Wed Jun 22 15:56:03 IDT 2016 by 30296@flex-HP-ProDesk-600-G1-DM
+Taking next connection to: 41264
+New client attempting to connect on port: 46586-41264
+  Address = /127.0.1.1:41264
+This client on port 46586 has uuid 5b70d66c-312e-46d9-b80f-32b345147149 configName play-fork-run humanReadableName Play Fork Run protocolVersion 1 featureTags Vector()
+Connected Clients: play-fork-run-5b70d66c-312e-46d9-b80f-32b345147149
+Taking next connection to: 41264
