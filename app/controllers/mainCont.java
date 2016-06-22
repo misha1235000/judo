@@ -52,10 +52,8 @@ public class mainCont extends Controller {
 			}
 	
 			try {
-				String dbHost = System.getenv("OPENSHIFT_POSTGRESQL_DB_HOST");
-				String dbPort = System.getenv("OPENSHIFT_POSTGRESQL_DB_PORT");
 				con = DriverManager.getConnection(
-						"jdbc:postgresql://"+dbHost+":"+dbPort+"/judonow", "postgres", "postgres");
+						"jdbc:postgresql://127.8.238.2:5432/judonow", "adminrzbkhrg", "HLm9W4bLxpXD");
 				if (con != null) {
 					System.out.println("connected!@~#!@#@~!$~$~@!~(*");
 				} else {
