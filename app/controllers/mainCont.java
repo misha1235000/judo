@@ -53,7 +53,7 @@ public class mainCont extends Controller {
 	
 			try {
 				con = DriverManager.getConnection(
-						"jdbc:postgresql://127.8.238.2:5432/judonow", "adminrzbkhrg", "HLm9W4bLxpXD");
+						"jdbc:postgresql://127.0.0.1:5433/judonow", "adminrzbkhrg", "HLm9W4bLxpXD");
 				if (con != null) {
 					System.out.println("connected!@~#!@#@~!$~$~@!~(*");
 				} else {
