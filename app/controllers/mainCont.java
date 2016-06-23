@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.h2.bnf.context.DbTableOrView;
 import org.h2.engine.Session;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -52,8 +51,10 @@ public class mainCont extends Controller {
 			}
 	
 			try {
+				String dbHost = System.getenv("OPENSHIFT_POSTGRESQL_DB_HOST");
+				String dbPort = System.getenv("OPENSHIFT_POSTGRESQL_DB_PORT");
 				con = DriverManager.getConnection(
-						"jdbc:postgresql://127.0.0.1:5433/judonow", "adminrzbkhrg", "HLm9W4bLxpXD");
+						"jdbc:postgresql://localhost/mydb", "postgres", "postgres");
 				if (con != null) {
 					System.out.println("connected!@~#!@#@~!$~$~@!~(*");
 				} else {
