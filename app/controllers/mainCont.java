@@ -51,11 +51,11 @@ public class mainCont extends Controller {
 			}
 	
 			try {
-				con = DriverManager.getConnection("jdbc:postgresql://judorsa-1440.postgresql.dbs.appsdeck.eu:30556/judorsa_1440?user=judorsa_1440&password=dvpuX2KrnZDJAoI--T5u&ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory");
+			//	con = DriverManager.getConnection("jdbc:postgresql://judorsa-1440.postgresql.dbs.appsdeck.eu:30556/judorsa_1440?user=judorsa_1440&password=dvpuX2KrnZDJAoI--T5u&ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory");
 			//	con = DriverManager.getConnection(
 			//			"jdbc:postgresql://judorsa-1440.postgresql.dbs.appsdeck.eu:30556/judorsa_1440", "judorsa_1440", "dvpuX2KrnZDJAoI--T5u");
-			//	con = DriverManager.getConnection(
-			//			"jdbc:postgresql://127.0.0.1:10000/judorsa_1440", "judorsa_1440", "dvpuX2KrnZDJAoI--T5u");
+				con = DriverManager.getConnection(
+						"jdbc:postgresql://127.0.0.1:10000/judorsa_1440", "judorsa_1440", "dvpuX2KrnZDJAoI--T5u");
 			/*
 				//	con = DriverManager.getConnection(
 			//			"jdbc:postgresql://localhost/mydb", "postgres", "postgres");*/
