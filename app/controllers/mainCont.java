@@ -51,10 +51,11 @@ public class mainCont extends Controller {
 			}
 	
 			try {
-				String dbHost = System.getenv("OPENSHIFT_POSTGRESQL_DB_HOST");
-				String dbPort = System.getenv("OPENSHIFT_POSTGRESQL_DB_PORT");
 				con = DriverManager.getConnection(
-						"jdbc:postgresql://localhost/mydb", "postgres", "postgres");
+						"postgres://postgres:postgres@myjudo-8412.postgresql.dbs.appsdeck.eu/myjudo_8412");
+			/*
+				//	con = DriverManager.getConnection(
+			//			"jdbc:postgresql://localhost/mydb", "postgres", "postgres");*/
 				if (con != null) {
 					System.out.println("connected!@~#!@#@~!$~$~@!~(*");
 				} else {
@@ -155,7 +156,8 @@ public class mainCont extends Controller {
 		session().put("perm", "0");
 		return ok("good");
 	}
-	
+
+	con = DriverManager.getConnection("postg
 	/************ALL NEWS METHODS*************/
 	public Result addNews(String message) {
 		if (Integer.parseInt(session().get("perm")) != 3) {
