@@ -157,7 +157,6 @@ public class mainCont extends Controller {
 		return ok("good");
 	}
 
-	con = DriverManager.getConnection("postg
 	/************ALL NEWS METHODS*************/
 	public Result addNews(String message) {
 		if (Integer.parseInt(session().get("perm")) != 3) {
