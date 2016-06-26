@@ -52,7 +52,7 @@ public class mainCont extends Controller {
 	
 			try {
 				con = DriverManager.getConnection(
-						"postgres://postgres:postgres@myjudo-8412.postgresql.dbs.appsdeck.eu/myjudo_8412");
+						"jdbc:postgresql://127.0.0.1:10000/judorsa_1440", "judorsa_1440", "dvpuX2KrnZDJAoI--T5u");
 			/*
 				//	con = DriverManager.getConnection(
 			//			"jdbc:postgresql://localhost/mydb", "postgres", "postgres");*/
