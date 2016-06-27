@@ -51,7 +51,7 @@ public class mainCont extends Controller {
 			}
 	
 			try {
-				con = DriverManager.getConnection("jdbc:postgresql://judorsa-1440.postgresql.dbs.appsdeck.eu:30556/judorsa_1440?ssl=true");
+				con = DriverManager.getConnection("jdbc:postgresql://judorsa-1440.postgresql.dbs.appsdeck.eu:30556/judorsa_1440?ssl=false");
 			//	con = DriverManager.getConnection(
 			//			"jdbc:postgresql://judorsa-1440.postgresql.dbs.appsdeck.eu:30556/judorsa_1440?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory", "judorsa_1440", "dvpuX2KrnZDJAoI--T5u");
 			//	con = DriverManager.getConnection(
