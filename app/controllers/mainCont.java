@@ -51,9 +51,9 @@ public class mainCont extends Controller {
 			}
 	
 			try {
-				con = DriverManager.getConnection("jdbc:postgresql://judorsa-1440.postgresql.dbs.appsdeck.eu:30556/judorsa_1440?ssl=false");
-			//	con = DriverManager.getConnection(
-			//			"jdbc:postgresql://judorsa-1440.postgresql.dbs.appsdeck.eu:30556/judorsa_1440?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory", "judorsa_1440", "dvpuX2KrnZDJAoI--T5u");
+				//con = DriverManager.getConnection("jdbc:postgresql://judorsa-1440.postgresql.dbs.appsdeck.eu:30556/judorsa_1440?ssl=false");
+				con = DriverManager.getConnection(
+						"jdbc:postgresql://judorsa-1440.postgresql.dbs.appsdeck.eu:30556/judorsa_1440?user=judorsa_1440&password=dvpuX2KrnZDJAoI--T5u&ssl=false");
 			//	con = DriverManager.getConnection(
 			//			"jdbc:postgresql://127.0.0.1:10000/judorsa_1440", "judorsa_1440", "dvpuX2KrnZDJAoI--T5u");
 			/*
@@ -280,7 +280,7 @@ public class mainCont extends Controller {
 			    	nIndex = rs.getInt("nextval");
 			    }
 			    
-			    String src = "/assets/images/gallery/pic" + Integer.toString(nIndex) + ".jpg";
+			    String src = "/assets/images/gallery/pic" + Integer.toString(nIndex) + ".png";
 			    Filldtst();
 			    int nRow = stmt.executeUpdate("INSERT INTO t_gallery values("+nIndex+", '"+src+"', '"+info+"', '"+title+"', '"+dtStr+"', '"+st+"')");
 			    if (nRow > 0) {
@@ -527,18 +527,18 @@ public class mainCont extends Controller {
 			//		e.printStackTrace();
 			//	}
 		        String uploadPath = Play.application().configuration().getString("upload.path", "/tmp/");
-		        file.renameTo(new File(uploadPath + "pic" + Integer.toString(nIndex) + ".jpg"));
+		        file.renameTo(new File(uploadPath + "pic" + Integer.toString(nIndex) + ".png"));
 		    }
 		    getConn();
 			Filldtst();		 
 			int nRows;
 			try {
-				nRows = stmt.executeUpdate("INSERT INTO t_gallery values("+ nIndex +", '/assets/images/gallery/pic"+ Integer.toString(nIndex)+".jpg','desc', 'title', '"+dtStr+"', '"+st+"', "+Integer.parseInt(session().get("id"))+", '"+session().get("name")+"', '"+session().get("lastname")+"')");
+				nRows = stmt.executeUpdate("INSERT INTO t_gallery values("+ nIndex +", '/assets/images/gallery/pic"+ Integer.toString(nIndex)+".png','desc', 'title', '"+dtStr+"', '"+st+"', "+Integer.parseInt(session().get("id"))+", '"+session().get("name")+"', '"+session().get("lastname")+"')");
 			    if (nRows > 0) {
-			    	Picture pic = new Picture(nIndex, "/assets/images/gallery/pic" + Integer.toString(nIndex) + ".jpg", "desc", "title", dtStr, st, Integer.parseInt(session().get("id")), session().get("name"), session().get("lastname"));
+			    	Picture pic = new Picture(nIndex, "/assets/images/gallery/pic" + Integer.toString(nIndex) + ".png", "desc", "title", dtStr, st, Integer.parseInt(session().get("id")), session().get("name"), session().get("lastname"));
 			    	
 			  //  	return (Json.toJson(pic));
-			    	return redirect("/");
+			    	return redirect("/gal");
 			    }
 			} catch (NumberFormatException e) {
 				// TODO Auto-generated catch block

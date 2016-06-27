@@ -1,4 +1,3 @@
-
 $(window).load(function() {
     // Animate loader off screen
     $(".se-pre-con").fadeOut("slow");
@@ -19,8 +18,10 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$rootScope',function($ro
     $rootScope.usr = {'username':'','pass':'','firstName':'','lastName':'','email':'','perm':0, 'profilepic':''};
     
     $http.get('/pics').success(function(data) {
-        for (var i = 0; i < data.length; i++) {
-            data[i].time = data[i].time.split(":")[0]+ ":" +data[i].time.split(":")[1];
+        if (data != "" && data != null) {
+            for (var i = 0; i < data.length; i++) {
+                data[i].time = data[i].time.split(":")[0]+ ":" +data[i].time.split(":")[1];
+            }
         }
             $rootScope.pics = data;
         }).error(function() {
