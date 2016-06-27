@@ -4,6 +4,8 @@ CREATE TABLE t_users(id INTEGER PRIMARY KEY,
 					 firstname varchar(100),
 					 lastname  varchar(100),
 					 email	   varchar(100),
-					 perm	   INTEGER);
+					 perm	   INTEGER,
+					 profilepic varchar(500));
 CREATE SEQUENCE users_seq;
 COMMIT;
+
