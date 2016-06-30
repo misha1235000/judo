@@ -56,6 +56,7 @@ public class mainCont extends Controller {
 				Properties props = new Properties();
 				props.setProperty("user", "judorsa_1440");
 				props.setProperty("password", "dvpuX2KrnZDJAoI--T5u");
+				props.setProperty("sslmode", "disable");
 				con = DriverManager.getConnection(
 						"jdbc:postgresql://judorsa-1440.postgresql.dbs.appsdeck.eu:30556/judorsa_1440", props);
 				//con = DriverManager.getConnection(
