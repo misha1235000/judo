@@ -12,6 +12,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Properties;
 
 import org.h2.engine.Session;
 
@@ -52,6 +53,12 @@ public class mainCont extends Controller {
 			}
 	
 			try {
+				Properties props = new Properties();
+				props.setProperty("user", "judorsa_1440");
+				props.setProperty("password", "dvpuX2KrnZDJAoI--T5u");
+				props.setProperty("ssl", "false");
+				con = DriverManager.getConnection(
+						"jdbc:postgresql://judorsa-1440.postgresql.dbs.appsdeck.eu:30556/judorsa_1440", props);
 				con = DriverManager.getConnection(
 						"jdbc:postgresql://judorsa-1440.postgresql.dbs.appsdeck.eu:30556/judorsa_1440", "judorsa_1440", "dvpuX2KrnZDJAoI--T5u");
 	//			con = DriverManager.getConnection(
