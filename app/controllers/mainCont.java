@@ -1,5 +1,6 @@
 package controllers;
 
+import java.awt.image.renderable.RenderableImage;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
@@ -51,14 +52,18 @@ public class mainCont extends Controller {
 			}
 	
 			try {
-				//con = DriverManager.getConnection("jdbc:postgresql://judorsa-1440.postgresql.dbs.appsdeck.eu:30556/judorsa_1440?ssl=false");
 				con = DriverManager.getConnection(
-						"jdbc:postgresql://judorsa-1440.postgresql.dbs.appsdeck.eu:30556/judorsa_1440?user=judorsa_1440&password=dvpuX2KrnZDJAoI--T5u&ssl=false");
+						"jdbc:postgresql://judorsa-1440.postgresql.dbs.appsdeck.eu:30556/judorsa_1440", "judorsa_1440", "dvpuX2KrnZDJAoI--T5u");
+	//			con = DriverManager.getConnection(
+	//					"jdbc:postgresql://judorsa-1440.postgresql.dbs.appsdeck.eu:30556/judorsa_1440?user=judorsa_1440&password=dvpuX2KrnZDJAoI--T5u&ssl=false");
 			//	con = DriverManager.getConnection(
 			//			"jdbc:postgresql://127.0.0.1:10000/judorsa_1440", "judorsa_1440", "dvpuX2KrnZDJAoI--T5u");
 			/*
-				//	con = DriverManager.getConnection(
-			//			"jdbc:postgresql://localhost/mydb", "postgres", "postgres");*/
+			 */
+			//	con = DriverManager.getConnection(
+			//			"jdbc:postgresql://adminukvryp3:UDrcy6LHnakS@judonow-meitav.rhcloud.com:5432/judonow");
+			//		con = DriverManager.getConnection(
+			//			"jdbc:postgresql://localhost/mydb", "postgres", "postgres");
 				if (con != null) {
 					System.out.println("connected!@~#!@#@~!$~$~@!~(*");
 				} else {
@@ -537,8 +542,10 @@ public class mainCont extends Controller {
 			    if (nRows > 0) {
 			    	Picture pic = new Picture(nIndex, "/assets/images/gallery/pic" + Integer.toString(nIndex) + ".png", "desc", "title", dtStr, st, Integer.parseInt(session().get("id")), session().get("name"), session().get("lastname"));
 			    	
-			  //  	return (Json.toJson(pic));
-			    	return redirect("/gal");
+			    	
+			    	return ok(Json.toJson(pic));
+			    	
+			 //   	return redirect("/");
 			    }
 			} catch (NumberFormatException e) {
 				// TODO Auto-generated catch block
