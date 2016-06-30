@@ -232,6 +232,7 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$rootScope',function($ro
         $(".mysrcyus").attr("ng-src", imgsrc);
         $(".mytitleyus").html(title);
         $(".myinfoyus").html(info);
+        window.setInterval(function() {
         $http.get('/comments/get/' + picid).success(function(data) {
             var helpdata = [];
             for (var i = 0; i < data.length; i++) {
@@ -244,7 +245,8 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$rootScope',function($ro
                 $rootScope.comments[i].hidden = false;
                 $rootScope.comments[i]
             }
-        });
+            console.log("BOOM");
+        }); }, 1000);
     }
     
     $rootScope.changePerm = function(id, perm) {
