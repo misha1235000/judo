@@ -52,7 +52,7 @@ public class mainCont extends Controller {
 				e.printStackTrace();
 			}
 	
-			try {
+			try {//
 				Properties props = new Properties();
 				props.setProperty("user", "judorsa_1440");
 				props.setProperty("password", "dvpuX2KrnZDJAoI--T5u");
