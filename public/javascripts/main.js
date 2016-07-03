@@ -239,13 +239,15 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$rootScope',function($ro
                 helpdata[i] = data[data.length - i - 1];
             }
             data = helpdata;
-            $rootScope.comments = data;
-            setTimeout(function() {$('.commentcls').scrollTop(0); }, 200);
-            for(var i = 0; i < $rootScope.comments.length; i++) {
-                $rootScope.comments[i].hidden = false;
-                $rootScope.comments[i]
+            if (data.length != $rootScope.comments.length) {
+                $rootScope.comments = data;
+                setTimeout(function() {$('.commentcls').scrollTop(0); }, 200);
+                for(var i = 0; i < $rootScope.comments.length; i++) {
+                    $rootScope.comments[i].hidden = false;
+                    $rootScope.comments[i]
+                }
+                console.log("BOOM");
             }
-            console.log("BOOM");
         }); }, 1000);
     }
     
