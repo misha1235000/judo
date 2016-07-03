@@ -409,7 +409,6 @@ public class mainCont extends Controller {
 			Statement stmt = con.createStatement();
 			ResultSet rs;		
 			rs = stmt.executeQuery("SELECT * FROM t_users");
-			[];
 			while (rs.next()) {
 				User usr = new User(rs.getInt("id"), rs.getString("username"),
 									rs.getString("pass"), rs.getString("firstname"),
@@ -435,7 +434,7 @@ public class mainCont extends Controller {
 		
 		getConn();
 		if (con != null) {
-		try {[];
+		try {
 			Statement stmt = con.createStatement();
 			int nRows = stmt.executeUpdate("UPDATE t_users SET(perm) = ("+perm+") WHERE id = "+id);
 			
