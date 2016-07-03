@@ -12,7 +12,6 @@ var judoApp = angular.module("judoApp", ['ngRoute']);
 judoApp.controller('mainCont', ['$rootScope', '$http', '$rootScope',function($rootScope, $http, $rootScope) {
     $rootScope.picid = 0;
     $rootScope.name;
-    $rootScope.allcomments = [];
     $rootScope.news = [];
     $rootScope.permlevel = "";
     $rootScope.comments = [];
@@ -155,10 +154,15 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$rootScope',function($ro
                 var a = $("#comment").val();
                 $http.get('/comments/add/' + $rootScope.picid + '/' + a).success(function(data) {
                     $('#comment').val("");
-
+                    var help = [];
+                    help[0] = data;
+                    for (var i = 0; i < $rootScope.comments.length; i++) {
+                        help[i + 1] = $rootScope.comments[i];
+                    }
+                    $rootScope.comments = help;
           //          $rootScope.comments.push(data);
                     
-                    setTimeout(function() {$('.commentcls').scrollTop(10000); }, 200);
+                    setTimeout(function() {$('.commentcls').scrollTop(0); }, 200);
                 });
             }
         }
@@ -170,28 +174,6 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$rootScope',function($ro
                 data[i].time = data[i].time.split(":")[0]+ ":" +data[i].time.split(":")[1];
             }
             $rootScope.pics = data;
-            for (var i = 0; i < 1000; i++) {
-                clearInterval(i);
-            }
-            setInterval(function() {
-        $http.get('/comments/getall').success(function(data) { 
-                var ischng = false;
-                $rootScope.comments = [];
-                if ($rootScope.allcomments.length != data.length) {
-                    ischng = true;
-                }
-                $rootScope.allcomments = data;
-                for (var i = 0; i < $rootScope.allcomments.length; i++) {
-                    if ($rootScope.allcomments[i].picId == $rootScope.picid) {
-                        $rootScope.comments.push($rootScope.allcomments[i]);
-                    }
-                }
-                if (ischng) {
-                  setTimeout(function() {$('.commentcls').scrollTop(1000000); }, 200);
-                }
-                
-                console.log("BOOM");                
-        }); }, 1000);
         }).error(function() {
             console.log("Error in getting pics.");
         })
@@ -250,6 +232,21 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$rootScope',function($ro
         $(".mysrcyus").attr("ng-src", imgsrc);
         $(".mytitleyus").html(title);
         $(".myinfoyus").html(info);
+        window.setInterval(function() {
+        $http.get('/comments/get/' + picid).success(function(data) {
+            var helpdata = [];
+            for (var i = 0; i < data.length; i++) {
+                helpdata[i] = data[data.length - i - 1];
+            }
+            data = helpdata;
+            $rootScope.comments = data;
+            setTimeout(function() {$('.commentcls').scrollTop(0); }, 200);
+            for(var i = 0; i < $rootScope.comments.length; i++) {
+                $rootScope.comments[i].hidden = false;
+                $rootScope.comments[i]
+            }
+            console.log("BOOM");
+        }); }, 1000);
     }
     
     $rootScope.changePerm = function(id, perm) {
