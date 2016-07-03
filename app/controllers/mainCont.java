@@ -53,18 +53,18 @@ public class mainCont extends Controller {
 			}
 	
 			try {//
-				Properties props = new Properties();
+			/*	Properties props = new Properties();
 				props.setProperty("user", "judorsa_1440");
 				props.setProperty("password", "dvpuX2KrnZDJAoI--T5u");
 				props.setProperty("sslmode", "disable");
 				con = DriverManager.getConnection(
-						"jdbc:postgresql://judorsa-1440.postgresql.dbs.appsdeck.eu:30556/judorsa_1440", props);
+						"jdbc:postgresql://judorsa-1440.postgresql.dbs.appsdeck.eu:30556/judorsa_1440", props);*/
 				//con = DriverManager.getConnection(
 				//		"jdbc:postgresql://judorsa-1440.postgresql.dbs.appsdeck.eu:30556/judorsa_1440", "judorsa_1440", "dvpuX2KrnZDJAoI--T5u");
 	//			con = DriverManager.getConnection(
 	//					"jdbc:postgresql://judorsa-1440.postgresql.dbs.appsdeck.eu:30556/judorsa_1440?user=judorsa_1440&password=dvpuX2KrnZDJAoI--T5u&ssl=false");
-			//	con = DriverManager.getConnection(
-			//			"jdbc:postgresql://127.0.0.1:10000/judorsa_1440", "judorsa_1440", "dvpuX2KrnZDJAoI--T5u");
+			con = DriverManager.getConnection(
+					"jdbc:postgresql://127.0.0.1:10000/judorsa_1440", "judorsa_1440", "dvpuX2KrnZDJAoI--T5u");
 			/*
 			 */
 			//	con = DriverManager.getConnection(
@@ -464,12 +464,38 @@ public class mainCont extends Controller {
 			rs = stmt.executeQuery("SELECT * FROM t_comments");
 			
 			while (rs.next()) {
+				System.out.println("pic id = " + rs.getInt("pic_id") + " ANDDDD id = " + id);
 				if (rs.getInt("pic_id") == id) {
 					Comment comment = new Comment(rs.getInt("id"), rs.getInt("poster_id"),
 											      rs.getInt("pic_id"), rs.getString("postername"), rs.getString("posterlastname"), rs.getString("comment"),
 											      rs.getString("date"), rs.getString("time"));
 					lstComments.add(comment);
 				}
+			}
+			
+			return ok(Json.toJson(lstComments));
+			
+			} catch(Exception ex) {
+				ex.printStackTrace();
+			}
+		}
+		return ok();
+	}
+	
+	public Result getAllComments() {
+		getConn();
+		if (con != null) {
+			List<Comment> lstComments = new ArrayList<Comment>();
+			try {
+			Statement stmt = con.createStatement();
+			ResultSet rs;		
+			rs = stmt.executeQuery("SELECT * FROM t_comments");
+			
+			while (rs.next()) {
+					Comment comment = new Comment(rs.getInt("id"), rs.getInt("poster_id"),
+											      rs.getInt("pic_id"), rs.getString("postername"), rs.getString("posterlastname"), rs.getString("comment"),
+											      rs.getString("date"), rs.getString("time"));
+					lstComments.add(comment);
 			}
 			
 			return ok(Json.toJson(lstComments));
