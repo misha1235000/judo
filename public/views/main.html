@@ -28,6 +28,9 @@
        <div class="se-pre-con"></div>
        <div class="navbar navbar-inverse navbar-fixed-top navbar-right">
           <div>
+              <h4 id="moveitright" ng-show="usr.firstName != ''">
+                   שלום <a class="fullname" data-toggle="modal" data-target="#profilem"><b>{{usr.firstName}} {{usr.lastName}}</b></a>, <a ng-click="logout()">התנתק</a>
+              </h4>
             <div class="navbar-header">
                 <a href="#/" class="navbar-brand" font-size="28px"><b>דף בית</b></a>
               <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
@@ -37,9 +40,6 @@
               </button>
             </div>
             <div class="navbar-collapse collapse" id="navbar-main">
-                  <h4 id="moveitright" ng-show="usr.firstName != ''">
-                       שלום <a class="fullname" data-toggle="modal" data-target="#profilem"><b>{{usr.firstName}} {{usr.lastName}}</b></a>, <a ng-click="logout()">התנתק</a>
-                  </h4>
               <ul class="nav navbar-nav">
                 <li>
                   <a href="#/info" onclick="scrollDown(0)">מידע על המועדון</a>
