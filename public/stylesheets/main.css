@@ -70,10 +70,11 @@ body {
 }
 
 #moveitright {
+    float: right;
     color: white !important;
     font-size: 18px;
-    padding-left: 830px;
-    padding-top: 5px;
+    padding-right: 20px;
+    padding-top: 5px;*/
 }
 
 #wronglog {
