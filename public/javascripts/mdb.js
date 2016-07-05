@@ -5090,9 +5090,11 @@ $(function () {
         }
 
         if (isTouchAvailable) {
-            body.addEventListener('touchstart', showEffect, false);
-            body.addEventListener('touchcancel', TouchHandler.registerEvent, false);
-            body.addEventListener('touchend', TouchHandler.registerEvent, false);
+            if (body != null) {
+                body.addEventListener('touchstart', showEffect, false);
+                body.addEventListener('touchcancel', TouchHandler.registerEvent, false);
+                body.addEventListener('touchend', TouchHandler.registerEvent, false);
+            }
         }
 
         if (body != null) {
