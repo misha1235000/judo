@@ -1,7 +1,13 @@
-New log file opened at Sun Jun 26 13:49:42 IDT 2016 by 10134@flex-HP-ProDesk-600-G1-DM
-Taking next connection to: 44822
-New client attempting to connect on port: 54982-44822
-  Address = /127.0.1.1:44822
-This client on port 54982 has uuid 95f4cb0c-4138-4483-9b9c-9a7895e9959d configName play-fork-run humanReadableName Play Fork Run protocolVersion 1 featureTags Vector()
-Connected Clients: play-fork-run-95f4cb0c-4138-4483-9b9c-9a7895e9959d
-Taking next connection to: 44822
+New log file opened at Tue Jul 05 14:21:18 IDT 2016 by 1030@flex-HP-ProDesk-600-G1-DM
+Taking next connection to: 37232
+New client attempting to connect on port: 52618-37232
+  Address = /127.0.1.1:37232
+This client on port 52618 has uuid 58a87943-e53b-4299-942c-a22f601b2af4 configName play-fork-run humanReadableName Play Fork Run protocolVersion 1 featureTags Vector()
+Connected Clients: play-fork-run-58a87943-e53b-4299-942c-a22f601b2af4
+Taking next connection to: 37232
+Checking to see if clients are empty...
+We have 1 non-daemon clients, continuing serving connections.
+Taking next connection to: 37232
+Checking to see if clients are empty...
+We have 1 non-daemon clients, continuing serving connections.
+Taking next connection to: 37232
