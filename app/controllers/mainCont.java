@@ -538,8 +538,8 @@ public class mainCont extends Controller {
 			//		// TODO Auto-generated catch block
 			//		e.printStackTrace();
 			//	}
-		        String uploadPath = Play.application().configuration().getString("upload.path", "/tmp/");
-		        file.renameTo(new File(uploadPath + "pic" + Integer.toString(nIndex) + ".png"));
+		    //    String uploadPath = Play.application().configuration().getString("upload.path", "/tmp/");
+		        file.renameTo(new File("judorsa.scalingo.io/assets/images/gallery/" + "pic" + Integer.toString(nIndex) + ".png"));
 		    }
 		    getConn();
 			Filldtst();		 
