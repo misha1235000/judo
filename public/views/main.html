@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">>
+    <meta charset="utf-8" name="viewport" content="width=device-width, user-scalable=no">
     <title>Judo Lior</title>
     <!--The Links-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -42,24 +42,24 @@
             <div class="navbar-collapse collapse" id="navbar-main">
               <ul class="nav navbar-nav">
                 <li>
-                  <a href="#/info" onclick="scrollDown(0)">מידע על המועדון</a>
+                  <a class="navfirst" href="#/info" onclick="scrollDown(0)" data-toggle="collapse">מידע על המועדון</a>
                 </li> 
                 <li>
-                  <a href="#/achieve" onclick="scrollDown(0)">הישגי הספורטאים</a>
+                  <a class="navsecond" href="#/achieve" onclick="scrollDown(0)">הישגי הספורטאים</a>
                 </li>
                 <li>
                   <a href="#/compet" ng-hide="1==1" onclick="scrollDown(0)">לוח תחרויות</a>
                 </li>
                 <li>
-                  <a href="#/contact" onclick="scrollDown(1);">צור קשר</a>
+                  <a class="navthird" href="#/contact" onclick="scrollDown(1);">צור קשר</a>
                 </li> 
                 <li>
-                    <a data-toggle="modal" data-target="#loginm" ng-show="usr.firstName==''" class="loginbtnstyle">
+                    <a data-toggle="modal" data-target="#loginm" ng-show="usr.firstName==''" class="loginbtnstyle navfourth">
                         <b>התחבר</b>
                     </a>
                 </li>
                 <li>
-                    <a ng-click="showNews()" data-toggle="modal" data-target="#newsm" ng-show="usr.firstName != ''" class="msgbtnstyle">
+                    <a ng-click="showNews()" data-toggle="modal" data-target="#newsm" ng-show="usr.firstName != ''" class="msgbtnstyle navfifth">
                         <b>מודעות</b>
                     </a>
                 </li>
@@ -67,16 +67,16 @@
                     <!--<a ng-click="showPics()" data-toggle="modal" data-target="#gallerym" ng-show="usr.firstName != ''" class="picbtnstyle">
                         <b>גלריה</b>
                     </a>-->
-                    <a href="#/gallery" onclick="scrollDown(0);" ng-click="showPics()" ng-show="usr.firstName != ''" class="picbtnstyle"><b>גלריה</b></a>
+                    <a href="#/gallery" onclick="scrollDown(0);" ng-click="showPics()" ng-show="usr.firstName != ''" class="picbtnstyle navsixth"><b>גלריה</b></a>
                 </li>
                 <li>
-                    <a data-toggle="modal" data-target="#admusers" ng-show="usr.perm >= 2" class="regbtnstyle" ng-click="getUsers()">
+                    <a data-toggle="modal" data-target="#admusers" ng-show="usr.perm >= 2" class="regbtnstyle navseventh" ng-click="getUsers()">
                         <b>ניהול משתמשים</b>
                     </a>
                 </li>
                 <li>
                     <!-- Button trigger modal -->
-                    <a data-toggle="modal" data-target="#registerm" ng-show="usr.firstName==''" class="regbtnstyle" >
+                    <a data-toggle="modal" data-target="#registerm" ng-show="usr.firstName==''" class="regbtnstyle naveighth" >
                         <b>הרשמה</b>
                     </a>
                   </li>
@@ -87,7 +87,7 @@
         <div class="log hoverable hm-black-light">
            <img src="/assets/images/slogo.jpg" class="strech2 hoverable hm-zoom" >
         </div>
-            <div class="col-md-7" id="viewit" align="center" ng-view></div>
+            <div class="col-md-12" id="viewit" align="center" ng-view></div>
             
             
  <!-- Modal Login -->
@@ -565,6 +565,30 @@
                $('#username').val("");
                $('#pass').val("");
                $('#wronglog').html("");
+            });
+            $('.navfirst').on('click', function(){
+                $('.navbar-toggle').click()
+            });
+            $('.navsecond').on('click', function(){
+                $('.navbar-toggle').click()
+            });
+            $('.navthird').on('click', function(){
+                $('.navbar-toggle').click()
+            });
+            $('.navfourth').on('click', function(){
+                $('.navbar-toggle').click()
+            });
+            $('.navfifth').on('click', function(){
+                $('.navbar-toggle').click()
+            });
+            $('.navsixth').on('click', function(){
+                $('.navbar-toggle').click()
+            });
+            $('.navseventh').on('click', function(){
+                $('.navbar-toggle').click()
+            });
+            $('.naveighth').on('click', function(){
+                $('.navbar-toggle').click()
             });
             
         </script>
