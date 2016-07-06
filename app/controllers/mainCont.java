@@ -57,14 +57,14 @@ public class mainCont extends Controller {
 				props.setProperty("user", "judorsa_1440");
 				props.setProperty("password", "dvpuX2KrnZDJAoI--T5u");
 				props.setProperty("sslmode", "disable");
-				con = DriverManager.getConnection(
-						"jdbc:postgresql://judorsa-1440.postgresql.dbs.appsdeck.eu:30556/judorsa_1440", props);
+	//			con = DriverManager.getConnection(
+	//					"jdbc:postgresql://judorsa-1440.postgresql.dbs.appsdeck.eu:30556/judorsa_1440", props);
 				//con = DriverManager.getConnection(
 				//		"jdbc:postgresql://judorsa-1440.postgresql.dbs.appsdeck.eu:30556/judorsa_1440", "judorsa_1440", "dvpuX2KrnZDJAoI--T5u");
 	//			con = DriverManager.getConnection(
 	//					"jdbc:postgresql://judorsa-1440.postgresql.dbs.appsdeck.eu:30556/judorsa_1440?user=judorsa_1440&password=dvpuX2KrnZDJAoI--T5u&ssl=false");
-	//		con = DriverManager.getConnection(
-	//					"jdbc:postgresql://127.0.0.1:10000/judorsa_1440", props);
+			con = DriverManager.getConnection(
+						"jdbc:postgresql://127.0.0.1:10000/judorsa_1440", props);
 			/*
 			 */
 			//	con = DriverManager.getConnection(
@@ -490,7 +490,7 @@ public class mainCont extends Controller {
 		    ResultSet rs = stmt.executeQuery("SELECT nextval('comments_seq')");
 		    while (rs.next()) {
 		    	nIndex = rs.getInt("nextval");
-		    }
+		    	}
 	
 			Filldtst();		
 
@@ -538,8 +538,8 @@ public class mainCont extends Controller {
 			//		// TODO Auto-generated catch block
 			//		e.printStackTrace();
 			//	}
-		    //    String uploadPath = Play.application().configuration().getString("upload.path", "/tmp/");
-		        file.renameTo(new File("judorsa.scalingo.io/assets/images/gallery/" + "pic" + Integer.toString(nIndex) + ".png"));
+		        String uploadPath = Play.application().configuration().getString("upload.path", "/tmp/");
+		        file.renameTo(new File(uploadPath + "pic" + Integer.toString(nIndex) + ".png"));
 		    }
 		    getConn();
 			Filldtst();		 

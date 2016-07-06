@@ -7,9 +7,67 @@ $(document).delegate('*[data-toggle="lightbox"]', 'click', function(event) {
     $(this).ekkoLightbox();
 });
 
-var judoApp = angular.module("judoApp", ['ngRoute']);
+var judoApp = angular.module("judoApp", [
+  'ngRoute',
+  'cloudinary',
+//  'photoAlbumControllers',
+  'photoAlbumServices',
+  'ngFileUpload'
+]);
 
-judoApp.controller('mainCont', ['$rootScope', '$http', '$rootScope',function($rootScope, $http, $rootScope) {
+judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$location', 'Upload', 'cloudinary', function($rootScope, $http, $routeParams, $location, $upload, cloudinary) {
+      /* Uploading with Angular File Upload */
+    var d = new Date();
+    $rootScope.title = "Image (" + d.getDate() + " - " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds() + ")";
+    //$rootScope.$watch('files', function() {
+    $rootScope.uploadFiles = function(files){
+      $rootScope.files = files;
+      if (!$rootScope.files) return;
+      angular.forEach(files, function(file){
+        if (file && !file.$error) {
+          file.upload = $upload.upload({
+            url: "https://api.cloudinary.com/v1_1/" + cloudinary.config().cloud_name + "/upload",
+            data: {
+              upload_preset: cloudinary.config().upload_preset,
+              tags: 'myphotoalbum',
+              context: 'photo=' + $rootScope.title,
+              file: file
+            }
+          }).progress(function (e) {
+            file.progress = Math.round((e.loaded * 100.0) / e.total);
+            file.status = "Uploading... " + file.progress + "%";
+          }).success(function (data, status, headers, config) {
+            $rootScope.photos = $rootScope.photos || [];
+            data.context = {custom: {photo: $rootScope.title}};
+            file.result = data;
+            $rootScope.photos.push(data);
+          }).error(function (data, status, headers, config) {
+            file.result = data;
+          });
+        }
+      });
+    };
+    //});
+
+    /* Modify the look and fill of the dropzone when files are being dragged over it */
+    $rootScope.dragOverClass = function($event) {
+      var items = $event.dataTransfer.items;
+      var hasFile = false;
+      if (items != null) {
+        for (var i = 0 ; i < items.length; i++) {
+          if (items[i].kind == 'file') {
+            hasFile = true;
+            break;
+          }
+        }
+      } else {
+        hasFile = true;
+      }
+      return hasFile ? "dragover" : "dragover-err";
+    };
+    
+    
+    
     $rootScope.picid = 0;
     $rootScope.name;
     $rootScope.news = [];
@@ -336,6 +394,8 @@ judoApp.config(['$routeProvider', '$locationProvider',function($routeProvider, $
             templateUrl: "/assets/views/login.html"
     }).when("/myuser", {
             templateUrl: "/assets/views/myuser.html"
+    }).when("/pics", {
+            templateUrl: "/assets/views/photos.html"
     }).otherwise({
             redirectTo: '/'
     });
