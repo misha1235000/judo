@@ -11,11 +11,13 @@ var judoApp = angular.module("judoApp", [
   'ngRoute',
   'cloudinary',
 //  'photoAlbumControllers',
+    'photoAlbumAnimations',
   'photoAlbumServices',
   'ngFileUpload'
 ]);
 
 judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$location', 'Upload', 'cloudinary', function($rootScope, $http, $routeParams, $location, $upload, cloudinary) {
+    
       /* Uploading with Angular File Upload */
     var d = new Date();
     $rootScope.title = "Image (" + d.getDate() + " - " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds() + ")";
@@ -40,6 +42,8 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
             $rootScope.photos = $rootScope.photos || [];
             data.context = {custom: {photo: $rootScope.title}};
             file.result = data;
+            $("#progbars").attr("class", "col-md-4 progress-bar progress-bar-success progress-bar-striped");
+            $(".infoim").html("<img class='fadeInDown animated' src='/assets/images/success.png' height='250px' style='padding-top:50%;'/>");
             $rootScope.photos.push(data);
           }).error(function (data, status, headers, config) {
             file.result = data;
@@ -389,7 +393,19 @@ judoApp.config(['$routeProvider', '$locationProvider',function($routeProvider, $
 	}).when("/contact", {
             templateUrl: "/assets/views/contact.html"    
     }).when("/gallery", {
-            templateUrl: "/assets/views/gallery.html"
+            templateUrl: "/assets/views/gallery.html",
+       resolve: {
+        photoList: function ($q, $rootScope, album) {
+          if (!$rootScope.serviceCalled) {
+            return album.photos({}, function (v) {
+              $rootScope.serviceCalled = true;
+              $rootScope.photos = v.resources;
+            });
+          } else {
+            return $q.when(true);
+          }
+        }
+      }
     }).when("/login", {
             templateUrl: "/assets/views/login.html"
     }).when("/myuser", {

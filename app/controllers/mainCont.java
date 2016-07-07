@@ -69,7 +69,7 @@ public class mainCont extends Controller {
 			 */
 			//	con = DriverManager.getConnection(
 			//			"jdbc:postgresql://adminukvryp3:UDrcy6LHnakS@judonow-meitav.rhcloud.com:5432/judonow");
-			//		con = DriverManager.getConnection(
+			//	con = DriverManager.getConnection(
 			//			"jdbc:postgresql://localhost/mydb", "postgres", "postgres");
 				if (con != null) {
 					System.out.println("connected!@~#!@#@~!$~$~@!~(*");

@@ -1,5 +1,5 @@
                    <div class="myglry container">
-                                <div class="row z-depth-1"  dir="rtl" ng-repeat="pic in pics | orderBy:'-id'">
+                                <div class="row z-depth-1"  dir="rtl" ng-repeat="pic in photos | orderBy:'-id'">
                                     <span style="color: darkgrey; margin-right: 85%; font-size: 14px;" class="label label-pill pull-xs-left">{{pic.date}} {{pic.time}}<i class="fa fa-clock-o"></i></span>
                                    
                                     <!--Content column-->
@@ -20,7 +20,7 @@
                                     <!--Image column-->
                                     <div class="col-sm-4">
                                         <div class="view overlay hm-white-slight hm-zoom">
-                                            <img id="img{{pic.id}}" ng-src="{{pic.src}}" height="290px" class="img-fluid" alt="" style="margin-top: 0px;">
+                                           <cl-image public-id="{{pic.public_id}}" class="thumbnail inline" width="320" height="320" crop="fit" quality="100" class="img-fluid"/>
                                             <a ng-click="changeSrc(pic.src, pic.title, pic.info, pic.id);" data-toggle="modal" ng-init="numis = 5;" data-target="#currimg">
                                                 <div class="mask"></div>
                                             </a>
