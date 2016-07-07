@@ -17,11 +17,17 @@ var judoApp = angular.module("judoApp", [
 ]);
 
 judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$location', 'Upload', 'cloudinary', function($rootScope, $http, $routeParams, $location, $upload, cloudinary) {
-    
+    $rootScope.checkFill = function() {     
+                if ($("#picaddinf").val() != "" && $("#picaddttl").val() != "") {
+                    document.getElementById("picaddbtn").disabled = false;
+                } else {
+                    document.getElementById("picaddbtn").disabled = true;
+                }
+    }
       /* Uploading with Angular File Upload */
     var d = new Date();
-    $rootScope.title = "Image (" + d.getDate() + " - " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds() + ")";
-    //$rootScope.$watch('files', function() {
+    $rootScope.title = "תמונה(" + d.getDate() + " - " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds() + ") -";
+    $rootScope.$watch('files', function() {
     $rootScope.uploadFiles = function(files){
       $rootScope.files = files;
       if (!$rootScope.files) return;
@@ -32,7 +38,8 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
             data: {
               upload_preset: cloudinary.config().upload_preset,
               tags: 'myphotoalbum',
-              context: 'photo=' + $rootScope.title,
+  //            context: 'photo=' + $("#picaddttl").val(),
+              context: 'photo=' + $("#picaddttl").val() + "~" + $("#picaddinf").val(),
               file: file
             }
           }).progress(function (e) {
@@ -51,7 +58,7 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
         }
       });
     };
-    //});
+    });
 
     /* Modify the look and fill of the dropzone when files are being dragged over it */
     $rootScope.dragOverClass = function($event) {

@@ -8,9 +8,9 @@
 
                                         <div class="card-data" >
                                            <table dir="rtl" class="table table-striped table-hover">
-                                               <tr><td><h1>{{pic.title}}</h1></td></tr>
+                                               <tr><td><h1>{{pic.context.custom.photo.split('~')[0]}}</h1></td></tr>
                                                <tr><td><h3>{{pic.posterName}} {{pic.posterLastName}}</h3></td></tr>
-                                               <tr><td><p>{{pic.info}}</p></td></tr>
+                                               <tr><td><p>{{pic.context.custom.photo.split('~')[1]}}</p></td></tr>
                                                </table>
 <!--                                                <li><a><i class="fa fa-comments-o"></i>12</a></li>-->
                                         </div>
