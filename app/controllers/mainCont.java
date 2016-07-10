@@ -348,6 +348,12 @@ public class mainCont extends Controller {
 		    		return ok("שם משתמש כבר קיים");
 		    	}
 		    }
+		/*    String enc = "";
+		    char a;
+		    for (int i = 0; i < pass.length(); i++) {
+		    	a = (char) (pass.charAt(i) ^ 'p');
+		    	enc += a;
+		    }*/
 		    
 		    int nRows = stmt.executeUpdate("INSERT INTO t_users values("+nIndex+", '"+user+"', '"+pass+"', '"+name+"' ,'"+lastname+"', '"+email+"', 1, 'none')");
 		    
@@ -509,43 +515,26 @@ public class mainCont extends Controller {
 		return ok("BAD IN SERVER (NO CONNECTION TO DB)");
 	}
 	
+	
 	public Result upload() {
 		getConn();
+		Filldtst();		 
+		int nRows;
 		if (con != null) {
 			Statement stmt = null;
 			ResultSet rs = null;
 			String fileName = "";
 			int nIndex = 0;
-		    MultipartFormData<File> body = request().body().asMultipartFormData();
-		    FilePart<File> picture = body.getFile("picture");
-		    if (picture != null) {
+		/*    MultipartFormData<File> body = request().body().asMultipartFormData();
+		    FilePart<File> picture = body.getFile("picture");*/
+	//	    if (picture != null) {
 				try {
 				stmt = con.createStatement();
 			    rs = stmt.executeQuery("SELECT nextval('gallery_seq')");
 			    while (rs.next()) {
 			    	nIndex = rs.getInt("nextval");
 			    }
-				}catch(Exception ex) {
-				}
-
-		        fileName = picture.getFilename();
-		        String contentType = picture.getContentType();
-		        File file = picture.getFile();
-		     //   File dest = new File("/assets/images/mypic.jpg");
-		    //    try {
-			//		Files.copy(file, dest);
-			//	} catch (IOException e) {
-			//		// TODO Auto-generated catch block
-			//		e.printStackTrace();
-			//	}
-		        String uploadPath = Play.application().configuration().getString("upload.path", "/tmp/");
-		        file.renameTo(new File(uploadPath + "pic" + Integer.toString(nIndex) + ".png"));
-		    }
-		    getConn();
-			Filldtst();		 
-			int nRows;
-			try {
-				nRows = stmt.executeUpdate("INSERT INTO t_gallery values("+ nIndex +", '/assets/images/gallery/pic"+ Integer.toString(nIndex)+".png','desc', 'title', '"+dtStr+"', '"+st+"', "+Integer.parseInt(session().get("id"))+", '"+session().get("name")+"', '"+session().get("lastname")+"')");
+			    nRows = stmt.executeUpdate("INSERT INTO t_gallery values("+ nIndex +", 'none','none', 'none', '"+dtStr+"', '"+st+"', "+Integer.parseInt(session().get("id"))+", '"+session().get("name")+"', '"+session().get("lastname")+"')");
 			    if (nRows > 0) {
 			    	Picture pic = new Picture(nIndex, "/assets/images/gallery/pic" + Integer.toString(nIndex) + ".png", "desc", "title", dtStr, st, Integer.parseInt(session().get("id")), session().get("name"), session().get("lastname"));
 			    	
@@ -560,11 +549,24 @@ public class mainCont extends Controller {
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}
-		}
-		return ok("BAD IN SERVER (NO CONNECTION TO DB)");
+				}catch(Exception ex) {
+				}
+				
+		/*        fileName = picture.getFilename();
+		        String contentType = picture.getContentType();
+		        File file = picture.getFile();*/
+		     //   File dest = new File("/assets/images/mypic.jpg");
+		    //    try {
+			//		Files.copy(file, dest);
+			//	} catch (IOException e) {
+			//		// TODO Auto-generated catch block
+			//		e.printStackTrace();
+			//	}
+		      /*  String uploadPath = Play.application().configuration().getString("upload.path", "/tmp/");
+		        file.renameTo(new File(uploadPath + "pic" + Integer.toString(nIndex) + ".png"));*/
+		    }
+		return ok("BAD IN SERVER");
 	}
-	
 	public Result getSession() {
 			User usr = new User(Integer.parseInt(session().get("id")),
 								session().get("user"),

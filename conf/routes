@@ -18,7 +18,7 @@ GET		/register/:name/:lastname/:email/:user/:pass/:passconf	controllers.mainCont
 GET		/profile/update/:name/:lastname/:email/:pass/:passconf  controllers.mainCont.updateProfile(name: String, lastname: String, email: String, pass: String, passconf: String)
 GET		/pics					controllers.mainCont.getAllPics
 GET		/comments/get/:id		controllers.mainCont.getComments(id: Integer)
-POST    /upload                 controllers.mainCont.upload
+GET     /upload                 controllers.mainCont.upload
 
 GET		/comments/add/:id/:comment	controllers.mainCont.addComment(id: Integer, comment: String)
 # Map static resources from the /public folder to the /assets URL path

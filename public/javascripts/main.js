@@ -17,6 +17,9 @@ var judoApp = angular.module("judoApp", [
 ]);
 
 judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$location', 'Upload', 'cloudinary', function($rootScope, $http, $routeParams, $location, $upload, cloudinary) {
+    $rootScope.rstbtnn = function() {
+        document.getElementById("picaddbtn").disabled = true;    
+    };
     $rootScope.checkFill = function() {     
                 if ($("#picaddinf").val() != "" && $("#picaddttl").val() != "") {
                     document.getElementById("picaddbtn").disabled = false;
@@ -46,11 +49,14 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
             file.progress = Math.round((e.loaded * 100.0) / e.total);
             file.status = "Uploading... " + file.progress + "%";
           }).success(function (data, status, headers, config) {
+            $http.get("/upload/").success(function() {
+               swal("good", "", "success");
+            });
             $rootScope.photos = $rootScope.photos || [];
-            data.context = {custom: {photo: $rootScope.title}};
+            data.context = {custom: {photo: $("#picaddttl").val() + "~" + $("#picaddinf").val()}};
             file.result = data;
             $("#progbars").attr("class", "col-md-4 progress-bar progress-bar-success progress-bar-striped");
-            $(".infoim").html("<img class='fadeInDown animated' src='/assets/images/success.png' height='250px' style='padding-top:50%;'/>");
+            $(".infoim").html("<img class='fadeInDown animated' src='/assets/images/success.png' style='width: 100%; padding-top: 50%;'/>");
             $rootScope.photos.push(data);
           }).error(function (data, status, headers, config) {
             file.result = data;
@@ -216,7 +222,7 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
     }
 
     $rootScope.addComment = function() {
-        if ($rootScope.picid != 0) {
+        if ($rootScope.picid != 0 && $rootScope.picid != undefined) {
             if ($("#comment").val() == "") {
                 $("#wrongcom").html("התגובה איננה יכולה להיות ריקה.");
             } else {

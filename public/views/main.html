@@ -547,7 +547,7 @@
                             <label>תמונה:</label>
                             <div class="form_controls">
                                 <div class="upload_button_holder">
-                                    <button id="picaddbtn" href="#" class="btn btn-primary picaddbtn" ngf-select="uploadFiles($files)" multiple title="upload" resetOnClick="true" >העלה תמונה</button>
+                                    <button id="picaddbtn" href="#" class="btn btn-primary picaddbtn" ngf-select="uploadFiles($files)" multiple title="upload" resetOnClick="true">העלה תמונה</button>
                                 </div>
 
                             </div>
@@ -560,19 +560,21 @@
                         <div class="form_line">
                             <div class="form_controls">
                                 <div class="preview">
-                                    <div class="infoim col-md-4">
+                                   <div class="row">
+                                     <div class="col-md-4 col-xs-4 infoim"></div>
+                                     <div class="col-md-8 col-xs-8" style="padding-right:0px !important; padding-left:0px !important; padding-right: 20px !important;">
+                                        <img class="" ngf-src="file.result.url || file" style="width:100%;">
+                                     </div>
                                     </div>
-                                    <img class="" ngf-src="file.result.url || file" height="300px">
-                                                          <div class="progress" style="margin-left: 34%;
-    margin-top: 5px;">
-  <div class="col-md-4 progress-bar progress-bar-striped active" id="progbars" role="progressbar" aria-valuenow="{{file.progress}}" aria-valuemin="0" aria-valuemax="100" style="width: {{file.progress}}%;">
-    <span class="sr-only">{{file.progress}}% Complete</span>
+                       <div class="row">
+                             <div class="col-md-4 col-xs-4"></div>
+                              <div class="progress col-md-8 col-xs-8" style=" padding-right:0px !important; padding-left:0px !important;">
+            <div class="col-md-4 progress-bar progress-bar-striped active" id="progbars" role="progressbar" aria-valuenow="{{file.progress}}" aria-valuemin="0" aria-valuemax="100" style="width: {{file.progress}}%;">
+            <span class="sr-only">{{file.progress}}% Complete</span>
+                                  </div>
   </div>
 </div>
-                                                           <div class="status">{{file.status}}</div>
-                        <div class="progress-bar">
-                          <div class="progress" style="width: {{file.progress}}%" ng-init="progress=0"></div>
-                        </div>
+                              
                                 </div>
                             </div>
                         </div>
