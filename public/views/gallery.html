@@ -1,9 +1,9 @@
-                   <div class="myglry container">
+                   <div class="myglry container" style="width:100%; padding-right:15px; padding-left:15px;">
                                 <div class="row z-depth-1"  dir="rtl" ng-repeat="pic in pics | orderBy:'-id'">
-                                    <span style="color: darkgrey; margin-right: 85%; font-size: 14px;" class="label label-pill pull-xs-left">{{pic.date}} {{pic.time}}<i class="fa fa-clock-o"></i></span>
+                                    <span style="color: darkgrey; margin-right: 85%; font-size: 14px;" class="label label-pill pull-xs-left"><i class="fa fa-clock-o"></i></span>
                                    
                                     <!--Content column-->
-                                    <div class="col-sm-8">
+                                    <div class="col-sm-8 col-md-8 col-xs-7">
                                       
 
                                         <div class="card-data" >
@@ -18,9 +18,9 @@
                                     </div>
                                     <!--/.Content column-->
                                     <!--Image column-->
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-4 col-md-4 col-xs-5">
                                         <div class="view overlay hm-white-slight hm-zoom">
-                                           <img src="{{pic.src}}" class="thumbnail inline" width="320" height="320" class="img-fluid"/>
+                                           <img src="{{pic.src}}" class="thumbnail inline" width="100%" class="img-fluid"/>
                                             <a ng-click="changeSrc(pic.src, pic.title, pic.info, pic.id);" data-toggle="modal" ng-init="numis = 5;" data-target="#currimg">
                                                 <div class="mask"></div>
                                             </a>

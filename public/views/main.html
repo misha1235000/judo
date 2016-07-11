@@ -100,9 +100,6 @@
                         <b>הרשמה</b>
                     </a>
                   </li>
-                  <li>
-                     <a href="#/pics" onclick="scrollDown(0)" ng-show="usr.perm >= 2">מערכת תמונות</a>
-                  </li>
               </ul>
             </div>
           </div>
@@ -166,6 +163,7 @@
                     <!--Body-->
                     <div class="modal-body">
                         <form class="form-inline">
+                           <div class="table-responsive">
                             <table class="table table-hover" dir="rtl">
 
                                 <tr>
@@ -183,6 +181,7 @@
                                     <td ng-hide="new.hidden == true"><button class="btn btn-danger waves-effect btn-sm" ng-click="deleteNew(new.id)"  ng-show="usr.perm >= 2">X</button></td>
                                 </tr>
                             </table>
+                            </div>
                         </form>
                 <!-- <button class="btn btn-primary btn-lg" ng-click="addNews()">הוסף מודעה</button>-->
                    <!-- Button trigger modal -->
@@ -246,6 +245,7 @@
                     <!--Body-->
                     <div class="modal-body">
                         <form class="form-inline">
+                           <div class="table-responsive">
                             <table class="table table-hover" dir="rtl">
                                 <tr>
                                     <!--<td><b>מספר</b></td>-->
@@ -275,6 +275,7 @@
                                     
                                 </tr>
                             </table>
+                            </div>
                         </form>
                 </div>
                 <!--/.Content-->
@@ -478,7 +479,7 @@
                     </div>
                     <!--Body-->
                     <div class="modal-body">
-                        <img class="mysrcyus thumbnail inline" width="320" height="320">
+                        <img class="mysrcyus thumbnail inline" width="100%">
                     </div>
                     <br/>
                     <center><div class="myinfoyus md-form" dir="rtl">
@@ -487,21 +488,26 @@
                     <br/>
                     <div class="commentcls md-form" dir="rtl" style="overflow-y: auto;
                                                                      max-height: calc(250px);">
-                        <ul class="row z-depth-1" ng-repeat="comment in comments | limitTo:numis" style="margin-right: 30px;
-                                                                   background-color: gainsboro;
-                                                                   opacity: 0.8;
-                                                                   border-radius: 20px;
-                                                                   margin-left: 200px;
-                                                                   margin-right: 50px;">
-                           <div class="col-md-8" style="margin-left: 60px;">
-                            
-                            <li><u><b>{{comment.posterName}} {{comment.posterLastName}}:</b></u>
-<span style="color:darkgray !important; font-size: 9px !important; float: left;">{{comment.time}} {{comment.date}}</span>
-                            </li>
-                            <li>{{comment.comment}}</li>
-                            </div>
-                            <img ng-src="{{usr.profilepic}}" alt="" class="img-circle" width="50px" height="50px" style="float: right;">
-                            <hr>
+                        <ul class="row" ng-repeat="comment in comments | limitTo:numis" style="margin-left: 0px !important; margin-right: 0px !important;">
+                        
+                        
+                        
+                        <div class="col-md-10 col-sm-10 col-xs-9" dir="rtl">
+                        <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <strong>{{comment.posterName}} {{comment.posterLastName}}</strong> <strong><span class="text-muted" style="float:left;">&nbsp;{{+comment.time.split(":")[0]+":"+comment.time.split(":")[1]}} {{comment.date}}</span></strong>
+                        </div>
+                        <div class="panel-body">
+                        {{comment.comment}}
+                        </div><!-- /panel-body -->
+                        </div><!-- /panel panel-default -->
+                        </div><!-- /col-sm-5 -->
+                        
+                        <div class="col-md-2 col-sm-2 col-xs-3" dir="rtl">
+                        <img src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png" style="float: right; 
+    border-radius: 100%; border: 0px !important; width: 100%;">
+                        </div><!-- /col-sm-1 -->
+                        
                         </ul>
                         <input ng-hide="comments.length <= numis" type="button" class="btn btn-primary" value="תגובות ישנות יותר" ng-click="numis = numis + 5">
                     </div>
@@ -567,7 +573,7 @@
                                      </div>
                                     </div>
                        <div class="row">
-                             <div class="col-md-4 col-xs-4" style="padding-right:20px;"></div>
+                             <div class="col-md-4 col-xs-4 " style="padding-right:20px;"></div>
                              <div class="col-md-8 col-xs-8 " style="padding-left:0px !important;">
                               <div class="progress" style="width:100%; padding-right:0px !important; padding-left:0px !important;     margin-right: 2px;">
             <div class="col-md-4 progress-bar progress-bar-striped active" id="progbars" role="progressbar" aria-valuenow="{{file.progress}}" aria-valuemin="0" aria-valuemax="100" style="width: {{file.progress}}%;">

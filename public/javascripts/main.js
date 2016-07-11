@@ -29,7 +29,7 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
     }
       /* Uploading with Angular File Upload */
     var d = new Date();
-    $rootScope.title = "תמונה(" + d.getDate() + " - " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds() + ") -";
+    $rootScope.title = "";
     $rootScope.$watch('files', function() {
     $rootScope.uploadFiles = function(files){
       $rootScope.files = files;
