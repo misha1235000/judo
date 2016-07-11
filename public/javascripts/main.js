@@ -315,14 +315,14 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
                 helpdata[i] = data[data.length - i - 1];
             }
             data = helpdata;
-            if ($rootScope.comments.length != data.length) {
+           /* if ($rootScope.comments.length != data.length) {*/
                 $rootScope.comments = data;
-                            setTimeout(function() {$('.commentcls').scrollTop(0); }, 200);
-            for(var i = 0; i < $rootScope.comments.length; i++) {
+                setTimeout(function() {$('.commentcls').scrollTop(0); }, 200);
+         /*   for(var i = 0; i < $rootScope.comments.length; i++) {
                 $rootScope.comments[i].hidden = false;
                 $rootScope.comments[i]
-            }
-            console.log("BOOM");
+            }*/
+         /*   console.log("BOOM");*/
             }
         });
     }
