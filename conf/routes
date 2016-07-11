@@ -5,21 +5,22 @@
 # An example controller showing a sample home page
 GET		/						controllers.mainCont.index
 GET 	/main					controllers.Assets.at(path="/public/views", file="main.html")
-GET		/login/:username/:pass	controllers.mainCont.login(username: String, pass: String)
+POST	/login					controllers.mainCont.login
+#GET    /login/:username/:pass	controllers.mainCont.login(username: String, pass: String)
 GET		/logout					controllers.mainCont.logout
-GET		/news/add/:message		controllers.mainCont.addNews(message: String)
-GET		/news/delete/:id		controllers.mainCont.deleteANew(id: Integer)
+POST	/news/add				controllers.mainCont.addNews
+POST	/news/delete			controllers.mainCont.deleteANew
 GET		/news					controllers.mainCont.getAllNews
 GET		/users					controllers.mainCont.getAllUsers
 GET		/session				controllers.mainCont.getSession
 GET		/perm/:id/:perm			controllers.mainCont.setPerm(id: Integer, perm: Integer)
-#POST	/register				controllers.mainCont.register
-GET		/register/:name/:lastname/:email/:user/:pass/:passconf	controllers.mainCont.register(name: String, lastname: String, email: String, user: String, pass: String, passconf: String)
-GET		/profile/update/:name/:lastname/:email/:pass/:passconf  controllers.mainCont.updateProfile(name: String, lastname: String, email: String, pass: String, passconf: String)
+POST	/register				controllers.mainCont.register
+#GET		/register/:name/:lastname/:email/:user/:pass/:passconf	controllers.mainCont.register(name: String, lastname: String, email: String, user: String, pass: String, passconf: String)
+POST	/profile/update  		controllers.mainCont.updateProfile
 GET		/pics					controllers.mainCont.getAllPics
-GET		/comments/get/:id		controllers.mainCont.getComments(id: Integer)
-GET     /upload                 controllers.mainCont.upload
+GET		/comments/get/:id		controllers.mainCont.getComments(id: String)
+POST    /upload                 controllers.mainCont.upload
+POST	/comments/add	controllers.mainCont.addComment
 
-GET		/comments/add/:id/:comment	controllers.mainCont.addComment(id: Integer, comment: String)
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

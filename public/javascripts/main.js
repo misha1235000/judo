@@ -49,7 +49,7 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
             file.progress = Math.round((e.loaded * 100.0) / e.total);
             file.status = "Uploading... " + file.progress + "%";
           }).success(function (data, status, headers, config) {
-            $http.get("/upload/").success(function() {
+            $http.post("/upload", {'title': $("#picaddttl").val(), 'desc': $("#picaddinf").val(), 'src': data.url}).success(function() {
                swal("good", "", "success");
             });
             $rootScope.photos = $rootScope.photos || [];
@@ -128,7 +128,7 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
     } else if ($("#pass").val() == "") {
         $("#wronglog").html("סיסמא לא יכולה להיות ריקה");
     }
-    $http.get('/login/' + $("#username").val() + '/' + $("#pass").val())
+    $http.post('/login', {'username':$('#username').val(), 'pass':$('#pass').val()})
     .success(function(data) {
         if (data == "" || data == undefined || data == null) {
             $("#wronglog").html("שם משתמש או סיסמא אינם נכונים");
@@ -167,7 +167,7 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
     }
     
     $rootScope.addNews = function() {
-        $http.get('/news/add/' + $("#message").val()).success(function(data) {
+        $http.post('/news/add', {'message':$("#message").val()}).success(function(data) {
            swal("המודעה נוספה בהצלחה", "" ,"success");
            $rootScope.news.push(data);
          // location.reload();
@@ -177,7 +177,7 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
     }
     
     $rootScope.deleteNew = function(id) {
-        $http.get('/news/delete/' + id).success(function(data) {
+        $http.post('/news/delete', {id: id}).success(function(data) {
             for (var i = 0; i < $rootScope.news.length; i++) {
                 if ($rootScope.news[i].id == id) {
                     $rootScope.news[i].hidden = true;
@@ -215,7 +215,7 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
         if (title == "" || desc == "") {
             swal("אחד מן הפרטים אינו מלא", "", "error");
         } else {
-            $http.get("/upload/" + title + "/" + desc).success(function() {
+            $http.get("/upload", {'title': $("picaddttl").val(), 'desc': $("picaddinf").val(), 'src': ""} + "/" + desc).success(function() {
                 swal("התמונה הועלתה בהצלחה", "", "success");
             });
         }
@@ -227,7 +227,7 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
                 $("#wrongcom").html("התגובה איננה יכולה להיות ריקה.");
             } else {
                 var a = $("#comment").val();
-                $http.get('/comments/add/' + $rootScope.picid + '/' + a).success(function(data) {
+                $http.post('/comments/add', {'id': $rootScope.picid, 'comment': a}).success(function(data) {
                     $('#comment').val("");
                     var help = [];
                     help[0] = data;
@@ -290,7 +290,8 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
             setTimeout(function() {$("#wrongupd").html("")}, 2000)
             return false;
         } else {
-             $http.get("/profile/update/" + $("#updname").val() + "/" + $("#updlastname").val() + "/" + $("#updemail").val() + "/" + $("#updpass").val() + "/" + $("#updpassconf").val()).success(function(data) {$("#wrongupd").html(data); if($("#wrongupd").html().indexOf("בהצלחה") > -1) {  
+             $http.post("/profile/update", {'name':$('#updname').val(), 'lastname':$('#updlastname').val(), 'email': $('#updemail').val(),'pass':$('#updpass').val(),'passconf': $('#updpassconf').val()}
+                      ).success(function(data) {$("#wrongupd").html(data); if($("#wrongupd").html().indexOf("בהצלחה") > -1) {  
                  $rootScope.usr.firstName = $("#updname").val();
                  $rootScope.usr.lastName = $("#updlastname").val();
                  $rootScope.usr.email = $("#updemail").val();
@@ -307,7 +308,7 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
         $(".mysrcyus").attr("ng-src", imgsrc);
         $(".mytitleyus").html(title);
         $(".myinfoyus").html(info);
-        window.setInterval(function() {
+        //window.setInterval(function() {
         $http.get('/comments/get/' + picid).success(function(data) {
             var helpdata = [];
             for (var i = 0; i < data.length; i++) {
@@ -323,7 +324,7 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
             }
             console.log("BOOM");
             }
-        }); }, 1000);
+        });
     }
     
     $rootScope.changePerm = function(id, perm) {
@@ -371,13 +372,7 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
             $("#wrongreg").html("הסיסמא ואימותה אינם זהות");
             return false;
         } else {
-         /*   $http.post("/register", [{'name':$("#regname").val()},
-                                     {'lastname':$("#reglastname").val()},
-                                     {'email': $("#regemail").val()},
-                                     {'username':$("#reguser").val()},
-                                     {'pass': $("#regpass").val()},
-                                     {'passconf':$("#regpassconf").val()}])*/
-              $http.get("/register/" + $("#regname").val() + "/" + $("#reglastname").val() + "/" + $("#regemail").val() + "/" + $("#reguser").val() + "/" + $("#regpass").val() + "/" + $("#regpassconf").val())
+            $http.post("/register", {'name':$('#regname').val(), 'lastname':$('#reglastname').val(), 'email': $('#regemail').val(),'username':$('#reguser').val(),'pass': $('#regpass').val(), 'passconf':$('#regpassconf').val()})
                 .success(function(data) {
                   if (data.indexOf("בהצלחה") > -1) {
                     swal(data, "", "success");
@@ -407,18 +402,6 @@ judoApp.config(['$routeProvider', '$locationProvider',function($routeProvider, $
             templateUrl: "/assets/views/contact.html"    
     }).when("/gallery", {
             templateUrl: "/assets/views/gallery.html",
-       resolve: {
-        photoList: function ($q, $rootScope, album) {
-          if (!$rootScope.serviceCalled) {
-            return album.photos({}, function (v) {
-              $rootScope.serviceCalled = true;
-              $rootScope.photos = v.resources;
-            });
-          } else {
-            return $q.when(true);
-          }
-        }
-      }
     }).when("/login", {
             templateUrl: "/assets/views/login.html"
     }).when("/myuser", {

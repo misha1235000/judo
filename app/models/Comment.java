@@ -3,14 +3,14 @@ package models;
 public class Comment {
 	private int id;
 	private int posterId;
-	private int picId;
+	private String picId;
 	private String posterName;
 	private String posterLastName;
 	private String comment;
 	private String date;
 	private String time;
 
-	public Comment(int id, int posterId, int picId, String posterName, String posterLastName, String comment, String date, String time) {
+	public Comment(int id, int posterId, String picId, String posterName, String posterLastName, String comment, String date, String time) {
 		super();
 		this.id = id;
 		this.posterId = posterId;
@@ -50,10 +50,10 @@ public class Comment {
 	public void setPosterId(int posterId) {
 		this.posterId = posterId;
 	}
-	public int getPicId() {
+	public String getPicId() {
 		return picId;
 	}
-	public void setPicId(int picId) {
+	public void setPicId(String picId) {
 		this.picId = picId;
 	}
 	public String getComment() {
