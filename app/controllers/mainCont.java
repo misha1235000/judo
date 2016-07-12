@@ -300,7 +300,8 @@ public class mainCont extends Controller {
 					int posterId = rs.getInt("poster_id");
 					String posterName = rs.getString("poster_name");
 					String posterLastName = rs.getString("poster_lastname");
-					Picture pic = new Picture(id, src, info, title, date, time, posterId, posterName, posterLastName);
+					int isvideo = rs.getInt("isvideo");
+					Picture pic = new Picture(id, src, info, title, date, time, posterId, posterName, posterLastName, isvideo);
 					lstPictures.add(pic);
 				}
 				return ok(Json.toJson(lstPictures));
@@ -564,6 +565,7 @@ public class mainCont extends Controller {
 		String title = requestData.get("title");
 		String desc = requestData.get("desc");
 		String src = requestData.get("src");
+		int	   isvideo = Integer.parseInt(requestData.get("isvideo"));
 		
 		getConn();
 		Filldtst();
@@ -587,11 +589,11 @@ public class mainCont extends Controller {
 				}
 				nRows = stmt.executeUpdate("INSERT INTO t_gallery values(" + nIndex + ", '"+src+"','"+desc+"', '"+title+"', '"
 						+ dtStr + "', '" + st + "', " + Integer.parseInt(session().get("id")) + ", '"
-						+ session().get("name") + "', '" + session().get("lastname") + "')");
+						+ session().get("name") + "', '" + session().get("lastname") + "', "+isvideo+")");
 				if (nRows > 0) {
 					Picture pic = new Picture(nIndex, src,
 							desc, title, dtStr, st, Integer.parseInt(session().get("id")), session().get("name"),
-							session().get("lastname"));
+							session().get("lastname"), isvideo);
 
 					return ok(Json.toJson(pic));
 

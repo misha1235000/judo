@@ -10,8 +10,9 @@ public class Picture {
 	private int	   posterId;
 	private String posterName;
 	private String posterLastName;
+	private int	   isvideo;
 	
-	public Picture(int id, String src, String info, String title, String date, String time, int posterId, String posterName, String posterLastName) {
+	public Picture(int id, String src, String info, String title, String date, String time, int posterId, String posterName, String posterLastName, int isvideo) {
 		this.id = id;
 		this.src = src;
 		this.info = info;
@@ -21,8 +22,17 @@ public class Picture {
 		this.posterId = posterId;
 		this.posterName = posterName;
 		this.posterLastName = posterLastName;
+		this.isvideo = isvideo;
 	}
 	
+	public int getIsvideo() {
+		return isvideo;
+	}
+
+	public void setIsvideo(int isvideo) {
+		this.isvideo = isvideo;
+	}
+
 	public String getPosterName() {
 		return posterName;
 	}

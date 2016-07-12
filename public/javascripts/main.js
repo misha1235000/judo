@@ -49,8 +49,15 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
             file.progress = Math.round((e.loaded * 100.0) / e.total);
             file.status = "Uploading... " + file.progress + "%";
           }).success(function (data, status, headers, config) {
-            $http.post("/upload", {'title': $("#picaddttl").val(), 'desc': $("#picaddinf").val(), 'src': data.url}).success(function() {
-               swal("good", "", "success");
+                var isvideo = 0;
+              if (data.resource_type == "video") {
+                  isvideo = 1;
+              }
+            $http.post("/upload", {'title': $("#picaddttl").val(), 'desc': $("#picaddinf").val(), 'src': data.url, 'isvideo': isvideo}).success(function() {
+                setTimeout(function() {
+                    window.location = "/#gallery";
+                }, 1000);
+           //    swal("good", "", "success");
             });
             $rootScope.photos = $rootScope.photos || [];
             data.context = {custom: {photo: $("#picaddttl").val() + "~" + $("#picaddinf").val()}};
