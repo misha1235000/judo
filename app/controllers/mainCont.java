@@ -17,6 +17,8 @@ import java.util.Properties;
 import org.h2.engine.Session;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.google.common.io.Files;
 
 import models.Comment;
@@ -30,13 +32,6 @@ import play.data.FormFactory;
 import play.data.FormFactoryModule;
 import play.libs.Json;
 import play.mvc.*;
-import play.mvc.Http.MultipartFormData;
-import play.mvc.Http.MultipartFormData.FilePart;
-import akka.actor.*;
-import io.netty.channel.unix.Socket;
-import play.libs.F.*;
-import play.mvc.WebSocket;
-import play.mvc.LegacyWebSocket;
 
 public class mainCont extends Controller {
 	// C:
@@ -49,20 +44,6 @@ public class mainCont extends Controller {
 	String nDaysToAdd;
 	String nMonthsToAdd;
 	
-	@SuppressWarnings("deprecation")
-	public static LegacyWebSocket<String> socket() {
-	    return WebSocket.whenReady((in, out) -> {
-	        // For each event received on the socket,
-	        in.onMessage(System.out::println);
-
-	        // When the socket is closed.
-	        in.onClose(() -> System.out.println("Disconnected"));
-
-	        // Send a single 'Hello!' message
-	        out.write("Hello!");
-	    });
-	}
-
 	private void getConn() {
 		if (con == null) {
 			try {
@@ -83,8 +64,8 @@ public class mainCont extends Controller {
 				// "judorsa_1440", "dvpuX2KrnZDJAoI--T5u");
 				// con = DriverManager.getConnection(
 				// "jdbc:postgresql://judorsa-1440.postgresql.dbs.appsdeck.eu:30556/judorsa_1440?user=judorsa_1440&password=dvpuX2KrnZDJAoI--T5u&ssl=false");
-			//	con = DriverManager.getConnection(
-			//		"jdbc:postgresql://127.0.0.1:10000/judorsa_1440", props);
+		//		con = DriverManager.getConnection(
+		//			"jdbc:postgresql://127.0.0.1:10000/judorsa_1440", props);
 				/*
 				 */
 				// con = DriverManager.getConnection(
@@ -153,6 +134,7 @@ public class mainCont extends Controller {
 	}
 
 	public Result login() {
+		session().put("countcom", "0");
 		DynamicForm requestData = Form.form().bindFromRequest();
 		String username  	= requestData.get("username");
 		String pass = requestData.get("pass");
@@ -498,7 +480,43 @@ public class mainCont extends Controller {
 
 		return ok("BAD IN SERVER");
 	}
+	public Result checkUpdate(String id) {
+		if (id.compareTo("0") == 0) {
+			session().put("countcom", "0");
+		} else {
+		
+		int nCountNow = 0;
+		int nCountComments = Integer.parseInt(session().get("countcom"));
+		getConn();
+		if (con != null) {
+			try {
+				Statement stmt = con.createStatement();
+				ResultSet rs;
+				rs = stmt.executeQuery("SELECT * FROM t_comments");
 
+				while (rs.next()) {
+					if (rs.getString("pic_id").compareTo(id) == 0) {
+						nCountNow++;
+					}
+				}
+				
+				String isNew = "old";
+				
+				if (nCountComments != nCountNow) {
+					isNew = "new";
+					session().put("countcom", Integer.toString(nCountNow));
+				}
+				
+				return ok(isNew);
+				
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+		}
+		}
+		return ok("BAD IN SERVER");
+	}
+	
 	public Result getComments(String id) {
 		getConn();
 		if (con != null) {
@@ -516,13 +534,14 @@ public class mainCont extends Controller {
 						lstComments.add(comment);
 					}
 				}
-
+				
 				return ok(Json.toJson(lstComments));
 
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}
 		}
+		
 		return ok();
 	}
 

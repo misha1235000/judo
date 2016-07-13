@@ -19,6 +19,7 @@ POST	/register				controllers.mainCont.register
 POST	/profile/update  		controllers.mainCont.updateProfile
 GET		/pics					controllers.mainCont.getAllPics
 GET		/comments/get/:id		controllers.mainCont.getComments(id: String)
+GET		/checkUpdate/:id		controllers.mainCont.checkUpdate(id: String)
 POST    /upload                 controllers.mainCont.upload
 POST	/comments/add	controllers.mainCont.addComment
 

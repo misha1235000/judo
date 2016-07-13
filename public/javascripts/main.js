@@ -308,31 +308,37 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
              setTimeout(function() {$("#wrongupd").html("")}, 2000) }).error(function(){});
         }
     }
-        
+    $rootScope.picid = 0;
+    $('#currimg').on('hide.bs.modal', function() {
+       $rootScope.picid = 0; 
+       $rootScope.comments = [];
+       for (var i = 0; i < 100; i++) {
+           clearInterval(i);
+       }
+        $http.get('/checkUpdate/' + $rootScope.picid).success(function(data) {});
+    });
+    
     $rootScope.changeSrc = function(imgsrc, title, info, picid) {
         $rootScope.picid = picid;
         $(".mysrcyus").attr("src", imgsrc);
         $(".mysrcyus").attr("ng-src", imgsrc);
         $(".mytitleyus").html(title);
         $(".myinfoyus").html(info);
-        //window.setInterval(function() {
-        $http.get('/comments/get/' + picid).success(function(data) {
-            var helpdata = [];
-            for (var i = 0; i < data.length; i++) {
-                helpdata[i] = data[data.length - i - 1];
+        var inter = setInterval(function() {
+        $http.get('/checkUpdate/' + picid).success(function(data) {
+           if (data == "new") {
+               $http.get('/comments/get/' + $rootScope.picid).success(function(data) {
+                var helpdata = [];
+                for (var i = 0; i < data.length; i++) {
+                    helpdata[i] = data[data.length - i - 1];
+                }
+                data = helpdata;
+                   $rootScope.comments = data;
+                    setTimeout(function() {$('.commentcls').scrollTop(0); }, 200);
+               });
             }
-            data = helpdata;
-               $rootScope.comments = data;
-                setTimeout(function() {$('.commentcls').scrollTop(0); }, 200);
-         /*   if ($rootScope.comments.length != data.length) {
-             
-            for(var i = 0; i < $rootScope.comments.length; i++) {
-                $rootScope.comments[i].hidden = false;
-                $rootScope.comments[i]
-            }
-            console.log("BOOM");
-            }*/
         });
+        }, 100);
     }
     
     $rootScope.changePerm = function(id, perm) {
