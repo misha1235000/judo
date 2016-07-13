@@ -16,6 +16,12 @@ var judoApp = angular.module("judoApp", [
   'ngFileUpload'
 ]);
 
+judoApp.filter('trusted', ['$sce', function ($sce) {
+    return function(url) {
+        return $sce.trustAsResourceUrl(url);
+    };
+}]);
+
 judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$location', 'Upload', 'cloudinary', function($rootScope, $http, $routeParams, $location, $upload, cloudinary) {
     $rootScope.rstbtnn = function() {
         document.getElementById("picaddbtn").disabled = true;    
