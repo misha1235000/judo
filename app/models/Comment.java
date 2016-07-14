@@ -9,8 +9,9 @@ public class Comment {
 	private String comment;
 	private String date;
 	private String time;
+	private String src;
 
-	public Comment(int id, int posterId, String picId, String posterName, String posterLastName, String comment, String date, String time) {
+	public Comment(int id, int posterId, String picId, String posterName, String posterLastName, String comment, String date, String time, String src) {
 		super();
 		this.id = id;
 		this.posterId = posterId;
@@ -20,8 +21,20 @@ public class Comment {
 		this.comment = comment;
 		this.date = date;
 		this.time = time;
+		this.src = src;
 	}
 	
+	
+	public String getSrc() {
+		return src;
+	}
+
+
+	public void setSrc(String src) {
+		this.src = src;
+	}
+
+
 	public String getPosterName() {
 		return posterName;
 	}

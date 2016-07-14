@@ -106,7 +106,7 @@
         </div>
         <div class="log hoverable hm-black-light">
            <img class="img-responsive" src="/assets/images/building/building1.jpg" style="width:100%; height:100vh;"/>
-           <img src="/assets/images/slogo.jpg" class="img-circle hoverable hm-zoom" style=" top:60px; left:5px; position:fixed;">
+           <img src="/assets/images/slogo.jpg" class="img-circle hoverable hm-zoom slideInDown animated" style=" top:100px; left:30px; position:fixed;">
         </div>
             <div class="col-md-12" id="viewit" align="center" ng-view></div>
             
@@ -174,7 +174,7 @@
                                     <td><b>תאריך</b></td>
                                     <td><b>שעה</b></td>
                                 </tr>
-                                <tr ng-repeat="new in news | orderBy:'-id'" ng-hide="hideit">
+                                <tr class="newnum{{new.id}} zoomIn animated" ng-repeat="new in news | orderBy:'-id'" ng-hide="hideit">
                                     <td ng-hide="new.hidden == true">{{new.authorname}}</td>
                                     <td ng-hide="new.hidden == true">{{new.message}}</td>
                                     <td ng-hide="new.hidden == true">{{new.date}}</td>
@@ -298,7 +298,7 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
-                        <center><h3><i class="fa fa-user"></i>פרופיל</h3></center>
+                        <center><h3><a href="#" ngf-select="uploadprof($files)" multiple title="upload" resetOnClick="true"><i class="fa fa-pencil"></i></a><img ng-src="{{usr.profilepic}}" class="img-circle" width="50px" height="50px">פרופיל</h3></center>
                     </div>
                     <!--Body-->
                     <div class="modal-body">
@@ -505,7 +505,7 @@
                         </div><!-- /col-sm-5 -->
                         
                         <div class="col-md-2 col-sm-2 col-xs-3" dir="rtl">
-                        <img src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png" style="float: right; 
+                        <img src="{{comment.src}}" style="float: right; 
     border-radius: 100%; border: 0px !important; width: 100%;">
                         </div><!-- /col-sm-1 -->
                         

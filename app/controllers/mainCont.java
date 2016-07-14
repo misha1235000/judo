@@ -174,6 +174,7 @@ public class mainCont extends Controller {
 		session().put("lastname", "");
 		session().put("email", "");
 		session().put("perm", "0");
+		session().put("profilepic", "");
 		return ok("good");
 	}
 
@@ -369,7 +370,7 @@ public class mainCont extends Controller {
 				 */
 
 				int nRows = stmt.executeUpdate("INSERT INTO t_users values(" + nIndex + ", '" + user + "', '" + pass
-						+ "', '" + name + "' ,'" + lastname + "', '" + email + "', 1, 'none')");
+						+ "', '" + name + "' ,'" + lastname + "', '" + email + "', 1, '/assets/images/profile/unknown.jpg')");
 
 				if (nRows > 0) {
 					return ok("המשתמש נוצר בהצלחה");
@@ -530,7 +531,7 @@ public class mainCont extends Controller {
 					if (rs.getString("pic_id").compareTo(id) == 0) {
 						Comment comment = new Comment(rs.getInt("id"), rs.getInt("poster_id"), rs.getString("pic_id"),
 								rs.getString("postername"), rs.getString("posterlastname"), rs.getString("comment"),
-								rs.getString("date"), rs.getString("time"));
+								rs.getString("date"), rs.getString("time"), rs.getString("src"));
 						lstComments.add(comment);
 					}
 				}
@@ -564,11 +565,11 @@ public class mainCont extends Controller {
 
 				int nRows = stmt.executeUpdate("INSERT INTO t_comments values(" + nIndex + ", "
 						+ Integer.parseInt(session().get("id")) + "," + id + ", '" + session().get("name") + "', '"
-						+ session().get("lastname") + "', '" + dtStr + "', '" + st + "', '" + comment + "')");
+						+ session().get("lastname") + "', '" + dtStr + "', '" + st + "', '" + comment + "', '"+session().get("profilepic")+"')");
 
 				if (nRows > 0) {
 					Comment cmt = new Comment(nIndex, Integer.parseInt(session().get("id")), id, session().get("name"),
-							session().get("lastname"), comment, dtStr, st);
+							session().get("lastname"), comment, dtStr, st, session().get("profilepic"));
 					return ok(Json.toJson(cmt));
 				}
 
@@ -579,6 +580,39 @@ public class mainCont extends Controller {
 		return ok("BAD IN SERVER (NO CONNECTION TO DB)");
 	}
 
+	public Result uploadprof() {
+		DynamicForm requestData = Form.form().bindFromRequest();
+		String src = requestData.get("src");
+		getConn();
+		
+		if (con != null) {
+			Statement stmt = null;
+			ResultSet rs = null;
+			String fileName = "";
+			int nRows = 0;
+			
+			try {
+				stmt = con.createStatement();
+				nRows = stmt.executeUpdate("UPDATE t_users SET profilepic = '"+src+"' WHERE id = "+Integer.parseInt(session().get("id")));
+				if (nRows > 0) {
+					session().put("profilepic", src);
+					return ok("GOOD");
+
+					// return redirect("/");
+				}
+			} catch (NumberFormatException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (Exception ex) {
+			}
+		}
+		
+		return ok("BAD IN SERVER");
+	}
+	
 	public Result upload() {
 		DynamicForm requestData = Form.form().bindFromRequest();
 		String title = requestData.get("title");

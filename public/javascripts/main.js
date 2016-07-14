@@ -79,6 +79,37 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
     };
     });
 
+        $rootScope.uploadprof = function(files){
+      $rootScope.files = files;
+      if (!$rootScope.files) return;
+      angular.forEach(files, function(file){
+        if (file && !file.$error) {
+          file.upload = $upload.upload({
+            url: "https://api.cloudinary.com/v1_1/" + cloudinary.config().cloud_name + "/upload",
+            data: {
+              upload_preset: cloudinary.config().upload_preset,
+              tags: 'myphotoalbum',
+              file: file
+            }
+          }).progress(function (e) {
+            file.progress = Math.round((e.loaded * 100.0) / e.total);
+            file.status = "Uploading... " + file.progress + "%";
+          }).success(function (data, status, headers, config) {
+            $http.post("/uploadprof", {'src': data.url}).success(function() {
+                setTimeout(function() {
+                    window.location = "/#";
+                }, 1000);
+           //    swal("good", "", "success");
+            });
+            $rootScope.photos = $rootScope.photos || [];
+            file.result = data;
+            $rootScope.photos.push(data);
+          }).error(function (data, status, headers, config) {
+            file.result = data;
+          });
+        }
+      });
+    };
     /* Modify the look and fill of the dropzone when files are being dragged over it */
     $rootScope.dragOverClass = function($event) {
       var items = $event.dataTransfer.items;
@@ -203,6 +234,10 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
         })
     }
     
+    $("#newsm").on("hide.bs.modal", function() {
+       $rootScope.news = []; 
+    });
+    
     $rootScope.showNews = function() {
         $http.get('/news').success(function(data) {
             $rootScope.news = data;
@@ -318,7 +353,7 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
     $('#currimg').on('hide.bs.modal', function() {
        $rootScope.picid = 0; 
        $rootScope.comments = [];
-       for (var i = 0; i < 100; i++) {
+       for (var i = 0; i < 1000; i++) {
            clearInterval(i);
        }
         $http.get('/checkUpdate/' + $rootScope.picid).success(function(data) {});
@@ -340,11 +375,11 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
                 }
                 data = helpdata;
                    $rootScope.comments = data;
-                    setTimeout(function() {$('.commentcls').scrollTop(0); }, 200);
+                   setTimeout(function() {$('.commentcls').scrollTop(0); }, 90);
                });
             }
         });
-        }, 100);
+        }, 800);
     }
     
     $rootScope.changePerm = function(id, perm) {
