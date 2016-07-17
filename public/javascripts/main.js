@@ -328,6 +328,7 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
             $http.post("/check", {'amount': $rootScope.news.length}).success(function(data) {
                 if (data != "bad") {
                     Notify(data.authorname, data.message);
+                    setTimeout(function(){console.log('notification.Close');}, 5000);
                     $rootScope.news.push(data);
                 }
             });
