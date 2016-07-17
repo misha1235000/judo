@@ -79,7 +79,6 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
                 }
     }
       /* Uploading with Angular File Upload */
-    window.navigator.vibrate(5000);
     var d = new Date();
     $rootScope.title = "";
     $rootScope.$watch('files', function() {
