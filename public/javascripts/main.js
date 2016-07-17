@@ -323,17 +323,14 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
     }).error(function() {
         console.log("Error in getting news.");
     });
-    window.setTimeout(function() {
         window.setInterval(function() {
             $http.post("/check", {'amount': $rootScope.news.length}).success(function(data) {
                 if (data != "bad") {
                     Notify(data.authorname, data.message);
-                    setTimeout(function(){console.log('notification.Close');}, 5000);
                     $rootScope.news.push(data);
                 }
             });
-        }, 1000);
-    }, 2000);
+        }, 8000);
     
     $rootScope.showNews = function() {
         $http.get('/news').success(function(data) {

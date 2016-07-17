@@ -64,8 +64,8 @@ public class mainCont extends Controller {
 				// "judorsa_1440", "dvpuX2KrnZDJAoI--T5u");
 				// con = DriverManager.getConnection(
 				// "jdbc:postgresql://judorsa-1440.postgresql.dbs.appsdeck.eu:30556/judorsa_1440?user=judorsa_1440&password=dvpuX2KrnZDJAoI--T5u&ssl=false");
-			//	con = DriverManager.getConnection(
-			//		"jdbc:postgresql://127.0.0.1:10000/judorsa_1440", props);
+	//	con = DriverManager.getConnection(
+	//				"jdbc:postgresql://127.0.0.1:10000/judorsa_1440", props);
 				/*
 				 */
 				// con = DriverManager.getConnection(
@@ -615,7 +615,7 @@ public class mainCont extends Controller {
 				e.printStackTrace();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+			    	e.printStackTrace();
 			} catch (Exception ex) {
 			}
 		}
