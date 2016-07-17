@@ -71,7 +71,7 @@ function Notify(titleText, bodyText)
             dir: 'auto', // or ltr, rtl
             lang: 'EN', //lang used within the notification.
             tag: 'notificationPopup', //An element ID to get/set the content
-            icon: '' //The URL of an image to be used as an icon
+            icon: '/assets/images/slogo.jpg' //The URL of an image to be used as an icon
         }
     );
     noty.onclick = function () {
