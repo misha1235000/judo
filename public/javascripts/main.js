@@ -234,6 +234,23 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
     
     $http.get('/session').success(function(data) {
        $rootScope.usr = data;
+            if ($rootScope.usr.firstName != '') {
+        window.setInterval(function() {
+            $http.post("/check", {'amount': $rootScope.news.length}).success(function(data) {
+                if (data != "bad") {
+                    window.navigator.vibrate(400);
+                    Notify(data.authorname, data.message);
+                    if ($rootScope.news[$rootScope.news.length - 1].id != data.id) {
+                        $rootScope.news.push(data);
+                    }
+                }
+            });
+        }, 3000);
+    } else {
+        for (var i = 0; i < 1000; i++) {
+            window.clearInterval(i);
+        }
+    }
         if ($rootScope.usr.profilepic == "none") {
             $rootScope.usr.profilepic = "/assets/images/profile/unknown.jpg";
         }
@@ -331,23 +348,6 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
     }).error(function() {
         console.log("Error in getting news.");
     });
-    if ($rootScope.usr.firstName != '') {
-        window.setInterval(function() {
-            $http.post("/check", {'amount': $rootScope.news.length}).success(function(data) {
-                if (data != "bad") {
-                    window.navigator.vibrate(400);
-                    Notify(data.authorname, data.message);
-                    if ($rootScope.news[$rootScope.news.length - 1].id != data.id) {
-                        $rootScope.news.push(data);
-                    }
-                }
-            });
-        }, 3000);
-    } else {
-        for (var i = 0; i < 1000; i++) {
-            window.clearInterval(i);
-        }
-    }
     
     $rootScope.showNews = function() {
         $http.get('/news').success(function(data) {
