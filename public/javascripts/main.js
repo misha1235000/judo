@@ -331,6 +331,7 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
     }).error(function() {
         console.log("Error in getting news.");
     });
+    if ($rootScope.usr.firstName != '') {
         window.setInterval(function() {
             $http.post("/check", {'amount': $rootScope.news.length}).success(function(data) {
                 if (data != "bad") {
@@ -342,6 +343,11 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
                 }
             });
         }, 3000);
+    } else {
+        for (var i = 0; i < 1000; i++) {
+            window.clearInterval(i);
+        }
+    }
     
     $rootScope.showNews = function() {
         $http.get('/news').success(function(data) {
