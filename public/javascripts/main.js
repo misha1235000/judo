@@ -323,13 +323,12 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
     }).error(function() {
         console.log("Error in getting news.");
     });
-    var isNotified = false;
     window.setTimeout(function() {
         window.setInterval(function() {
             $http.post("/check", {'amount': $rootScope.news.length}).success(function(data) {
-                if (data.search("changed") != -1 && !isNotified) {
-                    isNotified = true;
-                    Notify("New Message", "A new message received");
+                if (data != "bad") {
+                    Notify("New Message", data.message);
+                    $rootScope.news.push(data);
                 }
             });
         }, 1000);

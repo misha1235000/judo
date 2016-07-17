@@ -594,16 +594,21 @@ public class mainCont extends Controller {
 			try {
 				int currAmount = 0;
 				stmt = con.createStatement();
-				rs = stmt.executeQuery("SELECT count(*) FROM t_news");
+				List<Message> lstMsg = new ArrayList<Message>();
+				rs = stmt.executeQuery("SELECT * FROM t_news");
 				while (rs.next()) {
-					currAmount = rs.getInt("count");
-				}
-				String ischanged = "bad";
-				if (currAmount != amount) {
-					ischanged = "changed~" + currAmount;
+					currAmount++;
+					Message msg = new Message(rs.getInt("id"), rs.getString("author_name"),
+											  rs.getString("describtion"), rs.getString("date"),
+											  rs.getString("time"));
+					lstMsg.add(msg);
 				}
 				
-				return ok(ischanged);
+				if (currAmount > amount) {
+					return ok(Json.toJson(lstMsg.get(currAmount - 1)));
+				} else {
+					return ok("bad");
+				}
 				
 			} catch (NumberFormatException e) {
 				// TODO Auto-generated catch block
