@@ -74,6 +74,8 @@ function Notify(titleText, bodyText)
             icon: '/assets/images/slogo.jpg' //The URL of an image to be used as an icon
         }
     );
+    
+    setTimeout(function(){noty.close();}, 5000);
     noty.onclick = function () {
         console.log('notification.Click');
     };
@@ -86,6 +88,7 @@ function Notify(titleText, bodyText)
     noty.onclose = function () {
         console.log('notification.Close');
     };
+    
     return true;
 }
 
