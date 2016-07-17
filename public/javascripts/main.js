@@ -25,6 +25,35 @@ judoApp.filter('trusted', ['$sce', function ($sce) {
     };
 }]);
 
+// Currently different browsers have different events
+var hidden, visibilityChange;
+if (typeof document.hidden !== 'undefined') {
+    // Opera 12.10, Firefox >=18, Chrome >=31, IE11
+    hidden = 'hidden';
+    visibilityChangeEvent = 'visibilitychange';
+} else if (typeof document.mozHidden !== 'undefined') {
+    // Older firefox
+    hidden = 'mozHidden';
+    visibilityChangeEvent = 'mozvisibilitychange';
+} else if (typeof document.msHidden !== 'undefined') {
+    // IE10
+    hidden = 'msHidden';
+    visibilityChangeEvent = 'msvisibilitychange';
+} else if (typeof document.webkitHidden !== 'undefined') {
+    // Chrome <31 and Android browser (4.4+ !)
+    hidden = 'webkitHidden';
+    visibilityChangeEvent = 'webkitvisibilitychange';
+}
+
+// Event handler: log change to browser console
+function visibleChangeHandler() {
+    if (document[hidden]) {
+        console.log('Page is not visible\n');
+    } else {
+        console.log('Page is visible\n');
+    }
+}
+
 // Determine the correct object to use
 var notification = window.Notification || window.mozNotification || window.webkitNotification;
 
@@ -39,7 +68,6 @@ function Notify(titleText, bodyText)
 {
     if ('undefined' === typeof notification)
         return false;       //Not supported....
-    
     var noty = new notification(
         titleText, {
             body: bodyText,
@@ -50,10 +78,7 @@ function Notify(titleText, bodyText)
         }
     );
     
-    window.navigator.vibrate(500);
-    
     setTimeout(function(){noty.close();}, 5000);
-    
     noty.onclick = function () {
         console.log('notification.Click');
     };
@@ -71,6 +96,14 @@ function Notify(titleText, bodyText)
 }
 
 
+//Register event handler
+if (typeof document.addEventListener === 'undefined' ||
+             typeof document[hidden] === 'undefined'   ) {
+    console.log("Page Visibility API isn't supported, sorry!");
+} else {
+    document.addEventListener(visibilityChangeEvent, visibleChangeHandler, false);
+}
+
 judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$location', 'Upload', 'cloudinary', function($rootScope, $http, $routeParams, $location, $upload, cloudinary) {
     $rootScope.rstbtnn = function() {
         document.getElementById("picaddbtn").disabled = true;    
@@ -83,6 +116,7 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
                 }
     }
       /* Uploading with Angular File Upload */
+    
     var d = new Date();
     $rootScope.title = "";
     $rootScope.$watch('files', function() {
@@ -187,11 +221,9 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
     
     if ($rootScope.pics == undefined) {
     $http.get('/pics').success(function(data) {
-        if ($rootScope.pics == undefined) {
-            if (data != "" && data != null) {
-                for (var i = 0; i < data.length; i++) {
-                    data[i].time = data[i].time.split(":")[0]+ ":" +data[i].time.split(":")[1];
-                }
+        if (data != "" && data != null) {
+            for (var i = 0; i < data.length; i++) {
+                data[i].time = data[i].time.split(":")[0]+ ":" +data[i].time.split(":")[1];
             }
         }
             $rootScope.pics = data;
@@ -302,8 +334,8 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
         window.setInterval(function() {
             $http.post("/check", {'amount': $rootScope.news.length}).success(function(data) {
                 if (data != "bad") {
+                    Notify(data.authorname, data.message);
                     if ($rootScope.news[$rootScope.news.length - 1].id != data.id) {
-                        Notify(data.authorname, data.message);
                         $rootScope.news.push(data);
                     }
                 }
@@ -364,18 +396,14 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
     }
     
     $rootScope.showPics = function() {
-        if ($rootScope.pics == undefined) {
-            $http.get('/pics').success(function(data) {
-                if ($rootScope.pics == undefined) {
-                    for (var i = 0; i < data.length; i++) {
-                        data[i].time = data[i].time.split(":")[0]+ ":" +data[i].time.split(":")[1];
-                    }
-                    $rootScope.pics = data;
-                }
-            }).error(function() {
-                console.log("Error in getting pics.");
-            })
-        }
+        $http.get('/pics').success(function(data) {
+            for (var i = 0; i < data.length; i++) {
+                data[i].time = data[i].time.split(":")[0]+ ":" +data[i].time.split(":")[1];
+            }
+            $rootScope.pics = data;
+        }).error(function() {
+            console.log("Error in getting pics.");
+        })
     }
     $rootScope.updateProfile = function() {
         var emailPattern    = RegExp(/^\w+@\w+\.\w+$/);
