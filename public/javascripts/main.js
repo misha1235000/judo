@@ -332,7 +332,7 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
                     }
                 }
             });
-        }, 8000);
+        }, 3000);
     
     $rootScope.showNews = function() {
         $http.get('/news').success(function(data) {
