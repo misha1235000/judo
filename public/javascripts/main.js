@@ -2,6 +2,9 @@ $(window).load(function() {
     // Animate loader off screen
     $(".se-pre-con").fadeOut("slow");
 });
+
+
+
 $(document).delegate('*[data-toggle="lightbox"]', 'click', function(event) {
     event.preventDefault();
     $(this).ekkoLightbox();
@@ -21,35 +24,6 @@ judoApp.filter('trusted', ['$sce', function ($sce) {
         return $sce.trustAsResourceUrl(url);
     };
 }]);
-
-// Currently different browsers have different events
-var hidden, visibilityChange;
-if (typeof document.hidden !== 'undefined') {
-    // Opera 12.10, Firefox >=18, Chrome >=31, IE11
-    hidden = 'hidden';
-    visibilityChangeEvent = 'visibilitychange';
-} else if (typeof document.mozHidden !== 'undefined') {
-    // Older firefox
-    hidden = 'mozHidden';
-    visibilityChangeEvent = 'mozvisibilitychange';
-} else if (typeof document.msHidden !== 'undefined') {
-    // IE10
-    hidden = 'msHidden';
-    visibilityChangeEvent = 'msvisibilitychange';
-} else if (typeof document.webkitHidden !== 'undefined') {
-    // Chrome <31 and Android browser (4.4+ !)
-    hidden = 'webkitHidden';
-    visibilityChangeEvent = 'webkitvisibilitychange';
-}
-
-// Event handler: log change to browser console
-function visibleChangeHandler() {
-    if (document[hidden]) {
-        console.log('Page is not visible\n');
-    } else {
-        console.log('Page is visible\n');
-    }
-}
 
 // Determine the correct object to use
 var notification = window.Notification || window.mozNotification || window.webkitNotification;
@@ -93,14 +67,6 @@ function Notify(titleText, bodyText)
 }
 
 
-//Register event handler
-if (typeof document.addEventListener === 'undefined' ||
-             typeof document[hidden] === 'undefined'   ) {
-    console.log("Page Visibility API isn't supported, sorry!");
-} else {
-    document.addEventListener(visibilityChangeEvent, visibleChangeHandler, false);
-}
-
 judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$location', 'Upload', 'cloudinary', function($rootScope, $http, $routeParams, $location, $upload, cloudinary) {
     $rootScope.rstbtnn = function() {
         document.getElementById("picaddbtn").disabled = true;    
@@ -113,7 +79,7 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
                 }
     }
       /* Uploading with Angular File Upload */
-    
+    window.navigator.vibrate(5000);
     var d = new Date();
     $rootScope.title = "";
     $rootScope.$watch('files', function() {
@@ -216,16 +182,20 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
     $rootScope.comments = [];
     $rootScope.usr = {'username':'','pass':'','firstName':'','lastName':'','email':'','perm':0, 'profilepic':''};
     
+    if ($rootScope.pics == undefined) {
     $http.get('/pics').success(function(data) {
-        if (data != "" && data != null) {
-            for (var i = 0; i < data.length; i++) {
-                data[i].time = data[i].time.split(":")[0]+ ":" +data[i].time.split(":")[1];
+        if ($rootScope.pics == undefined) {
+            if (data != "" && data != null) {
+                for (var i = 0; i < data.length; i++) {
+                    data[i].time = data[i].time.split(":")[0]+ ":" +data[i].time.split(":")[1];
+                }
             }
         }
             $rootScope.pics = data;
         }).error(function() {
             console.log("Error in getting pics.");
         })
+    }
     
     $http.get('/session').success(function(data) {
        $rootScope.usr = data;
@@ -329,6 +299,7 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
         window.setInterval(function() {
             $http.post("/check", {'amount': $rootScope.news.length}).success(function(data) {
                 if (data != "bad") {
+                    window.navigator.vibrate(1000);
                     Notify(data.authorname, data.message);
                     if ($rootScope.news[$rootScope.news.length - 1].id != data.id) {
                         $rootScope.news.push(data);
@@ -391,14 +362,18 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
     }
     
     $rootScope.showPics = function() {
-        $http.get('/pics').success(function(data) {
-            for (var i = 0; i < data.length; i++) {
-                data[i].time = data[i].time.split(":")[0]+ ":" +data[i].time.split(":")[1];
-            }
-            $rootScope.pics = data;
-        }).error(function() {
-            console.log("Error in getting pics.");
-        })
+        if ($rootScope.pics == undefined) {
+            $http.get('/pics').success(function(data) {
+                if ($rootScope.pics == undefined) {
+                    for (var i = 0; i < data.length; i++) {
+                        data[i].time = data[i].time.split(":")[0]+ ":" +data[i].time.split(":")[1];
+                    }
+                    $rootScope.pics = data;
+                }
+            }).error(function() {
+                console.log("Error in getting pics.");
+            })
+        }
     }
     $rootScope.updateProfile = function() {
         var emailPattern    = RegExp(/^\w+@\w+\.\w+$/);
