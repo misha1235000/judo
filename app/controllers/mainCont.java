@@ -64,8 +64,8 @@ public class mainCont extends Controller {
 				// "judorsa_1440", "dvpuX2KrnZDJAoI--T5u");
 				// con = DriverManager.getConnection(
 				// "jdbc:postgresql://judorsa-1440.postgresql.dbs.appsdeck.eu:30556/judorsa_1440?user=judorsa_1440&password=dvpuX2KrnZDJAoI--T5u&ssl=false");
-		//		con = DriverManager.getConnection(
-		//			"jdbc:postgresql://127.0.0.1:10000/judorsa_1440", props);
+			//	con = DriverManager.getConnection(
+			//		"jdbc:postgresql://127.0.0.1:10000/judorsa_1440", props);
 				/*
 				 */
 				// con = DriverManager.getConnection(
@@ -580,6 +580,44 @@ public class mainCont extends Controller {
 		return ok("BAD IN SERVER (NO CONNECTION TO DB)");
 	}
 
+	public Result check() {
+		DynamicForm requestData = Form.form().bindFromRequest();
+		int amount = Integer.parseInt(requestData.get("amount"));
+		getConn();
+		
+		if (con != null) {
+			Statement stmt = null;
+			ResultSet rs = null;
+			String fileName = "";
+			int nRows = 0;
+			
+			try {
+				int currAmount = 0;
+				stmt = con.createStatement();
+				rs = stmt.executeQuery("SELECT count(*) FROM t_news");
+				while (rs.next()) {
+					currAmount = rs.getInt("count");
+				}
+				String ischanged = "bad";
+				if (currAmount != amount) {
+					ischanged = "changed~" + currAmount;
+				}
+				
+				return ok(ischanged);
+				
+			} catch (NumberFormatException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (Exception ex) {
+			}
+		}
+		
+		return ok("BAD IN SERVER");
+	}
+	
 	public Result uploadprof() {
 		DynamicForm requestData = Form.form().bindFromRequest();
 		String src = requestData.get("src");

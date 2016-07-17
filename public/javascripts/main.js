@@ -22,6 +22,82 @@ judoApp.filter('trusted', ['$sce', function ($sce) {
     };
 }]);
 
+// Currently different browsers have different events
+var hidden, visibilityChange;
+if (typeof document.hidden !== 'undefined') {
+    // Opera 12.10, Firefox >=18, Chrome >=31, IE11
+    hidden = 'hidden';
+    visibilityChangeEvent = 'visibilitychange';
+} else if (typeof document.mozHidden !== 'undefined') {
+    // Older firefox
+    hidden = 'mozHidden';
+    visibilityChangeEvent = 'mozvisibilitychange';
+} else if (typeof document.msHidden !== 'undefined') {
+    // IE10
+    hidden = 'msHidden';
+    visibilityChangeEvent = 'msvisibilitychange';
+} else if (typeof document.webkitHidden !== 'undefined') {
+    // Chrome <31 and Android browser (4.4+ !)
+    hidden = 'webkitHidden';
+    visibilityChangeEvent = 'webkitvisibilitychange';
+}
+
+// Event handler: log change to browser console
+function visibleChangeHandler() {
+    if (document[hidden]) {
+        console.log('Page is not visible\n');
+    } else {
+        console.log('Page is visible\n');
+    }
+}
+
+// Determine the correct object to use
+var notification = window.Notification || window.mozNotification || window.webkitNotification;
+
+// The user needs to allow this
+if ('undefined' === typeof notification)
+    alert('Web notification not supported');
+else
+    notification.requestPermission(function(permission){});
+
+// A function handler
+function Notify(titleText, bodyText)
+{
+    if ('undefined' === typeof notification)
+        return false;       //Not supported....
+    var noty = new notification(
+        titleText, {
+            body: bodyText,
+            dir: 'auto', // or ltr, rtl
+            lang: 'EN', //lang used within the notification.
+            tag: 'notificationPopup', //An element ID to get/set the content
+            icon: '' //The URL of an image to be used as an icon
+        }
+    );
+    noty.onclick = function () {
+        console.log('notification.Click');
+    };
+    noty.onerror = function () {
+        console.log('notification.Error');
+    };
+    noty.onshow = function () {
+        console.log('notification.Show');
+    };
+    noty.onclose = function () {
+        console.log('notification.Close');
+    };
+    return true;
+}
+
+
+//Register event handler
+if (typeof document.addEventListener === 'undefined' ||
+             typeof document[hidden] === 'undefined'   ) {
+    console.log("Page Visibility API isn't supported, sorry!");
+} else {
+    document.addEventListener(visibilityChangeEvent, visibleChangeHandler, false);
+}
+
 judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$location', 'Upload', 'cloudinary', function($rootScope, $http, $routeParams, $location, $upload, cloudinary) {
     $rootScope.rstbtnn = function() {
         document.getElementById("picaddbtn").disabled = true;    
@@ -34,6 +110,7 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
                 }
     }
       /* Uploading with Angular File Upload */
+    
     var d = new Date();
     $rootScope.title = "";
     $rootScope.$watch('files', function() {
@@ -147,7 +224,6 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
             console.log("Error in getting pics.");
         })
     
-    
     $http.get('/session').success(function(data) {
        $rootScope.usr = data;
         if ($rootScope.usr.profilepic == "none") {
@@ -163,6 +239,10 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
               if (window.location.hash == "#/gallery" && $rootScope.usr.firstName == "") {
             window.location = "/";
         }
+        if (window.location.hash == "#/" && $rootScope.usr.firstName == "") {
+            setTimeout(function(){$('#loginm').modal('show');}, 1000);
+        }
+        
     }).error(function() {       if (window.location.hash == "#/gallery" && $rootScope.usr.firstName == "") {
             window.location = "/";
         }});
@@ -177,7 +257,7 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
         if (data == "" || data == undefined || data == null) {
             $("#wronglog").html("שם משתמש או סיסמא אינם נכונים");
         } else {
-            location.reload();
+            window.location="/#gallery";
         }
     }).error(function () {
         })
@@ -234,9 +314,24 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
         })
     }
     
-    $("#newsm").on("hide.bs.modal", function() {
-       $rootScope.news = []; 
+    
+    $http.get('/news').success(function(data) {
+    $rootScope.news = data;
+    for(var i = 0; i < $rootScope.news.length; i++) {
+        $rootScope.news[i].hidden = false;
+    }
+    }).error(function() {
+        console.log("Error in getting news.");
     });
+    window.setTimeout(function() {
+        window.setInterval(function() {
+            $http.post("/check", {'amount': $rootScope.news.length}).success(function(data) {
+                if (data.search("changed") != -1) {
+                    Notify("New Message", "A new message received");
+                }
+            });
+        }, 1000);
+    }, 2000);
     
     $rootScope.showNews = function() {
         $http.get('/news').success(function(data) {
