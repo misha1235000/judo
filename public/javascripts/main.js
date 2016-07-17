@@ -39,6 +39,7 @@ function Notify(titleText, bodyText)
 {
     if ('undefined' === typeof notification)
         return false;       //Not supported....
+    
     var noty = new notification(
         titleText, {
             body: bodyText,
@@ -49,7 +50,10 @@ function Notify(titleText, bodyText)
         }
     );
     
+    window.navigator.vibrate(500);
+    
     setTimeout(function(){noty.close();}, 5000);
+    
     noty.onclick = function () {
         console.log('notification.Click');
     };
@@ -299,7 +303,6 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
             $http.post("/check", {'amount': $rootScope.news.length}).success(function(data) {
                 if (data != "bad") {
                     if ($rootScope.news[$rootScope.news.length - 1].id != data.id) {
-                        window.navigator.vibrate(500);
                         Notify(data.authorname, data.message);
                         $rootScope.news.push(data);
                     }
