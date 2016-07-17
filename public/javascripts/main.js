@@ -337,6 +337,7 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
                     Notify(data.authorname, data.message);
                     if ($rootScope.news[$rootScope.news.length - 1].id != data.id) {
                         $rootScope.news.push(data);
+                        navigator.vibrate(400);
                     }
                 }
             });
