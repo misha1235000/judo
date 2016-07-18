@@ -25,35 +25,6 @@ judoApp.filter('trusted', ['$sce', function ($sce) {
     };
 }]);
 
-// Currently different browsers have different events
-var hidden, visibilityChange;
-if (typeof document.hidden !== 'undefined') {
-    // Opera 12.10, Firefox >=18, Chrome >=31, IE11
-    hidden = 'hidden';
-    visibilityChangeEvent = 'visibilitychange';
-} else if (typeof document.mozHidden !== 'undefined') {
-    // Older firefox
-    hidden = 'mozHidden';
-    visibilityChangeEvent = 'mozvisibilitychange';
-} else if (typeof document.msHidden !== 'undefined') {
-    // IE10
-    hidden = 'msHidden';
-    visibilityChangeEvent = 'msvisibilitychange';
-} else if (typeof document.webkitHidden !== 'undefined') {
-    // Chrome <31 and Android browser (4.4+ !)
-    hidden = 'webkitHidden';
-    visibilityChangeEvent = 'webkitvisibilitychange';
-}
-
-// Event handler: log change to browser console
-function visibleChangeHandler() {
-    if (document[hidden]) {
-        console.log('Page is not visible\n');
-    } else {
-        console.log('Page is visible\n');
-    }
-}
-
 // Determine the correct object to use
 var notification = window.Notification || window.mozNotification || window.webkitNotification;
 
