@@ -1,13 +1,6 @@
 $(window).load(function() {
     // Animate loader off screen
-    $(".se-pre-con").fadeOut("slow");
-});
-
-
-
-$(document).delegate('*[data-toggle="lightbox"]', 'click', function(event) {
-    event.preventDefault();
-    $(this).ekkoLightbox();
+    $(".se-pre-con").fadeOut(2000);
 });
 
 var judoApp = angular.module("judoApp", [
@@ -24,6 +17,7 @@ judoApp.filter('trusted', ['$sce', function ($sce) {
         return $sce.trustAsResourceUrl(url);
     };
 }]);
+
 
 // Determine the correct object to use
 var notification = window.Notification || window.mozNotification || window.webkitNotification;
@@ -64,15 +58,6 @@ function Notify(titleText, bodyText)
     };
     
     return true;
-}
-
-
-//Register event handler
-if (typeof document.addEventListener === 'undefined' ||
-             typeof document[hidden] === 'undefined'   ) {
-    console.log("Page Visibility API isn't supported, sorry!");
-} else {
-    document.addEventListener(visibilityChangeEvent, visibleChangeHandler, false);
 }
 
 judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$location', 'Upload', 'cloudinary', function($rootScope, $http, $routeParams, $location, $upload, cloudinary) {
@@ -205,7 +190,7 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
     
     $http.get('/session').success(function(data) {
        $rootScope.usr = data;
-            if ($rootScope.usr.firstName != '') {
+    if ($rootScope.usr.firstName != '') {
         window.setInterval(function() {
             $http.post("/check", {'amount': $rootScope.news.length}).success(function(data) {
                 if (data != "bad") {
