@@ -469,7 +469,8 @@
         <div class="modal fade" id="currimg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" ng-controller="mainCont">
             <div class="modal-dialog" role="document">
                 <!--Content-->
-                <div class="modal-content">
+                <div class="modal-content" style="max-height: 88vh;
+    overflow: auto;">
                     <!--Header-->
                     <div class="modal-header">
                        
@@ -480,7 +481,7 @@
                     </div>
                     <!--Body-->
                     <div class="modal-body">
-                        <img class="mysrcyus thumbnail inline" width="100%">
+                        <img class="mysrcyus thumbnail inline" style="height:350px; width: 100%;">
                     </div>
                     <br/>
                     <center><div class="myinfoyus md-form" dir="rtl">
@@ -543,9 +544,9 @@
                     ng-multiple="true">
                     <form>
                         <div class="form_line">
-                            <div class="form_controls">
+                           <!-- <div class="form_controls">
                                 <input type="text" class="form-control" id="picaddttl" placeholder="כותרת..." ng-model="title" ng-change="checkFill()" />
-                            </div>
+                            </div>-->
                             <div class="form_controls">
                                 <input type="text" class="form-control" id="picaddinf" placeholder="תיאור..." ng-model="desc" ng-change="checkFill()"/>
                             </div>
@@ -652,7 +653,7 @@
             $('#addimg').on('hide.bs.modal', function() {
                $('.infoim').html("");
                $('.file').html("");
-               $('#picaddttl').val("");
+              // $('#picaddttl').val("");
                $('#picaddinf').val("")
                 file = "";
             });

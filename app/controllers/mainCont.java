@@ -64,8 +64,8 @@ public class mainCont extends Controller {
 				// "judorsa_1440", "dvpuX2KrnZDJAoI--T5u");
 				// con = DriverManager.getConnection(
 				// "jdbc:postgresql://judorsa-1440.postgresql.dbs.appsdeck.eu:30556/judorsa_1440?user=judorsa_1440&password=dvpuX2KrnZDJAoI--T5u&ssl=false");
-		//con = DriverManager.getConnection(
-		//			"jdbc:postgresql://127.0.0.1:10000/judorsa_1440", props);
+	//	con = DriverManager.getConnection(
+	//				"jdbc:postgresql://127.0.0.1:10000/judorsa_1440", props);
 				/*
 				 */
 				// con = DriverManager.getConnection(
@@ -284,7 +284,8 @@ public class mainCont extends Controller {
 					String posterName = rs.getString("poster_name");
 					String posterLastName = rs.getString("poster_lastname");
 					int isvideo = rs.getInt("isvideo");
-					Picture pic = new Picture(id, src, info, title, date, time, posterId, posterName, posterLastName, isvideo);
+					String posterimg = rs.getString("posterimg");
+					Picture pic = new Picture(id, src, info, title, date, time, posterId, posterName, posterLastName, isvideo, posterimg);
 					lstPictures.add(pic);
 				}
 				return ok(Json.toJson(lstPictures));
@@ -685,11 +686,11 @@ public class mainCont extends Controller {
 				}
 				nRows = stmt.executeUpdate("INSERT INTO t_gallery values(" + nIndex + ", '"+src+"','"+desc+"', '"+title+"', '"
 						+ dtStr + "', '" + st + "', " + Integer.parseInt(session().get("id")) + ", '"
-						+ session().get("name") + "', '" + session().get("lastname") + "', "+isvideo+")");
+						+ session().get("name") + "', '" + session().get("lastname") + "', "+isvideo+", '"+session().get("profilepic")+"')");
 				if (nRows > 0) {
 					Picture pic = new Picture(nIndex, src,
 							desc, title, dtStr, st, Integer.parseInt(session().get("id")), session().get("name"),
-							session().get("lastname"), isvideo);
+							session().get("lastname"), isvideo, session().get("profilepic"));
 
 					return ok(Json.toJson(pic));
 

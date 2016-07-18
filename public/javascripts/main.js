@@ -1,7 +1,7 @@
-$(window).load(function() {
+/*$(window).load(function() {
     // Animate loader off screen
     $(".se-pre-con").fadeOut(2000);
-});
+});*/
 
 var judoApp = angular.module("judoApp", [
   'ngRoute',
@@ -65,7 +65,7 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
         document.getElementById("picaddbtn").disabled = true;    
     };
     $rootScope.checkFill = function() {     
-                if ($("#picaddinf").val() != "" && $("#picaddttl").val() != "") {
+                if ($("#picaddinf").val() != "") {
                     document.getElementById("picaddbtn").disabled = false;
                 } else {
                     document.getElementById("picaddbtn").disabled = true;
@@ -87,7 +87,7 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
               upload_preset: cloudinary.config().upload_preset,
               tags: 'myphotoalbum',
   //            context: 'photo=' + $("#picaddttl").val(),
-              context: 'photo=' + $("#picaddttl").val() + "~" + $("#picaddinf").val(),
+              context: 'photo=' + "none" + "~" + $("#picaddinf").val(),
               file: file
             }
           }).progress(function (e) {
@@ -98,14 +98,14 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
               if (data.resource_type == "video") {
                   isvideo = 1;
               }
-            $http.post("/upload", {'title': $("#picaddttl").val(), 'desc': $("#picaddinf").val(), 'src': data.url, 'isvideo': isvideo}).success(function() {
+            $http.post("/upload", {'title': "none", 'desc': $("#picaddinf").val(), 'src': data.url, 'isvideo': isvideo}).success(function() {
                 setTimeout(function() {
                     window.location = "/#gallery";
                 }, 1000);
            //    swal("good", "", "success");
             });
             $rootScope.photos = $rootScope.photos || [];
-            data.context = {custom: {photo: $("#picaddttl").val() + "~" + $("#picaddinf").val()}};
+            data.context = {custom: {photo: "none" + "~" + $("#picaddinf").val()}};
             file.result = data;
             $("#progbars").attr("class", "col-md-4 progress-bar progress-bar-success progress-bar-striped");
             $(".infoim").html("<img class='fadeInDown animated' src='/assets/images/success.png' style='width: 100%; padding-top: 50%;'/>");
@@ -330,7 +330,7 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
         if (title == "" || desc == "") {
             swal("אחד מן הפרטים אינו מלא", "", "error");
         } else {
-            $http.get("/upload", {'title': $("picaddttl").val(), 'desc': $("picaddinf").val(), 'src': ""} + "/" + desc).success(function() {
+            $http.get("/upload", {'title': "none", 'desc': $("picaddinf").val(), 'src': ""} + "/" + desc).success(function() {
                 swal("התמונה הועלתה בהצלחה", "", "success");
             });
         }
@@ -428,6 +428,15 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
     
     $rootScope.changeSrc = function(imgsrc, title, info, picid) {
         $rootScope.picid = picid;
+        $http.get('/comments/get/' + $rootScope.picid).success(function(data) {
+                var helpdata = [];
+                for (var i = 0; i < data.length; i++) {
+                    helpdata[i] = data[data.length - i - 1];
+                }
+                data = helpdata;
+                   $rootScope.comments = data;
+                   setTimeout(function() {$('.commentcls').scrollTop(0); }, 90);
+               });
         $(".mysrcyus").attr("src", imgsrc);
         $(".mysrcyus").attr("ng-src", imgsrc);
         $(".mytitleyus").html(title);
