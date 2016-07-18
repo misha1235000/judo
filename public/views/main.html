@@ -49,15 +49,13 @@
  <div class="navbar navbar-inverse navbar-fixed-top" style="
 ">
          <div class="" style="float:right; width:100%">
-          <div>
-              <h4 id="" ng-show="usr.firstName != ''" class="ng-hide">
-                   שלום <a class="fullname" data-toggle="modal" data-target="#profilem"><b class="ng-binding"> </b></a>, <a ng-click="logout()">התנתק</a>
-              </h4>
+
             <a href="#/" class="navbar-brand" font-size="28px" style="
     float: right;
-"><b><img src="/assets/images/slogo.jpg" class="img-circle hoverable hm-zoom slideInDown animated" style="max-height:22px;"> דף בית</b></a><div class="navbar-header" style="
+"><b><img src="/assets/images/slogo.jpg" class="img-circle hoverable hm-zoom slideInDown animated" style="max-height:22px;"> דף בית</b></a>
+   <div class="navbar-header" style="
     float: left;
-    width: 10%;
+    width: 15%;
 ">
                 
               <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#navbar-main" aria-expanded="false" style="
@@ -68,7 +66,7 @@
                 <span class="icon-bar"></span>
               </button>
             </div>
-            <div class="navbar-collapse collapse" id="navbar-main" style="float: right; text-align: right; width:80%; height: 1px;" aria-expanded="false">
+            <div class="navbar-collapse collapse" id="navbar-main" style="float: right; text-align: right; width:70%; height: 1px;" aria-expanded="false">
               <ul class="nav navbar-nav" style="
     float: right;
     /* float: left; */
@@ -114,9 +112,11 @@
                   </li>
               </ul>
             </div>
+                 <span style="font-size:18px; padding-left:10px;" id="" ng-show="usr.firstName != ''" class="ng-hide">
+                   שלום <a class="fullname" data-toggle="modal" data-target="#profilem"><b class="ng-binding">{{usr.firstName}} {{usr.lastName}}</b></a>, <a ng-click="logout()">התנתק</a>
+              </span>
           </div>
          </div>
-        </div>
         
             <div class="" id="viewit" align="center" ng-view></div>
             
