@@ -13,9 +13,10 @@
                                      <div class="col-md-3 col-xs-2 col-sm-3"></div>
                                   </div>
                                 <!--ONLY IF LENGTH IS 0 END-->
-                                  <div class="row"  dir="rtl" ng-repeat="pic in pics | orderBy:'-id'">
-                                    <div class="row  myglry z-depth-1" style="border-style: outset; margin-top:20px;">
-                                       
+                                  <div class="row"  dir="rtl" ng-repeat="pic in pics | orderBy:'-id' | limitTo:5">
+                                   
+                                    <div class="row  myglry z-depth-1 growch" style="border-style: outset; margin-top:20px;">
+
                                         <div class="col-md-push-6 col-sm-6 col-xs-12">
                                             <div class="row" style="">
                                                <center>

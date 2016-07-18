@@ -191,6 +191,15 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
     $http.get('/session').success(function(data) {
        $rootScope.usr = data;
     if ($rootScope.usr.firstName != '') {
+            $http.get('/news').success(function(data) {
+    $rootScope.news = data;
+    for(var i = 0; i < $rootScope.news.length; i++) {
+        $rootScope.news[i].hidden = false;
+    }
+    }).error(function() {
+        console.log("Error in getting news.");
+    });
+    
         window.setInterval(function() {
             $http.post("/check", {'amount': $rootScope.news.length}).success(function(data) {
                 if (data != "bad") {
@@ -295,16 +304,6 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
         })
     }
     
-    
-    $http.get('/news').success(function(data) {
-    $rootScope.news = data;
-    for(var i = 0; i < $rootScope.news.length; i++) {
-        $rootScope.news[i].hidden = false;
-    }
-    }).error(function() {
-        console.log("Error in getting news.");
-    });
-    
     $rootScope.showNews = function() {
         $http.get('/news').success(function(data) {
             $rootScope.news = data;
@@ -352,7 +351,7 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
                     $rootScope.comments = help;
           //          $rootScope.comments.push(data);
                     
-                    setTimeout(function() {$('.commentcls').scrollTop(0); }, 200);
+                    setTimeout(function() {$('.commentcls').scrollTop(0); }, 0);
                 });
             }
         }
@@ -435,7 +434,7 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
                 }
                 data = helpdata;
                    $rootScope.comments = data;
-                   setTimeout(function() {$('.commentcls').scrollTop(0); }, 90);
+                   setTimeout(function() {$('.commentcls').scrollTop(0); }, 0);
                });
         $(".mysrcyus").attr("src", imgsrc);
         $(".mysrcyus").attr("ng-src", imgsrc);
