@@ -71,7 +71,7 @@ body {
 }
 
 #moveitright {
-    float: right;
+    float: left;
     color: white !important;
     font-size: 18px;
     padding-right: 20px;
@@ -87,6 +87,10 @@ body {
 }
 
 .fullname {
+    color: white;
+}
+
+.namepic {
     color: white;
 }
 

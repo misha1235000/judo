@@ -46,21 +46,33 @@
   </head>
   <body ng-app="judoApp" ng-controller="mainCont" ng-model="numis" ng-init="numis = 5;">
        <div class="se-pre-con"></div>
-       <div class="navbar navbar-inverse navbar-fixed-top navbar-right">
+ <div class="navbar navbar-inverse navbar-fixed-top" style="
+">
+         <div class="" style="float:right; width:100%">
           <div>
-              <h4 id="moveitright" ng-show="usr.firstName != ''">
-                   שלום <a class="fullname" data-toggle="modal" data-target="#profilem"><b>{{usr.firstName}} {{usr.lastName}}</b></a>, <a ng-click="logout()">התנתק</a>
+              <h4 id="" ng-show="usr.firstName != ''" class="ng-hide">
+                   שלום <a class="fullname" data-toggle="modal" data-target="#profilem"><b class="ng-binding"> </b></a>, <a ng-click="logout()">התנתק</a>
               </h4>
-            <div class="navbar-header">
-                <a href="#/" class="navbar-brand" font-size="28px"><b><img src="/assets/images/slogo.jpg" class="img-circle hoverable hm-zoom slideInDown animated" style="max-height:22px;"> דף בית</b></a>
-              <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+            <a href="#/" class="navbar-brand" font-size="28px" style="
+    float: right;
+"><b><img src="/assets/images/slogo.jpg" class="img-circle hoverable hm-zoom slideInDown animated" style="max-height:22px;"> דף בית</b></a><div class="navbar-header" style="
+    float: left;
+    width: 10%;
+">
+                
+              <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#navbar-main" aria-expanded="false" style="
+    float: left;
+">
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
             </div>
-            <div class="navbar-collapse collapse" id="navbar-main">
-              <ul class="nav navbar-nav">
+            <div class="navbar-collapse collapse" id="navbar-main" style="float: right; text-align: right; width:80%; height: 1px;" aria-expanded="false">
+              <ul class="nav navbar-nav" style="
+    float: right;
+    /* float: left; */
+">
                 <li>
                   <a class="navfirst" href="#/info" onclick="scrollDown(0)" data-toggle="collapse">מידע על המועדון</a>
                 </li> 
@@ -68,7 +80,7 @@
                   <a class="navsecond" href="#/achieve" onclick="scrollDown(0)">הישגי הספורטאים</a>
                 </li>
                 <li>
-                  <a href="#/compet" ng-hide="1==1" onclick="scrollDown(0)">לוח תחרויות</a>
+                  <a href="#/compet" ng-hide="1==1" onclick="scrollDown(0)" class="ng-hide">לוח תחרויות</a>
                 </li>
                 <li>
                   <a class="navthird" href="#/contact" onclick="scrollDown(1);">צור קשר</a>
@@ -79,7 +91,7 @@
                     </a>
                 </li>
                 <li>
-                    <a ng-click="showNews()" data-toggle="modal" data-target="#newsm" ng-show="usr.firstName != ''" class="msgbtnstyle navfifth">
+                    <a ng-click="showNews()" data-toggle="modal" data-target="#newsm" ng-show="usr.firstName != ''" class="msgbtnstyle navfifth ng-hide">
                         <b>מודעות</b>
                     </a>
                 </li>
@@ -87,10 +99,10 @@
                     <!--<a ng-click="showPics()" data-toggle="modal" data-target="#gallerym" ng-show="usr.firstName != ''" class="picbtnstyle">
                         <b>גלריה</b>
                     </a>-->
-                    <a href="#/gallery" onclick="scrollDown(0);" ng-click="showPics()" ng-show="usr.firstName != ''" class="picbtnstyle navsixth"><b>גלריה</b></a>
+                    <a href="#/gallery" onclick="scrollDown(0);" ng-click="showPics()" ng-show="usr.firstName != ''" class="picbtnstyle navsixth ng-hide"><b>גלריה</b></a>
                 </li>
                 <li>
-                    <a data-toggle="modal" data-target="#admusers" ng-show="usr.perm >= 2" class="regbtnstyle navseventh" ng-click="getUsers()">
+                    <a data-toggle="modal" data-target="#admusers" ng-show="usr.perm >= 2" class="regbtnstyle navseventh ng-hide" ng-click="getUsers()">
                         <b>ניהול משתמשים</b>
                     </a>
                 </li>
@@ -103,6 +115,7 @@
               </ul>
             </div>
           </div>
+         </div>
         </div>
         
             <div class="" id="viewit" align="center" ng-view></div>
