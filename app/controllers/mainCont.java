@@ -257,6 +257,27 @@ public class mainCont extends Controller {
 		return ok();
 	}
 
+	public Result deleteUser() {
+		DynamicForm requestData = Form.form().bindFromRequest();
+		int id = Integer.parseInt(requestData.get("id"));
+		if (Integer.parseInt(session().get("perm")) != 3) {
+			return unauthorized();
+		}
+
+		getConn();
+		if (con != null) {
+			try {
+				Statement stmt = con.createStatement();
+				int nRows = stmt.executeUpdate("DELETE FROM t_users WHERE id = " + id);
+				return ok(Integer.toString(nRows));
+
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+		}
+		return ok();
+	}
+	
 	public Result updateNew() {
 		DynamicForm requestData = Form.form().bindFromRequest();
 		int id  = Integer.parseInt(requestData.get("[0"));
@@ -426,9 +447,36 @@ public class mainCont extends Controller {
 
 		return ok("BAD IN SERVER");
 	}
+	public Result getUser(int id) {
+		if (session().get("name").compareTo("") == 0) {
+			return unauthorized();
+		}
+		
+		getConn();
+		if (con != null) {
+			try {
+				Statement stmt = con.createStatement();
+				ResultSet rs;
+				rs = stmt.executeQuery("SELECT * FROM t_users WHERE id = " + id);
+				User usr = null;
+				while (rs.next()) {
+					usr = new User(rs.getInt("id"), "", "",
+							rs.getString("firstname"), rs.getString("lastname"), rs.getString("email"),
+							rs.getInt("perm"), rs.getString("profilepic"));
+				}
 
+				return ok(Json.toJson(usr));
+
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+		}
+		
+		return badRequest();
+	}
+	
 	public Result getAllUsers() {
-		if (Integer.parseInt(session().get("perm")) < 2) {
+		if (session().get("name").compareTo("") == 0) {
 			return unauthorized();
 		}
 
@@ -441,7 +489,7 @@ public class mainCont extends Controller {
 				rs = stmt.executeQuery("SELECT * FROM t_users");
 
 				while (rs.next()) {
-					User usr = new User(rs.getInt("id"), rs.getString("username"), rs.getString("pass"),
+					User usr = new User(rs.getInt("id"), "", "",
 							rs.getString("firstname"), rs.getString("lastname"), rs.getString("email"),
 							rs.getInt("perm"), rs.getString("profilepic"));
 					lstUsers.add(usr);

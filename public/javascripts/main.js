@@ -3,13 +3,18 @@
     $(".se-pre-con").fadeOut(2000);
 });*/
 
+$(document).ready(function() {
+      $('[data-toggle="tooltip"]').tooltip();
+})
+
 var judoApp = angular.module("judoApp", [
   'ngRoute',
   'cloudinary',
 //  'photoAlbumControllers',
     'photoAlbumAnimations',
   'photoAlbumServices',
-  'ngFileUpload'
+  'ngFileUpload',
+  'ui.router'
 ]);
 
 judoApp.filter('trusted', ['$sce', function ($sce) {
@@ -72,7 +77,6 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
                 }
     }
       /* Uploading with Angular File Upload */
-    
     var d = new Date();
     $rootScope.title = "";
     $rootScope.$watch('files', function() {
@@ -171,6 +175,7 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
     $rootScope.picid = 0;
     $rootScope.name;
     $rootScope.news = [];
+    $rootScope.currusr = [];
     $rootScope.permlevel = "";
     $rootScope.comments = [];
     $rootScope.usr = {'username':'','pass':'','firstName':'','lastName':'','email':'','perm':0, 'profilepic':''};
@@ -191,7 +196,8 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
     $http.get('/session').success(function(data) {
        $rootScope.usr = data;
     if ($rootScope.usr.firstName != '') {
-            $http.get('/news').success(function(data) {
+    $rootScope.getUsers();
+    $http.get('/news').success(function(data) {
     $rootScope.news = data;
     for(var i = 0; i < $rootScope.news.length; i++) {
         $rootScope.news[i].hidden = false;
@@ -226,14 +232,14 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
        } else if ($rootScope.usr.perm == 3) {
            $rootScope.permlevel = "מפתח";
        }
-              if (window.location.hash == "#/gallery" && $rootScope.usr.firstName == "") {
+              if ((window.location.hash == "#/gallery" || window.location.hash=="#/users") && $rootScope.usr.firstName == "") {
             window.location = "/";
         }
         if (window.location.hash == "#/" && $rootScope.usr.firstName == "") {
             setTimeout(function(){$('#loginm').modal('show');}, 1000);
         }
         
-    }).error(function() {       if (window.location.hash == "#/gallery" && $rootScope.usr.firstName == "") {
+    }).error(function() {       if ((window.location.hash == "#/gallery" || window.location.hash=="#/users") && $rootScope.usr.firstName == "") {
             window.location = "/";
         }});
     $rootScope.login = function() {
@@ -256,7 +262,11 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
     $rootScope.getUsers = function() {
         $http.get('/users').success(function(data) {
             $rootScope.users = data
+            $("#usr" + $rootScope.usr.id).attr("style", "background-color:green;");
             for (var i = 0; i < $rootScope.users.length; i++) {
+                if ($rootScope.users[i].profilepic == "none") {
+                    $rootScope.users[i].profilepic = "/assets/images/profile/unknown.jpg"
+                }
                 switch ($rootScope.users[i].perm) {
                     case 1:
                         $rootScope.users[i].permdisp = "משתמש רגיל";
@@ -425,6 +435,40 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
         $http.get('/checkUpdate/' + $rootScope.picid).success(function(data) {});
     });
     
+    $('#postprof').on('hide.bs.modal', function() {
+       $rootScope.currusr = [];        
+    });
+    
+    $rootScope.removeusr = function(id) {
+        swal({   title: "אתה בטוח?",   text: "מהרגע שהמשתמש נמחק לא ניתן להחזירו",   type: "warning",   showCancelButton: true,   confirmButtonColor: "#DD6B55",   confirmButtonText: "מחק",   closeOnConfirm: false }, function(){ $http.post("/users/del", {'id': id}).success(function(data) {
+            if (parseInt(data) > 0) {
+                swal("נמחק", "המשתמש נמחק", "success");
+            }
+        });  
+        }); 
+    }
+    
+    $rootScope.changePoster = function(id) {
+        $http.get("/users/" + id).success(function(data) {
+            $rootScope.currusr = data;
+            if ($rootScope.currusr.profilepic == "none") {
+            $rootScope.currusr.profilepic = "/assets/images/profile/unknown.jpg";
+        }
+                
+            switch ($rootScope.currusr.perm) {
+                    case 1:
+                        $rootScope.currusr.perm = "משתמש רגיל";
+                    break;
+                    case 2:
+                        $rootScope.currusr.perm = "מאמן המועדון";                    
+                    break;
+                    case 3:
+                        $rootScope.currusr.perm = "מפתח מערכת";
+                    break;
+                }
+        });
+    }
+    
     $rootScope.changeSrc = function(imgsrc, title, info, picid) {
         $rootScope.picid = picid;
         $http.get('/comments/get/' + $rootScope.picid).success(function(data) {
@@ -538,6 +582,8 @@ judoApp.config(['$routeProvider', '$locationProvider',function($routeProvider, $
             templateUrl: "/assets/views/myuser.html"
     }).when("/pics", {
             templateUrl: "/assets/views/photos.html"
+    }).when("/users", {
+            templateUrl: "/assets/views/users.html"
     }).otherwise({
             redirectTo: '/'
     });

@@ -12,6 +12,8 @@ POST	/news/add				controllers.mainCont.addNews
 POST	/news/delete			controllers.mainCont.deleteANew
 GET		/news					controllers.mainCont.getAllNews
 GET		/users					controllers.mainCont.getAllUsers
+GET		/users/:id				controllers.mainCont.getUser(id: Integer)
+POST	/users/del				controllers.mainCont.deleteUser
 GET		/session				controllers.mainCont.getSession
 GET		/perm/:id/:perm			controllers.mainCont.setPerm(id: Integer, perm: Integer)
 POST	/register				controllers.mainCont.register

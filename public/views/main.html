@@ -30,6 +30,7 @@
 
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular-route.min.js"></script>
        <script type='text/javascript' src="/assets/javascripts/angular-resource.js"></script>
+       <script type='text/javascript' src="/assets/javascripts/angular-ui-router.js"></script>
     <script type='text/javascript' src="/assets/javascripts/angular.cloudinary.js"></script>
     <script type='text/javascript' src="/assets/javascripts/jquery.cloudinary.js"></script>
        <script type='text/javascript' src="/assets/javascripts/ng-file-upload.js"></script>
@@ -74,7 +75,7 @@
                 <li>
                   <a class="navfirst" href="#/info" onclick="scrollDown(0)" data-toggle="collapse">מידע על המועדון</a>
                 </li> 
-                <li>
+                <li ng-hide="1==1">
                   <a class="navsecond" href="#/achieve" onclick="scrollDown(0)">הישגי הספורטאים</a>
                 </li>
                 <li>
@@ -100,10 +101,13 @@
                     <a href="#/gallery" onclick="scrollDown(0);" ng-click="showPics()" ng-show="usr.firstName != ''" class="picbtnstyle navsixth ng-hide"><b>גלריה</b></a>
                 </li>
                 <li>
+                    <a href="#/users" onclick="scrollDown(0);" ng-click="showPics()" ng-show="usr.firstName != ''" class="picbtnstyle navsixth ng-hide"><b>צפה במשתמשים</b></a>
+                </li>
+               <!-- <li>
                     <a data-toggle="modal" data-target="#admusers" ng-show="usr.perm >= 2" class="regbtnstyle navseventh ng-hide" ng-click="getUsers()">
                         <b>ניהול משתמשים</b>
                     </a>
-                </li>
+                </li>-->
                 <li>
                     <!-- Button trigger modal -->
                     <a data-toggle="modal" data-target="#registerm" ng-show="usr.firstName==''" class="regbtnstyle">
@@ -117,7 +121,6 @@
               </span>
           </div>
          </div>
-        
             <div class="" id="viewit" align="center" ng-view></div>
             
             
@@ -352,6 +355,82 @@
             </div>
       </div>
       <!--PROFILE MODAL END!!-->
+
+
+
+
+
+
+
+<!--POST PROFILE MODAL-->
+<div class="modal fade" id="postprof" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+                <!--Content-->
+                <div class="modal-content" style="box-shadow:initial; background-color: transparent; border:none;">
+                    <!--Header-->
+                   
+                    <!--Body-->
+                    <div class="modal-body">
+                        <div class="panel panel-info" style="border: none;">
+            <div class="panel-heading" dir="rtl" style="background-color: #AAAAAA; border:none; color:white; border:none !important;">
+                <h3 class="panel-title"><b>{{currusr.firstName}} {{currusr.lastName}}</b></h3>
+            </div>
+            <div class="panel-body" dir="rtl">
+              <div class="row">
+                
+                <!--<div class="col-xs-10 col-sm-10 hidden-md hidden-lg"> <br>
+                  <dl>
+                    <dt>DEPARTMENT:</dt>
+                    <dd>Administrator</dd>
+                    <dt>HIRE DATE</dt>
+                    <dd>11/12/2013</dd>
+                    <dt>DATE OF BIRTH</dt>
+                       <dd>11/12/2013</dd>
+                    <dt>GENDER</dt>
+                    <dd>Male</dd>
+                  </dl>
+                </div>-->
+                <div class=" col-md-9 col-lg-9 col-sm-9 col-xs-9"> 
+                  <table class="table table-user-information">
+                    <tbody>
+                      <tr>
+                        <td>שם:</td>
+                        <td>{{currusr.firstName}}</td>
+                      </tr>
+                      <tr>
+                        <td>שם משפחה:</td>
+                        <td>{{currusr.lastName}}</td>
+                      </tr>
+                      <tr>
+                        <td>אימייל:</td>
+                        <td><a href="mailto:{{currusr.email}}">{{currusr.email}}</a></td>
+                      </tr>
+                      <tr>
+                          <td>סוג משתמש</td>
+                          <td>{{currusr.perm}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  
+                </div>
+                               <div class="col-md-3 col-lg-3 col-xs-3 col-sm-3" align="center"> <img alt="User Pic" ng-src="{{currusr.profilepic}}" class="img-circle img-responsive"> </div>
+              </div>
+            </div>
+                 <div class="panel-footer">
+                        <a data-original-title="שלח הודעה" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary"><i class="fa fa-commenting-o"></i></a>
+                        <span class="pull-right">
+                            <a ng-show="usr.perm == 3 || usr.id == currusr.id" data-original-title="ערוך משתמש" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i></a>
+                            <a ng-show="usr.perm == 3" data-original-title="מחק" data-toggle="tooltip" type="button" class="btn btn-sm btn-danger" ng-click="removeusr(currusr.id)"><i class="fa fa-times"></i></a>
+                        </span>
+                    </div>
+            
+</div>
+                    </div>
+                <!--/.Content-->
+                </div>
+            </div>
+      </div>
+      <!--POST PROFILE MODAL END!!-->
 
 
 
@@ -663,6 +742,8 @@
                $('#pass').val("");
                $('#wronglog').html("");
             });
+            
+            
             $('#addimg').on('hide.bs.modal', function() {
                $('.infoim').html("");
                $('.file').html("");
