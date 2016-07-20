@@ -391,7 +391,7 @@
                   </dl>
                 </div>-->
                 <div class=" col-md-9 col-lg-9 col-sm-9 col-xs-9"> 
-                  <table class="table table-user-information">
+                  <table class="table table-user-information table-responsive">
                     <tbody>
                       <tr>
                         <td>שם:</td>
@@ -407,7 +407,15 @@
                       </tr>
                       <tr>
                           <td>סוג משתמש</td>
-                          <td>{{currusr.perm}}</td>
+                          <td ng-show="{{usr.perm < 2}}">{{currusr.perm}}</td>
+                          <td ng-show="{{usr.perm >= 2}}">
+                                        <select class="form-control input-lg" dir="rtl" ng-model="mymodel" ng-change="changePerm(currusr.id, mymodel)">
+                                          <option value="{{currusr.perm}}" selected>{{currusr.perm}}</option>
+                                          <option value="1" ng-show="sinuser.perm != 1">משתמש רגיל</option>
+                                          <option value="2" ng-show="sinuser.perm != 2">מאמן מועדון</option>
+                                          <option value="3" ng-show="sinuser.perm != 3">מפתח מערכת</option>
+                                        </select>
+                        </td>
                       </tr>
                     </tbody>
                   </table>
@@ -564,16 +572,9 @@
                 <div class="modal-content" style="max-height: 88vh;
     overflow: auto;">
                     <!--Header-->
-                    <div class="modal-header">
-                       
-                        <button type="button" class="close fixed-top" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="false">&times;</span>
-                        </button>
-                        <center><h3 class="mytitleyus modal-title" id="myModalLabel"></h3></center>
-                    </div>
                     <!--Body-->
                     <div class="modal-body">
-                        <img class="mysrcyus thumbnail inline" style="height:350px; width: 100%;">
+                        <img class="mysrcyus thumbnail inline" style=" width: 100%;">
                     </div>
                     <br/>
                     <center><div class="myinfoyus md-form" dir="rtl">
@@ -599,7 +600,7 @@
                         
                         <div class="col-md-2 col-sm-2 col-xs-3" dir="rtl">
                         <img ng-src="{{comment.src}}" style="float: right; 
-    border-radius: 100%; border: 0px !important; width: 100%;">
+    border-radius: 100%; border: 0px !important; height:70px; width: 100%;">
                         </div><!-- /col-sm-1 -->
                         
                         </ul>

@@ -180,6 +180,7 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
     $rootScope.comments = [];
     $rootScope.usr = {'username':'','pass':'','firstName':'','lastName':'','email':'','perm':0, 'profilepic':''};
     
+    
     if ($rootScope.pics == undefined) {
     $http.get('/pics').success(function(data) {
         if (data != "" && data != null) {
@@ -187,7 +188,9 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
                 data[i].time = data[i].time.split(":")[0]+ ":" +data[i].time.split(":")[1];
             }
         }
-            $rootScope.pics = data;
+            if ($rootScope.pics == undefined) {
+                $rootScope.pics = data;
+            }
         }).error(function() {
             console.log("Error in getting pics.");
         })
@@ -436,7 +439,7 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
     });
     
     $('#postprof').on('hide.bs.modal', function() {
-       $rootScope.currusr = [];        
+       $rootScope.currusr = [];
     });
     
     $rootScope.removeusr = function(id) {

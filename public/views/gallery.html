@@ -1,47 +1,53 @@
-                               <div class="col-md-1 col-sm-1 col-xs-1"></div>
-                                 <div class="col-md-10 col-sm-10 col-xs-10" style="padding-top:80px;">
+                               <div class="col-md-3 col-sm-1 col-xs-1 col-lg-3"></div>
+                                 <div class="col-md-6 col-sm-10 col-xs-10 col-lg-6" style="padding-top:80px;">
                                 <!--ONLY IF LENGTH IS 0-->
                                  <div class="row" ng-if="pics.length==0">
-                                     <div class="col-md-3 col-xs-2 col-sm-3"></div>
-                                        <div class="col-md-6 col-xs-8 col-sm-6">
+                                     <div class="col-md-3 col-xs-2 col-sm-3 col-lg-3"></div>
+                                        <div class="col-md-6 col-xs-8 col-sm-6 col-lg-6">
                                          <div style="padding-top:30px;">
                                              <div class="alert alert-danger" style="border-radius: 10px !important;">
                                           <strong>עוד לא הועלו תמונת להצגה</strong>
                                         </div>
                                          </div>
                                      </div>                                     
-                                     <div class="col-md-3 col-xs-2 col-sm-3"></div>
+                                     <div class="col-md-3 col-xs-2 col-sm-3 col-lg-3"></div>
                                   </div>
                                 <!--ONLY IF LENGTH IS 0 END-->
                                   <div class="row"  dir="rtl" ng-repeat="pic in pics | orderBy:'-id' | limitTo:5">
                                    
                                     <div class="row  myglry z-depth-1 growch" style="border-style: outset; margin-top:20px;">
 
-                                        <div class="col-md-push-6 col-sm-6 col-xs-12">
+                                        <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
                                             <div class="row" style="">
                                                <center>
                                                 
                                              <!--   <div class="col-md-12 col-sm-12 col-xs-12">
                                                     <h1>{{pic.title}}</h1>
                                                     </div>-->
-                                                    <div class="col-sm-12 col-md-12 col-xs-12">
-                                       <div class="row " style="border-radius: 8px; border-style: outset; background-color:#BABABA;">
-                                           <div class="col-md-10 col-xs-9 col-sm-9" style="">
-                                               <h4 style="float:right; color: white !important;"><a class="namepic" data-toggle="modal" data-target="#postprof" ng-click="changePoster(pic.posterId)"><b>{{pic.posterName}} {{pic.posterLastName}}</b></a></h4>
+                                                    <div class="col-sm-12 col-md-12 col-xs-12 col-lg-12">
+                                       <div class="row " style="border-radius: 8px; /*border-style: outset;*//* background-color:#BABABA;*/">
+                                           <div class="col-md-10 col-xs-9 col-sm-9 col-lg-10" style="">
+                                              <div class="row">
+                                               <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                                               <h4 style="float:right; color: black !important;"><a class="namepic" data-toggle="modal" data-target="#postprof" ng-click="changePoster(pic.posterId)"><b>{{pic.posterName}} {{pic.posterLastName}}</b></a></h4>
+                                                </div>
+                                                <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12" style="color:#7A7A7A; text-align:right;">
+                                                    {{pic.info}}
+                                                </div>
+                                              </div>
                                            </div>
-                                           <div class="col-md-2 col-sm-3 col-xs-3" style="">
-                                            <img ng-src="{{pic.posterimg}}" class="img-circle" style="width:100%; max-height:50px; float:right;">
+                                           <div class="col-md-2 col-sm-3 col-xs-3 col-lg-2" style="">
+                                            <img ng-src="{{pic.posterimg}}" class="img-circle" style="height:70px; width:100%; float:right;">
                                            </div>
                                         </div>
                                     </div>
-                                                <div class="col-md-12 col-sm-12 col-xs-12" style=""><h3>{{pic.info}}</h3></div>
                                                 </center>
                                             </div>
                                             
                                         </div>
                                         
-                                        <div class="col-md-pull-6 col-sm-6 col-xs-12">
-                                       <div class="view overlay hm-white-slight hm-zoom">
+                                        <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                                       <div class="view overlay hm-white-slight">
                                         <div ng-show="pic.isvideo == 1">
                                         <div align="center" class="embed-responsive embed-responsive-16by9">
                                         <video controls="controls" name="Video Name" ng-src="{{pic.src | trusted}}"></video>
@@ -49,7 +55,7 @@
                                         </div>
                                         </div>
                                         <div ng-show="pic.isvideo == 0" style="padding-top:15px;">
-                                        <img ng-src="{{pic.src}}" class="thumbnail inline" width="100%" class="img-fluid" style="width:250px; height:280px; width:100%"/>
+                                        <img ng-src="{{pic.src}}" class="thumbnail inline" width="100%" class="img-fluid" style="width:250px; height:330px; width:100%"/>
                                         <a ng-click="changeSrc(pic.src, pic.title, pic.info, pic.id);" data-toggle="modal" ng-init="numis = 5;" data-target="#currimg">
                                             <div class="mask"></div>
                                         </a>
@@ -74,7 +80,7 @@
                                 </div>
                                       </div>
                                       </div>
-                                      <div class="col-md-1 col-sm-1 col-xs-1"></div>
+                                      <div class="col-md-3 col-sm-1 col-xs-1 col-lg-3"></div>
                                        <div class="view overlay hm-white-slight hm-zoom img-circle" style="position: fixed;
                                                                    bottom: 20px;
                                                                    right: 20px;
