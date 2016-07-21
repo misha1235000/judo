@@ -212,10 +212,10 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
         window.setInterval(function() {
             $http.post("/check", {'amount': $rootScope.news.length}).success(function(data) {
                 if (data != "bad") {
-                    window.navigator.vibrate(400);
-                    Notify(data.authorname, data.message);
                     if ($rootScope.news[$rootScope.news.length - 1].id != data.id) {
                         $rootScope.news.push(data);
+                        window.navigator.vibrate(400);
+                        Notify(data.authorname, data.message);
                     }
                 }
             });
