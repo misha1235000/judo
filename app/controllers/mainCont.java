@@ -148,7 +148,7 @@ public class mainCont extends Controller {
 				while (rs.next()) {
 					String iusername = rs.getString("username");
 					String ipass = rs.getString("pass");
-					if (username.compareTo(iusername) == 0 && pass.compareTo(ipass) == 0) {
+					if (username.toUpperCase().compareTo(iusername.toUpperCase()) == 0 && pass.compareTo(ipass) == 0) {
 						session().put("id", Integer.toString(rs.getInt("id")));
 						session().put("user", rs.getString("username"));
 						session().put("pass", rs.getString("pass"));
