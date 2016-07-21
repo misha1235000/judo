@@ -390,7 +390,8 @@
                     <dd>Male</dd>
                   </dl>
                 </div>-->
-                <div class=" col-md-9 col-lg-9 col-sm-9 col-xs-9"> 
+                <div class="col-md-3 col-lg-3 col-xs-12 col-sm-3" align="center"> <img alt="User Pic" ng-src="{{currusr.profilepic}}" class="img-circle img-responsive" style="width:100px; height:100px;"> </div>
+                <div class=" col-md-9 col-lg-9 col-sm-9 col-xs-12"> 
                   <table class="table table-user-information table-responsive">
                     <tbody>
                       <tr>
@@ -407,13 +408,13 @@
                       </tr>
                       <tr>
                           <td>סוג משתמש</td>
-                          <td ng-show="{{usr.perm < 2}}">{{currusr.perm}}</td>
-                          <td ng-show="{{usr.perm >= 2}}">
+                          <td ng-show="{{usr.perm == 'מפתח מערכת'}}">{{currusr.perm}}</td>
+                          <td ng-hide="{{usr.perm == 'מפתח מערכת'}}">
                                         <select class="form-control input-lg" dir="rtl" ng-model="mymodel" ng-change="changePerm(currusr.id, mymodel)">
                                           <option value="{{currusr.perm}}" selected>{{currusr.perm}}</option>
-                                          <option value="1" ng-show="sinuser.perm != 1">משתמש רגיל</option>
-                                          <option value="2" ng-show="sinuser.perm != 2">מאמן מועדון</option>
-                                          <option value="3" ng-show="sinuser.perm != 3">מפתח מערכת</option>
+                                          <option value="1" ng-show="currusr.perm != 'משתמש רגיל'">משתמש רגיל</option>
+                                          <option value="2" ng-show="currusr.perm != 'מאמן המועדון'">מאמן המועדון</option>
+                                          <option value="3" ng-show="currusr.perm != 'מפתח מערכת'">מפתח מערכת</option>
                                         </select>
                         </td>
                       </tr>
@@ -421,7 +422,7 @@
                   </table>
                   
                 </div>
-                               <div class="col-md-3 col-lg-3 col-xs-3 col-sm-3" align="center"> <img alt="User Pic" ng-src="{{currusr.profilepic}}" class="img-circle img-responsive"> </div>
+                               
               </div>
             </div>
                  <div class="panel-footer">
@@ -574,7 +575,7 @@
                     <!--Header-->
                     <!--Body-->
                     <div class="modal-body">
-                        <img class="mysrcyus thumbnail inline" style=" width: 100%;">
+                        <img class="mysrcyus thumbnail inline" style="height: 30vh; width:100%;">
                     </div>
                     <br/>
                     <center><div class="myinfoyus md-form" dir="rtl">
@@ -598,9 +599,9 @@
                         </div><!-- /panel panel-default -->
                         </div><!-- /col-sm-5 -->
                         
-                        <div class="col-md-2 col-sm-2 col-xs-3" dir="rtl">
+                        <div class="col-md-2 col-sm-2 col-xs-3" style="padding-left 0px !important;" dir="rtl">
                         <img ng-src="{{comment.src}}" style="float: right; 
-    border-radius: 100%; border: 0px !important; height:70px; width: 100%;">
+    border-radius: 100%; border: 0px !important; width:100%;">
                         </div><!-- /col-sm-1 -->
                         
                         </ul>
