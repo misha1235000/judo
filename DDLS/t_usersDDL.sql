@@ -1,3 +1,5 @@
+DROP TABLE t_users;
+DROP SEQUENCE users_seq;
 CREATE TABLE t_users(id INTEGER PRIMARY KEY,
 					 username  varchar(100),
 					 pass	   varchar(100),
@@ -8,4 +10,3 @@ CREATE TABLE t_users(id INTEGER PRIMARY KEY,
 					 profilepic varchar(500));
 CREATE SEQUENCE users_seq;
 COMMIT;
-
