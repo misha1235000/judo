@@ -54,11 +54,17 @@ public class mainCont extends Controller {
 
 			try {////
 				Properties props = new Properties();
-				props.setProperty("user", "judorsa_1440");
+			/*	props.setProperty("user", "judorsa_1440");
 				props.setProperty("password", "dvpuX2KrnZDJAoI--T5u");
+				props.setProperty("sslmode", "disable");*/
+				props.setProperty("user", "judoisr_5644");
+				props.setProperty("password", "XVGjD0gvLda4qCYymEcH");
 				props.setProperty("sslmode", "disable");
 			 con = DriverManager.getConnection(
-				 "jdbc:postgresql://judorsa-1440.postgresql.dbs.appsdeck.eu:30556/judorsa_1440", props);
+				 "jdbc:postgresql://judoisr-5644.postgresql.dbs.appsdeck.eu:30496/judoisr_5644", props);
+				
+		/*	 con = DriverManager.getConnection(
+				 "jdbc:postgresql://judorsa-1440.postgresql.dbs.appsdeck.eu:30556/judorsa_1440", props);*/
 				// con = DriverManager.getConnection(
 				// "jdbc:postgresql://judorsa-1440.postgresql.dbs.appsdeck.eu:30556/judorsa_1440",
 				// "judorsa_1440", "dvpuX2KrnZDJAoI--T5u");
