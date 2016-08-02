@@ -26,6 +26,8 @@ POST    /upload                 controllers.mainCont.upload
 POST	/comments/add			controllers.mainCont.addComment
 POST	/uploadprof				controllers.mainCont.uploadprof
 POST	/check					controllers.mainCont.check
+POST	/chat					controllers.mainCont.chat
+POST	/chat/send				controllers.mainCont.chatSend
 GET     /favicon.ico                controllers.Assets.at(path="/public/images", file="favicon.ico")
 
 # Map static resources from the /public folder to the /assets URL path

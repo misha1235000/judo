@@ -3,6 +3,9 @@
     $(".se-pre-con").fadeOut(2000);
 });*/
 
+
+
+
 $(document).ready(function() {
       $('[data-toggle="tooltip"]').tooltip();
 })
@@ -66,6 +69,53 @@ function Notify(titleText, bodyText)
 }
 
 judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$location', 'Upload', 'cloudinary', function($rootScope, $http, $routeParams, $location, $upload, cloudinary) {
+            $rootScope.changedChat = function() {
+                if (event.keyCode == 13) {
+                    $http.post("/chat/send", {'msgto':$rootScope.currid, 'msg':$("#mycht").val()}).success(function(data){
+                        $rootScope.chat.push(data);
+                         $("#mycht").val("");
+                        setTimeout(function(){$(".popup-messages").scrollTop(9000);}, 200);
+                    });
+                }
+            }
+            $rootScope.currname = "";
+            $rootScope.currid = 0;
+            //this is used to close a popup
+            $rootScope.close_popup = function(id)
+            {
+                $(".popup-box").fadeOut("slow");
+   //             $(".popup-box").attr("style", "display:none");
+                $rootScope.chat = [];
+                $rootScope.currid = 0;
+                $rootScope.currname = "";
+            }
+            
+            //creates markup for a new popup. Adds the id to popups array.
+            $rootScope.register_popup = function(id, name, lastname, chatprofile)
+            {
+                $rootScope.currname = name + " " + lastname;
+                $rootScope.currid = id;
+           //     $(".popup-box").attr("style", "display:block");
+                $(".popup-box").fadeIn("slow");
+                $("#mycht").val("");
+                $("#mycht").focus();
+                $http.post("/chat", {'msgfrom':$rootScope.usr.id,'msgto':id}).success(function(data) {
+                    $rootScope.chat = data;
+                    setTimeout(function(){$(".popup-messages").scrollTop(9000);}, 1);
+                    for (var i = 0; i < data.length; i++) {
+                        if ($rootScope.chat[i].id == $rootScope.usr.id) {
+                            $(".mydsn" + $rootScope.chat[i].id).attr("style","/* margin-top: 10px; *//* right: 5px; */padding-right:0px !important;border-radius:20px;background-color: gray;font-weight: bold;color: black;height: 100%;");
+                        } else {
+                            $(".mydsn" + $rootScope.chat[i].id).attr("style","/* margin-top: 10px; *//* right: 5px; */padding-right:0px !important;border-radius:20px;background-color: green;font-weight: bold;color: black;height: 100%;");
+                        }
+                    }
+                    
+                });
+            }               
+            
+    
+    
+    
     $rootScope.rstbtnn = function() {
         document.getElementById("picaddbtn").disabled = true;    
     };
@@ -181,20 +231,7 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
     $rootScope.usr = {'username':'','pass':'','firstName':'','lastName':'','email':'','perm':0, 'profilepic':''};
     
     
-    if ($rootScope.pics == undefined) {
-    $http.get('/pics').success(function(data) {
-        if (data != "" && data != null) {
-            for (var i = 0; i < data.length; i++) {
-                data[i].time = data[i].time.split(":")[0]+ ":" +data[i].time.split(":")[1];
-            }
-        }
-            if ($rootScope.pics == undefined) {
-                $rootScope.pics = data;
-            }
-        }).error(function() {
-            console.log("Error in getting pics.");
-        })
-    }
+
     
     $http.get('/session').success(function(data) {
        $rootScope.usr = data;
@@ -250,6 +287,8 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
     } else if ($("#pass").val() == "") {
         $("#wronglog").html("סיסמא לא יכולה להיות ריקה");
     }
+            
+        
     $http.post('/login', {'username':$('#username').val(), 'pass':$('#pass').val()})
     .success(function(data) {
         if (data == "" || data == undefined || data == null) {
@@ -259,6 +298,31 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
         }
     }).error(function () {
         })
+    }
+    
+    if ($rootScope.pics == undefined) {
+    $http.get('/users').success(function(data) {
+        $rootScope.users = data;
+            $http.get('/pics').success(function(data) {
+        if (data != "" && data != null) {
+            for (var i = 0; i < data.length; i++) {
+                data[i].time = data[i].time.split(":")[0]+ ":" +data[i].time.split(":")[1];
+            }
+        }
+            if ($rootScope.pics == undefined) {
+                $rootScope.pics = data;
+                for (var i = 0; i < $rootScope.pics.length; i++) {
+                    for (var j = 0; j < $rootScope.users.length; j++) {
+                        if ($rootScope.pics[i].posterId == $rootScope.users[j].id) {
+                            $rootScope.pics[i].posterimg = $rootScope.users[j].profilepic;
+                        }
+                    }
+                }
+            }
+        }).error(function() {
+            console.log("Error in getting pics.");
+        })
+    })
     }
     
     $rootScope.getUsers = function() {

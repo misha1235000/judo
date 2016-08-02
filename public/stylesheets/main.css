@@ -149,7 +149,7 @@ body {
 /* Modal Content (Image) */
 .picmodal-content {
     margin: auto;
-    display: block;
+    display: inline-block;
     width: 80%;
     max-width: 700px;
 }
@@ -157,7 +157,7 @@ body {
 /* Caption of Modal Image (Image Text) - Same Width as the Image */
 #caption {
     margin: auto;
-    display: block;
+    display: inline-block;
     width: 80%;
     max-width: 700px;
     text-align: center;
@@ -360,7 +360,7 @@ body {
     font-style: italic;
 }
 .user-list tbody td .user-link {
-    display: block;
+    display: inline-block;
     font-size: 1.25em;
     padding-top: 3px;
     margin-left: 60px;
@@ -407,6 +407,195 @@ a {
 
 
 
+/********************************/
+   @media only screen and (max-width : 540px) 
+            {
+                .chat-sidebar
+                {
+                    width: 100% !important;
+                    position: fixed;
+                    height: 100%;
+                    right:0px;
+                    top:51px;
+                    padding-top:10px;
+                    border: 1px solid rgba(29, 49, 91, .3);
+                }
+                
+                .chat-popup
+                {
+                    position:fixed !important;
+                    right:0px !important;
+                    
+                }
+                
+                .popup-box {
+                    width: 100% !important;;
+                }
+                
+                .col-md-12
+                {
+                    width:100%;
+                }
+            }
+            
+            body
+            {
+                background-color: #e9eaed;
+            }
+            
+            .chat-sidebar
+            {
+                width: 200px;
+                position: fixed;
+                height: 100%;
+                right: 0px;
+                top: 51px;
+                padding-top: 10px;
+                padding-bottom: 10px;
+                border: 1px solid rgba(29, 49, 91, .3);
+            }
+            
+            .sidebar-name 
+            {
+                padding-left: 10px;
+                padding-right: 10px;
+                margin-bottom: 4px;
+                font-size: 12px;
+            }
+            
+            .sidebar-name span
+            {
+                padding-left: 5px;
+            }
+            
+            .sidebar-name a
+            {
+                display: inline-block;
+                height: 100%;
+                text-decoration: none;
+                color: inherit;
+            }
+            
+            .sidebar-name:hover
+            {
+                background-color:#e1e2e5;
+            }
+            
+            .sidebar-name img
+            {
+                width: 32px;
+                height: 32px;
+                vertical-align:middle;
+            }
+            
+            .popup-box
+            {
+                position: fixed;
+                bottom: 0px;
+                right: 220px;
+                height: 285px;
+                background-color: #4A4A4A;
+                opacity: 0.9;
+                width: 300px;
+                border: 1px solid rgba(29, 49, 91, .3);
+            }
+            
+            .popup-box .popup-head
+            {
+                background-color: #2A2A2A;
+                padding: 5px;
+                color: white;
+                font-weight: bold;
+                font-size: 14px;
+                clear: both;
+            }
+            
+            .popup-box .popup-head .popup-head-left
+            {
+                float: left;
+            }
+            
+            .popup-box .popup-head .popup-head-right
+            {
+                float: right;
+                opacity: 0.8;
+            }
+            
+            .popup-box .popup-head .popup-head-right a
+            {
+                text-decoration: none;
+                color: inherit;
+            }
+            
+            .popup-box .popup-messages
+            {
+                height: 100%;
+                overflow-y: auto;
+                overflow-x:hidden;
+                max-height: calc(200px);
+            }
 
 
 
+
+
+
+    .msg-list {
+        width: 100%;
+    }
+    .messenger-container {
+        padding: 8px 15px 8px 13px;
+        margin: 0 0 8px 35px;
+        float: left;
+        max-width: 82%;
+        background: #f2f2f2;
+        border-radius: 10px;
+        min-width: 20%;
+        position: relative; box-sizing: border-box;
+        box-shadow: 7px 6px 10px -3px #101010;
+    }
+    .messenger-container p {
+       color: #3D3D3D;
+        font-size: 12px;
+        margin-bottom: 6px;
+        line-height: 18px;
+        word-wrap: break-word; margin: 0;
+    }
+    .sender .messenger-container {
+        float: right;
+        margin-right: 35px;
+        width: auto;
+        background: #D5DBFF;
+        margin-left: 0px;
+        padding: 8px 15px 8px 13px;
+    }
+    .clear {
+        clear:both;
+        width: 100%;
+        padding: 0px !important;
+        margin: 0px;
+        height:0px;
+    }
+       .messenger-container::before {
+           width: 0px;
+           height: 0px;
+           border-top: 8px solid transparent;
+           border-bottom: 8px solid transparent; 
+
+           border-right:15px solid #f2f2f2; 
+           content: "";
+           position: absolute;
+           top: 9px;
+           left: -15px;
+       }
+    .sender .messenger-container::before {
+          width: 0px;
+          height: 0px;
+          border-top: 8px solid transparent;
+          border-bottom: 8px solid transparent;
+          border-left: 15px solid #D5DBFF;
+          content: "";
+          position: absolute;
+          top: 9px;
+          left: 99%;border-right: none;
+   }
