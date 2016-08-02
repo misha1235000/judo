@@ -12,20 +12,21 @@ import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
 
-/***
+/**
+ * The user controller.
  * 
  * @author Michael Tsirulnikov
- * The user controller.
+ * 
  */
 public class userController extends Controller {
 	/**
 	 * Deletes a user.
 	 * @return Result
 	 */
-	public Result deleteUser() {
+	public Result delete() {
 		// Gets the requested data from the form.
 		DynamicForm requestData = Form.form().bindFromRequest();
-		int id = Integer.parseInt(requestData.get("id"));
+		int 		id 			= Integer.parseInt(requestData.get("id"));
 		
 		// Checks whether the user is authorized to delete a user.
 		if (Integer.parseInt(session().get("perm")) != 3) {
@@ -57,7 +58,7 @@ public class userController extends Controller {
 	 * Updates a user.
 	 * @return Result
 	 */
-	public Result updateProfile() {
+	public Result update() {
 		// Gets the requested data from the form.
 		DynamicForm requestData = Form.form().bindFromRequest();
 		String      name 		= requestData.get("name");
@@ -86,7 +87,8 @@ public class userController extends Controller {
 				// Running on all the rows and checking if the email already exists.
 				while (rs.next()) {
 					String myemail = rs.getString("email");
-					if (myemail.compareTo(email) == 0 && email.compareTo(session().get("email")) != 0) {
+					if ((myemail.compareTo(email) == 0) 					&&
+						(email.compareTo(session().get("email")) != 0)) {
 						return ok("דואר אלקטרוני כבר קיים");
 					}
 				}
@@ -94,8 +96,11 @@ public class userController extends Controller {
 				int id = Integer.parseInt(session().get("id"));
 				
 				// Updates the needed rows in the DB.
-				int nRows = stmt.executeUpdate("UPDATE t_users SET(pass, firstname, lastname, email) = ('" + pass
-						+ "', '" + name + "' ,'" + lastname + "', '" + email + "') WHERE id = " + id);
+				int nRows = stmt.executeUpdate("UPDATE t_users SET"
+											 + "(pass, firstname, lastname, email)"
+											 + " = ('" + pass
+											 + "', '" + name + "' ,'" + lastname 
+											 + "', '" + email + "') WHERE id = " + id);
 
 				// If the change succeed.
 				if (nRows > 0) {
@@ -115,7 +120,7 @@ public class userController extends Controller {
 	 * @param id - the id of the user
 	 * @return Result
 	 */
-	public Result getUser(int id) {
+	public Result get(int id) {
 		// Checks whether the user is authorized to get a user.
 		if (session().get("name").compareTo("") == 0) {
 			return unauthorized();
@@ -136,9 +141,9 @@ public class userController extends Controller {
 				
 				// Creating the user, to return it afterwards.
 				while (rs.next()) {
-					usr = new User(rs.getInt("id"), "", "",
-							rs.getString("firstname"), rs.getString("lastname"), rs.getString("email"),
-							rs.getInt("perm"), rs.getString("profilepic"));
+					usr = new User(rs.getInt("id"), "", "",  rs.getString("firstname"), 
+								   rs.getString("lastname"), rs.getString("email"),
+								   rs.getInt("perm"), 		 rs.getString("profilepic"));
 				}
 
 				return ok(Json.toJson(usr));
@@ -154,7 +159,7 @@ public class userController extends Controller {
 	 * Gets all the users.
 	 * @return
 	 */
-	public Result getAllUsers() {
+	public Result getAll() {
 		// Checks whether the user is authorized to get all users.
 		if (session().get("name").compareTo("") == 0) {
 			return unauthorized();
@@ -176,8 +181,11 @@ public class userController extends Controller {
 				// Runs on all the users and adds them to the arraylist.
 				while (rs.next()) {
 					User usr = new User(rs.getInt("id"), "", "",
-							rs.getString("firstname"), rs.getString("lastname"), rs.getString("email"),
-							rs.getInt("perm"), rs.getString("profilepic"));
+										rs.getString("firstname"), 
+										rs.getString("lastname"), 
+										rs.getString("email"),
+										rs.getInt("perm"),
+										rs.getString("profilepic"));
 					lstUsers.add(usr);
 				}
 

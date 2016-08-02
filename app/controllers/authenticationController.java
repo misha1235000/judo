@@ -44,6 +44,7 @@ public class authenticationController extends Controller {
 						session().put("email", rs.getString("email"));
 						session().put("perm", rs.getString("perm"));
 						session().put("profilepic", rs.getString("profilepic"));
+						session().put("newmsg", rs.getString("newmsg"));
 						return ok(rs.getString("firstname"));
 					}
 				}
@@ -68,6 +69,7 @@ public class authenticationController extends Controller {
 		session().put("email", "");
 		session().put("perm", "0");
 		session().put("profilepic", "");
+		session().put("newmsg", "0");
 		return ok("good");
 	}
 	
@@ -103,7 +105,7 @@ public class authenticationController extends Controller {
 				}
 				
 				int nRows = stmt.executeUpdate("INSERT INTO t_users values(" + nIndex + ", '" + user + "', '" + pass
-						+ "', '" + name + "' ,'" + lastname + "', '" + email + "', 1, '/assets/images/profile/unknown.jpg')");
+						+ "', '" + name + "' ,'" + lastname + "', '" + email + "', 1, '/assets/images/profile/unknown.jpg'), 0");
 
 				if (nRows > 0) {
 					return ok("המשתמש נוצר בהצלחה");

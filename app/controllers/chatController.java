@@ -21,7 +21,7 @@ public class chatController extends Controller {
 	 * 
 	 * @return
 	 */
-	public Result chatSend() {
+	public Result send() {
 		DynamicForm requestData = Form.form().bindFromRequest();
 		String msg = requestData.get("msg");
 		int msgto = Integer.parseInt(requestData.get("msgto"));
@@ -56,7 +56,7 @@ public class chatController extends Controller {
 	 * 
 	 * @return
 	 */
-	public Result chat() {
+	public Result get() {
 		DynamicForm requestData = Form.form().bindFromRequest();
 		int msgto = Integer.parseInt(requestData.get("msgto"));
 		
@@ -80,6 +80,23 @@ public class chatController extends Controller {
 			 } catch(Exception ex) {
 				ex.printStackTrace();
 			 }
+		}
+		return badRequest();
+	}
+	
+	public Result listen() {
+		globals.getConn();
+		
+		if (globals.con != null) {
+			Statement stmt = null;
+			ResultSet rs = null;
+			
+			try {
+			stmt = globals.con.createStatement();
+			rs = stmt.executeQuery("SELECT newmsg FROM t_users WHERE id = "+Integer.parseInt(session().get("id")));
+			} catch(Exception ex) {
+				ex.printStackTrace();
+			}
 		}
 		return badRequest();
 	}

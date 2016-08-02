@@ -6,6 +6,12 @@ import java.sql.SQLException;
 import java.util.Date;
 import java.util.Properties;
 
+/***
+ * 
+ * @author Michael Tsirulnikov
+ *
+ * the globals
+ */
 public class globals {
 		public static Connection con     = null;
 		public static String 	 st      = "";

@@ -10,6 +10,24 @@ $(document).ready(function() {
       $('[data-toggle="tooltip"]').tooltip();
 })
 
+var boom = 0;
+function togglechat() {
+   // $(".chat-sidebar").fadeToggle("slow");
+    if ($(".chat-sidebar").attr("class") == "chat-sidebar ng-scope" || $(".chat-sidebar").attr("class") == "chat-sidebar ng-scope slideInRight animated") {
+        $(".chat-sidebar").attr("class", "chat-sidebar ng-scope slideOutRight animated");
+        setTimeout(function() {$(".chat-sidebar").fadeOut("fast");}, 200);
+        $(".mytogglechat").attr("style", "position: fixed; right: 0; bottom: 0;");
+        $(".mytogglechat").attr("data-original-title", "הצג צ'אט");
+        $("#mytogglechat").attr("class", "fa fa-angle-double-left");
+    } else {
+        $(".chat-sidebar").attr("class", "chat-sidebar ng-scope slideInRight animated");
+        setTimeout(function() {$(".chat-sidebar").fadeIn("fast");});
+        $(".mytogglechat").attr("style", "position: fixed; right: 150px; bottom:0;")
+        $(".mytogglechat").attr("data-original-title", "הסתר צ'אט");
+        $("#mytogglechat").attr("class", "fa fa-angle-double-right");
+    }
+}
+
 var judoApp = angular.module("judoApp", [
   'ngRoute',
   'cloudinary',
@@ -152,7 +170,7 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
               if (data.resource_type == "video") {
                   isvideo = 1;
               }
-            $http.post("/upload", {'title': "none", 'desc': $("#picaddinf").val(), 'src': data.url, 'isvideo': isvideo}).success(function() {
+            $http.post("/upload/pic", {'title': "none", 'desc': $("#picaddinf").val(), 'src': data.url, 'isvideo': isvideo}).success(function() {
                 setTimeout(function() {
                     window.location = "/#gallery";
                 }, 1000);
@@ -188,7 +206,7 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
             file.progress = Math.round((e.loaded * 100.0) / e.total);
             file.status = "Uploading... " + file.progress + "%";
           }).success(function (data, status, headers, config) {
-            $http.post("/uploadprof", {'src': data.url}).success(function() {
+            $http.post("/upload/post", {'src': data.url}).success(function() {
                 setTimeout(function() {
                     window.location = "/#";
                 }, 1000);
@@ -247,7 +265,7 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
     });
     
         window.setInterval(function() {
-            $http.post("/check", {'amount': $rootScope.news.length}).success(function(data) {
+            $http.post("/news/listen", {'amount': $rootScope.news.length}).success(function(data) {
                 if (data != "bad") {
                     if ($rootScope.news[$rootScope.news.length - 1].id != data.id) {
                         $rootScope.news.push(data); window.navigator.vibrate([500,110,500,110,450,110,200,110,170,40,450,110,200,110,170,40,500]);
@@ -289,7 +307,7 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
     }
             
         
-    $http.post('/login', {'username':$('#username').val(), 'pass':$('#pass').val()})
+    $http.post('/auth/login', {'username':$('#username').val(), 'pass':$('#pass').val()})
     .success(function(data) {
         if (data == "" || data == undefined || data == null) {
             $("#wronglog").html("שם משתמש או סיסמא אינם נכונים");
@@ -333,6 +351,7 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
                 if ($rootScope.users[i].profilepic == "none") {
                     $rootScope.users[i].profilepic = "/assets/images/profile/unknown.jpg"
                 }
+                
                 switch ($rootScope.users[i].perm) {
                     case 1:
                         $rootScope.users[i].permdisp = "משתמש רגיל";
@@ -349,7 +368,7 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
     }
     
     $rootScope.logout = function() {
-        $http.get('/logout')
+        $http.get('/auth/logout')
         .success(function() {
             location.reload();
         }).error(function () {
@@ -480,7 +499,7 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
             setTimeout(function() {$("#wrongupd").html("")}, 2000)
             return false;
         } else {
-             $http.post("/profile/update", {'name':$('#updname').val(), 'lastname':$('#updlastname').val(), 'email': $('#updemail').val(),'pass':$('#updpass').val(),'passconf': $('#updpassconf').val()}
+             $http.post("/users/update", {'name':$('#updname').val(), 'lastname':$('#updlastname').val(), 'email': $('#updemail').val(),'pass':$('#updpass').val(),'passconf': $('#updpassconf').val()}
                       ).success(function(data) {$("#wrongupd").html(data); if($("#wrongupd").html().indexOf("בהצלחה") > -1) {  
                  $rootScope.usr.firstName = $("#updname").val();
                  $rootScope.usr.lastName = $("#updlastname").val();
@@ -498,7 +517,7 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
        for (var i = 0; i < 1000; i++) {
            clearInterval(i);
        }
-        $http.get('/checkUpdate/' + $rootScope.picid).success(function(data) {});
+        $http.get('/comments/listen/' + $rootScope.picid.toString()).success(function(data) {});
     });
     
     $('#postprof').on('hide.bs.modal', function() {
@@ -506,7 +525,7 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
     });
     
     $rootScope.removeusr = function(id) {
-        swal({   title: "אתה בטוח?",   text: "מהרגע שהמשתמש נמחק לא ניתן להחזירו",   type: "warning",   showCancelButton: true,   confirmButtonColor: "#DD6B55",   confirmButtonText: "מחק",   closeOnConfirm: false }, function(){ $http.post("/users/del", {'id': id}).success(function(data) {
+        swal({   title: "אתה בטוח?",   text: "מהרגע שהמשתמש נמחק לא ניתן להחזירו",   type: "warning",   showCancelButton: true,   confirmButtonColor: "#DD6B55",   confirmButtonText: "מחק",   closeOnConfirm: false }, function(){ $http.post("/users/delete", {'id': id}).success(function(data) {
             if (parseInt(data) > 0) {
                 swal("נמחק", "המשתמש נמחק", "success");
             }
@@ -537,7 +556,7 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
     
     $rootScope.changeSrc = function(imgsrc, title, info, picid) {
         $rootScope.picid = picid;
-        $http.get('/comments/get/' + $rootScope.picid).success(function(data) {
+        $http.get('/comments/' + $rootScope.picid).success(function(data) {
                 var helpdata = [];
                 for (var i = 0; i < data.length; i++) {
                     helpdata[i] = data[data.length - i - 1];
@@ -551,9 +570,9 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
         $(".mytitleyus").html(title);
         $(".myinfoyus").html(info);
         var inter = setInterval(function() {
-        $http.get('/checkUpdate/' + picid).success(function(data) {
+        $http.get('/comments/listen/' + picid.toString()).success(function(data) {
            if (data == "new") {
-               $http.get('/comments/get/' + $rootScope.picid).success(function(data) {
+               $http.get('/comments/' + $rootScope.picid).success(function(data) {
                 var helpdata = [];
                 for (var i = 0; i < data.length; i++) {
                     helpdata[i] = data[data.length - i - 1];
@@ -571,7 +590,7 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
         if ($rootScope.usr.id == id) {
             swal("לא ניתן לשנות הרשאה לעצמך", "", "error");
         } else {
-            $http.get("/perm/" +id+ "/" + perm).success(function(data) {swal(data,"" ,"success")});
+            $http.get("/auth/perm/" +id+ "/" + perm).success(function(data) {swal(data,"" ,"success")});
         }
     }
     
@@ -612,7 +631,7 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
             $("#wrongreg").html("הסיסמא ואימותה אינם זהות");
             return false;
         } else {
-            $http.post("/register", {'name':$('#regname').val(), 'lastname':$('#reglastname').val(), 'email': $('#regemail').val(),'username':$('#reguser').val(),'pass': $('#regpass').val(), 'passconf':$('#regpassconf').val()})
+            $http.post("/auth/register", {'name':$('#regname').val(), 'lastname':$('#reglastname').val(), 'email': $('#regemail').val(),'username':$('#reguser').val(),'pass': $('#regpass').val(), 'passconf':$('#regpassconf').val()})
                 .success(function(data) {
                   if (data.indexOf("בהצלחה") > -1) {
                     swal(data, "", "success");

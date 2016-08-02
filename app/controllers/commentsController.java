@@ -23,7 +23,7 @@ public class commentsController extends Controller {
 	 * @param id
 	 * @return
 	 */
-	public Result getComments(String id) {
+	public Result get(String id) {
 		globals.getConn();
 		if (globals.con != null) {
 			List<Comment> lstComments = new ArrayList<Comment>();
@@ -55,7 +55,7 @@ public class commentsController extends Controller {
 	 * 
 	 * @return
 	 */
-	public Result addComment() {
+	public Result add() {
 		DynamicForm requestData = Form.form().bindFromRequest();
 		String id  	= requestData.get("id");
 		String comment = requestData.get("comment");
@@ -90,7 +90,7 @@ public class commentsController extends Controller {
 		return badRequest();
 	}
 	
-	public Result checkUpdate(String id) {
+	public Result listen(String id) {
 		if (id.compareTo("0") == 0) {
 			session().put("countcom", "0");
 		} else {
