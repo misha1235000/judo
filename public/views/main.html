@@ -716,7 +716,7 @@
             <div ng-repeat="current in users" class="sidebar-name" ng-show="current.id != usr.id;">
                 <a ng-click="register_popup(current.id, current.firstName, current.lastName);">
                     <span style="
-    padding-right: 10px; color: black; font-weight:bold; font-size: 14px;
+    padding-right: 10px; color: white; font-weight:bold; font-size: 14px;
 ">{{current.firstName}} {{current.lastName}}</span><img width="30" height="30" ng-src="{{current.profilepic}}"> 
                 </a>
                 <span class="" style="color:red; position:fixed; left:10px; font-size: 16px; font-weight:bold; padding-top:4px;">{{current.sent}}</span>
@@ -745,9 +745,20 @@
 </div>
                        <div class="row">
 <div class="col-md-12" style="position:absolute; bottom: 0; padding-right:0px; margin-left:7px;">
-<textarea id="mycht" style="direction:rtl; height: 30px; border:none; background-color:white; color:black; resize: none; border-radius:6px;
-" ng-keyup="changedChat()">
-           </textarea>
+<!--<input type="text" id="mycht" style="direction:rtl; height: 30px; border:none; background-color:white; color:black; resize: none; border-radius:6px;
+" ng-keyup="changedChat()"/>-->
+   <div class="input-group">
+      <span class="input-group-btn">
+        <button class="btn btn-primary" type="button" ng-click="changedChat()" ng-disabled="!form.input.$valid"><span class="fa fa-paper-plane"></span></button>
+      </span>
+     <!-- <form name="form">
+      <input ng-model="chtmodel" name="input" ng-pattern="^[a-zA-Z0-9.?!@#$%()*_+-\/-\ ;~א-תףךץ]+$" id="mycht" type="text" class="form-control" placeholder="כתוב הודעה..." style="background-color:white; border:double; margin-top:5px; border-radius:4px; -webkit-box-sizing: border-box;     direction: rtl;">
+      {{chtmodel}} AND {{form.input.$valid}}<br/>
+       </form>-->
+<form name="form" ng-model="regex" ng-init="regex='^[a-zA-Z0-9.?!@#$%()*_+-\/-\ ;~א-תףךץ]+$'">
+    <input type="text" ng-model="model" ng-init="model=''" name="input" ng-pattern="regex" id="mycht" class="form-control" placeholder="כתוב הודעה..." style="background-color:white; border:double; margin-top:5px; border-radius:4px; -webkit-box-sizing: border-box;     direction: rtl;"/><br>
+  </form>
+    </div>
     </div>
     </div>
 

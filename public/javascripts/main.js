@@ -87,12 +87,14 @@ function Notify(titleText, bodyText)
 }
 
 judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$location', 'Upload', 'cloudinary', function($rootScope, $http, $routeParams, $location, $upload, cloudinary) {
+    var regex = RegExp(/^[a-zA-Z0-9.?!@#$%()*_+-\/-\ ;~א-תףךץ]+$/);
             $rootScope.changedChat = function() {
-                if (event.keyCode == 13 && $("#mycht").val() != "\n") {
-                    $http.post("/chat/send", {'msgto':$rootScope.currid, 'msg':$("#mycht").val()}).success(function(data){
+                if (regex.test($("#mycht").val()) && $("#mycht").val()) {
+                    var sent = $("#mycht").val();
+                    $("#mycht").val("");
+                    $http.post("/chat/send", {'msgto':$rootScope.currid, 'msg':sent}).success(function(data){
                         $rootScope.chat.push(data);
-                         $("#mycht").val("");
-                        setTimeout(function(){$(".popup-messages").scrollTop(9000);}, 200);
+                        setTimeout(function(){$(".popup-messages").scrollTop(5000);}, 200);
                     });
                 }
             }
@@ -111,6 +113,13 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
             //creates markup for a new popup. Adds the id to popups array.
             $rootScope.register_popup = function(id, name, lastname, chatprofile)
             {
+                $http.post('/chat/read', {'msgto':id}).success(function() {
+                    for (var i = 0; i < $rootScope.users.length; i++) {
+                        if ($rootScope.users[i].id == id) {
+                            $rootScope.users[i].sent = undefined;
+                        }
+                    }
+                });
                 $rootScope.currname = name + " " + lastname;
                 $rootScope.currid = id;
            //     $(".popup-box").attr("style", "display:block");
@@ -249,9 +258,6 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
     $rootScope.usr = {'username':'','pass':'','firstName':'','lastName':'','email':'','perm':0, 'profilepic':''}
 
     $(".mytogglechat").click(function() {
-        $http.post('/chat/read').success(function() {
-            $rootScope.newMsgs = 0;
-        });
     });
     
     $http.get('/session').success(function(data) {
@@ -266,7 +272,6 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
     }).error(function() {
         console.log("Error in getting news.");
     });
-    
         window.setInterval(function() {
             $http.post("/news/listen", {'amount': $rootScope.news.length}).success(function(data) {
                 if (data != "bad") {

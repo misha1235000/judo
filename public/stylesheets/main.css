@@ -453,9 +453,7 @@ a {
                 padding-top: 10px;
                 padding-bottom: 10px;
                 border: 1px solid rgba(29, 49, 91, .3);
-                background: #4b6cb7; /* fallback for old browsers */
-background: -webkit-linear-gradient(to left, #4b6cb7 , #182848); /* Chrome 10-25, Safari 5.1-6 */
-background: linear-gradient(to left, #4b6cb7 , #182848); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+                background: rgba(0, 0, 0, .6); /* fallback for old browsers */
             }
             
             .sidebar-name 
@@ -481,7 +479,7 @@ background: linear-gradient(to left, #4b6cb7 , #182848); /* W3C, IE 10+/ Edge, F
             
             .sidebar-name:hover
             {
-                background-color:#e1e2e5;
+                background-color:#808183;
             }
             
             .sidebar-name img
