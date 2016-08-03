@@ -8,10 +8,16 @@
 
 $(document).ready(function() {
       $('[data-toggle="tooltip"]').tooltip();
+        $(".chat-sidebar").attr("class", "chat-sidebar ng-scope slideOutRight animated");
+        setTimeout(function() {$(".chat-sidebar").fadeOut(0);});
+        $(".mytogglechat").attr("style", "position: fixed; right: 0; bottom: 0;");
+        $(".mytogglechat").attr("data-original-title", "הצג צ'אט");
+        $("#mytogglechat").attr("class", "fa fa-angle-double-left");
 })
 
 var boom = 0;
 function togglechat() {
+    
    // $(".chat-sidebar").fadeToggle("slow");
     if ($(".chat-sidebar").attr("class") == "chat-sidebar ng-scope" || $(".chat-sidebar").attr("class") == "chat-sidebar ng-scope slideInRight animated") {
         $(".chat-sidebar").attr("class", "chat-sidebar ng-scope slideOutRight animated");
