@@ -282,11 +282,11 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
                         for (var j = 0; j < data.length; j++) {
                             if ($rootScope.users[i].id == data[j].msgfrom) {
                                 $rootScope.users[i].sent = data[j].amount;
+                            } else {
+                                $rootScope.users[i].sent = undefined;
                             }
                         }
                     }
-                    
-                    $rootScope.users.sent = data.amount;
                     $rootScope.newMsgs = 1;
                 } else {
                     $rootScope.newMsgs = 0;
