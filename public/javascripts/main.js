@@ -88,7 +88,7 @@ function Notify(titleText, bodyText)
 
 judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$location', 'Upload', 'cloudinary', function($rootScope, $http, $routeParams, $location, $upload, cloudinary) {
             $rootScope.changedChat = function() {
-                if (event.keyCode == 13) {
+                if (event.keyCode == 13 && $("#mycht").val() != "\n") {
                     $http.post("/chat/send", {'msgto':$rootScope.currid, 'msg':$("#mycht").val()}).success(function(data){
                         $rootScope.chat.push(data);
                          $("#mycht").val("");
