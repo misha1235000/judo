@@ -717,9 +717,9 @@
                 <a ng-click="register_popup(current.id, current.firstName, current.lastName);">
                     <span style="
     padding-right: 10px; color: black; font-weight:bold; font-size: 14px;
-">{{current.firstName}} {{current.lastName}}</span><img width="30" height="30" ng-src="{{current.profilepic}}">
-                    
+">{{current.firstName}} {{current.lastName}}</span><img width="30" height="30" ng-src="{{current.profilepic}}"> 
                 </a>
+                <span class="" style="color:red; position:fixed; left:10px; font-size: 16px; font-weight:bold; padding-top:4px;">{{current.sent}}</span>
             </div>
             
         </div>
@@ -755,7 +755,11 @@
 </div>
           
 
-<a ng-show="usr.perm > 0;" data-original-title="הצג צ'אט" data-toggle="tooltip" type="button" class="mytogglechat btn btn-lg btn-primary" style="position:fixed; bottom:0; right:0;" onClick="togglechat()"><i class="fa fa-angle-double-left" id="mytogglechat"></i></a>
+<a ng-show="usr.perm > 0;" data-original-title="הצג צ'אט" data-toggle="tooltip" type="button" class="mytogglechat btn btn-lg btn-primary" style="position:fixed; bottom:0; right:0;" onClick="togglechat();"><i class="fa fa-angle-double-left" id="mytogglechat"></i><i ng-show="newMsgs > 0" class="fa fa-envelope" style="
+    position: absolute;
+    color: red;
+    top: -10px;
+    left: -7px;"></i></a>
 <script>$('[data-toggle="tooltip"]').tooltip();</script>
         <script type="text/javascript">
             $('#fm').on('shown.bs.modal', function () {

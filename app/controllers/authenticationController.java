@@ -105,7 +105,7 @@ public class authenticationController extends Controller {
 				}
 				
 				int nRows = stmt.executeUpdate("INSERT INTO t_users values(" + nIndex + ", '" + user + "', '" + pass
-						+ "', '" + name + "' ,'" + lastname + "', '" + email + "', 1, '/assets/images/profile/unknown.jpg'), 0");
+						+ "', '" + name + "' ,'" + lastname + "', '" + email + "', 1, '/assets/images/profile/unknown.jpg'), ''");
 
 				if (nRows > 0) {
 					return ok("המשתמש נוצר בהצלחה");

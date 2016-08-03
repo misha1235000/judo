@@ -246,10 +246,13 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
     $rootScope.currusr = [];
     $rootScope.permlevel = "";
     $rootScope.comments = [];
-    $rootScope.usr = {'username':'','pass':'','firstName':'','lastName':'','email':'','perm':0, 'profilepic':''};
-    
-    
+    $rootScope.usr = {'username':'','pass':'','firstName':'','lastName':'','email':'','perm':0, 'profilepic':''}
 
+    $(".mytogglechat").click(function() {
+        $http.post('/chat/read').success(function() {
+            $rootScope.newMsgs = 0;
+        });
+    });
     
     $http.get('/session').success(function(data) {
        $rootScope.usr = data;
@@ -273,7 +276,23 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
                     }
                 }
             });
-        }, 3000);
+            $http.post("/chat/listen", {}).success(function(data) {
+                if (data != "") {
+                    for (var i = 0; i < $rootScope.users.length; i++) {
+                        for (var j = 0; j < data.length; j++) {
+                            if ($rootScope.users[i].id == data[j].msgfrom) {
+                                $rootScope.users[i].sent = data[j].amount;
+                            }
+                        }
+                    }
+                    
+                    $rootScope.users.sent = data.amount;
+                    $rootScope.newMsgs = 1;
+                } else {
+                    $rootScope.newMsgs = 0;
+                }
+            });
+        }, 5000);
     } else {
         for (var i = 0; i < 1000; i++) {
             window.clearInterval(i);

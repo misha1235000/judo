@@ -38,8 +38,8 @@ public class globals {
 					props.setProperty("user", "judoisr_5644");
 					props.setProperty("password", "XVGjD0gvLda4qCYymEcH");
 					props.setProperty("sslmode", "disable");
-				 con = DriverManager.getConnection(
-					 "jdbc:postgresql://judoisr-5644.postgresql.dbs.appsdeck.eu:30496/judoisr_5644", props);
+	//			 con = DriverManager.getConnection(
+//					 "jdbc:postgresql://judoisr-5644.postgresql.dbs.appsdeck.eu:30496/judoisr_5644", props);
 					
 			/*	 con = DriverManager.getConnection(
 					 "jdbc:postgresql://judorsa-1440.postgresql.dbs.appsdeck.eu:30556/judorsa_1440", props);*/
@@ -48,8 +48,8 @@ public class globals {
 					// "judorsa_1440", "dvpuX2KrnZDJAoI--T5u");
 					// con = DriverManager.getConnection(
 					// "jdbc:postgresql://judorsa-1440.postgresql.dbs.appsdeck.eu:30556/judorsa_1440?user=judorsa_1440&password=dvpuX2KrnZDJAoI--T5u&ssl=false");
-		//	con = DriverManager.getConnection(
-		//				"jdbc:postgresql://127.0.0.1:10000/judoisr_5644", props);
+			con = DriverManager.getConnection(
+						"jdbc:postgresql://127.0.0.1:10000/judoisr_5644", props);
 					/*
 					 */
 					// con = DriverManager.getConnection(

@@ -36,7 +36,8 @@ GET		/comments/listen/:id	controllers.commentsController.listen(id: String)
 # Chat routes
 POST	/chat					controllers.chatController.get
 POST	/chat/send				controllers.chatController.send
-GET		/chat/listen			controllers.chatController.listen
+POST	/chat/listen			controllers.chatController.listen
+POST	/chat/read				controllers.chatController.read
 
 # Upload routes
 POST    /upload/post            controllers.uploadController.post
