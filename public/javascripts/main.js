@@ -293,6 +293,19 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
                         for (var j = 0; j < data.length; j++) {
                             if ($rootScope.users[i].id == data[j].msgfrom) {
                                 $rootScope.users[i].sent = data[j].amount;
+                                if ($rootScope.users[i].id == $rootScope.currid) {
+                                    $http.post("/chat", {'msgfrom':$rootScope.usr.id,'msgto':id}).success(function(data) {
+                                    $rootScope.chat = data;
+                                    setTimeout(function(){$(".popup-messages").scrollTop(9000);}, 1);
+                                    for (var i = 0; i < data.length; i++) {
+                                        if ($rootScope.chat[i].id == $rootScope.usr.id) {
+                                            $(".mydsn" + $rootScope.chat[i].id).attr("style","/* margin-top: 10px; *//* right: 5px; */padding-right:0px !important;border-radius:20px;background-color: gray;font-weight: bold;color: black;height: 100%;");
+                                        } else {
+                                            $(".mydsn" + $rootScope.chat[i].id).attr("style","/* margin-top: 10px; *//* right: 5px; */padding-right:0px !important;border-radius:20px;background-color: green;font-weight: bold;color: black;height: 100%;");
+                                        }
+                                    }
+                });
+                                }
                             } else {
                                 $rootScope.users[i].sent = undefined;
                             }
