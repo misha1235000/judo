@@ -430,9 +430,9 @@ a {
                 
                 .popup-box {
                     z-index: 10;
-                    top: 50px;
+     /*               top: 50px;*/
                     display: block;
-                    height: initial !important;
+                    height: 300px !important;
                     width: 100% !important;
                 }
                 
@@ -498,9 +498,9 @@ a {
                 position: fixed;
                 bottom: 0px;
                 right: 220px;
-                height: 285px;
+                height: 300px;
                 background-color: #4A4A4A;
-                opacity: 0.9;
+                opacity: 1;
                 width: 300px;
                 border: 1px solid rgba(29, 49, 91, .3);
             }
@@ -523,7 +523,7 @@ a {
             .popup-box .popup-head .popup-head-right
             {
                 float: right;
-                opacity: 0.8;
+                opacity: 1;
             }
             
             .popup-box .popup-head .popup-head-right a
@@ -537,11 +537,11 @@ a {
                 height: 100%;
                 overflow-y: auto;
                 overflow-x:hidden;
-                max-height: calc(200px);
+                max-height: 78%;
             }
 
 
-
+285px
 
 
 

@@ -185,7 +185,7 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
               if (data.resource_type == "video") {
                   isvideo = 1;
               }
-            $http.post("/upload/pic", {'title': "none", 'desc': $("#picaddinf").val(), 'src': data.url, 'isvideo': isvideo}).success(function() {
+            $http.post("/upload/post", {'title': "none", 'desc': $("#picaddinf").val(), 'src': data.url, 'isvideo': isvideo}).success(function() {
                 setTimeout(function() {
                     window.location = "/#gallery";
                 }, 1000);
@@ -221,7 +221,7 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
             file.progress = Math.round((e.loaded * 100.0) / e.total);
             file.status = "Uploading... " + file.progress + "%";
           }).success(function (data, status, headers, config) {
-            $http.post("/upload/post", {'src': data.url}).success(function() {
+            $http.post("/upload/pic", {'src': data.url}).success(function() {
                 setTimeout(function() {
                     window.location = "/#";
                 }, 1000);
