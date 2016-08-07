@@ -801,3 +801,7 @@ a {
         height: 400px !important;
     }
 }
+
+.img-loading {
+    background: url('/images/loaders/preload.gif') 50% 50% no-repeat;
+}

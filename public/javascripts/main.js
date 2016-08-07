@@ -34,6 +34,17 @@ function togglechat() {
     }
 }
 
+$('img').css('opacity', function () {
+    $(this).wrap("<div class='img-loading'></div>")
+    return '0';
+}).load(function () {
+    var img = $(this);
+    $(this).unwrap();
+    $(this).animate({
+        opacity: 1
+    }, 500);
+});
+
 var judoApp = angular.module("judoApp", [
   'ngRoute',
   'cloudinary',
@@ -109,6 +120,7 @@ function Notify(titleText, bodyText)
 }
 
 judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$location', 'Upload', 'cloudinary', function($rootScope, $http, $routeParams, $location, $upload, cloudinary) {
+    $rootScope.loaded = false;
     var regex = RegExp(/^[a-zA-Z0-9.?!@#$%()*_+-\/-\ ;~א-תףךץ]+$/);
             $rootScope.changedChat = function() {
                 if (regex.test($("#mycht").val()) && $("#mycht").val()) {
@@ -285,8 +297,9 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
 
     $(".mytogglechat").click(function() {
     });
-    
+
     $http.get('/session').success(function(data) {
+       $rootScope.loaded = true;
        $rootScope.usr = data;
     if ($rootScope.usr.firstName != '') {
     $rootScope.getUsers();
