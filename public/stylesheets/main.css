@@ -799,5 +799,6 @@ a {
 {
     .postpics {
         width:700px !important;
+        height: 500px !important;
     }
 }
