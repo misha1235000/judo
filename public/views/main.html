@@ -755,7 +755,7 @@
       {{chtmodel}} AND {{form.input.$valid}}<br/>
        </form>-->
 <form name="form" ng-model="regex" ng-init="regex='^[a-zA-Z0-9.?!@#$%()*_+-\/-\ ;~א-תףךץ]+$'">
-    <input type="text" ng-model="model" ng-init="model=''" name="input" ng-pattern="regex" id="mycht" class="form-control" placeholder="כתוב הודעה..." style="background-color:white;  margin-top:5px; -webkit-box-sizing: border-box;     direction: rtl; right:5.6px;"/><br>
+    <input type="text" ng-model="model" ng-init="model=''" name="input" ng-pattern="regex" id="mycht" class="form-control" placeholder="כתוב הודעה..." autocomplete="off" style="background-color:white;  margin-top:5px; -webkit-box-sizing: border-box;     direction: rtl; right:5.6px;"/><br>
   </form>
    <span class="input-group-btn">
         <button class="btn btn-primary" type="button" ng-click="changedChat()" ng-disabled="!form.input.$valid" style="height:105%;"><span class="fa fa-paper-plane"></span></button>
