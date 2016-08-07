@@ -645,3 +645,10 @@ a {
 {
 	min-height: 450px;
 }
+
+@media only screen and (max-width : 540px) 
+{
+    .postpics {
+        height: 230px !important;
+    }
+}
