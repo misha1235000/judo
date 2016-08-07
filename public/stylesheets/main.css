@@ -635,7 +635,6 @@ a {
 
 .force-overflow
 {
-	min-height: 450px;
 }
 
 @media only screen and (max-width : 540px) 
@@ -799,6 +798,6 @@ a {
 {
     .postpics {
         width:700px !important;
-        height: 500px !important;
+        height: 400px !important;
     }
 }
