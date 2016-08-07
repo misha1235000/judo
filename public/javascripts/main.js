@@ -44,6 +44,22 @@ var judoApp = angular.module("judoApp", [
   'ui.router'
 ]);
 
+judoApp.directive('loading', function () {
+      return {
+        restrict: 'E',
+        replace:true,
+        template: '<div class="loading"><img src="/assets/images/loaders/preang.gif"/></div>',
+        link: function (scope, element, attr) {
+              scope.$watch('loading', function (val) {
+                  if (val)
+                      $(element).show();
+                  else
+                      $(element).hide();
+              });
+        }
+      }
+  })
+
 judoApp.filter('trusted', ['$sce', function ($sce) {
     return function(url) {
         return $sce.trustAsResourceUrl(url);
@@ -119,6 +135,9 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
             //creates markup for a new popup. Adds the id to popups array.
             $rootScope.register_popup = function(id, name, lastname, chatprofile)
             {
+                $rootScope.chat = [];
+                $(".popup-messages").scrollTop(0);
+                $rootScope.loading = true;
                 $http.post('/chat/read', {'msgto':id}).success(function() {
                     for (var i = 0; i < $rootScope.users.length; i++) {
                         if ($rootScope.users[i].id == id) {
@@ -134,6 +153,7 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
                 $("#mycht").focus();
                 $http.post("/chat", {'msgfrom':$rootScope.usr.id,'msgto':id}).success(function(data) {
                     $rootScope.chat = data;
+                    $rootScope.loading = false;
                     setTimeout(function(){$(".popup-messages").scrollTop(9000);}, 1);
                     for (var i = 0; i < data.length; i++) {
                         if ($rootScope.chat[i].id == $rootScope.usr.id) {
@@ -318,7 +338,7 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
                     $rootScope.newMsgs = 0;
                 }
             });
-        }, 3000);
+        }, 5000);
     } else {
         for (var i = 0; i < 1000; i++) {
             window.clearInterval(i);
@@ -600,6 +620,8 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
     }
     
     $rootScope.changeSrc = function(imgsrc, title, info, picid) {
+        $rootScope.comments = [];
+        $rootScope.loading = true;
         $rootScope.picid = picid;
         $http.get('/comments/' + $rootScope.picid).success(function(data) {
                 var helpdata = [];
@@ -608,6 +630,7 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
                 }
                 data = helpdata;
                    $rootScope.comments = data;
+                    $rootScope.loading = false;
                    setTimeout(function() {$('.commentcls').scrollTop(0); }, 0);
                });
         $(".mysrcyus").attr("src", imgsrc);
