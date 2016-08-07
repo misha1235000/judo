@@ -48,7 +48,7 @@ judoApp.directive('loading', function () {
       return {
         restrict: 'E',
         replace:true,
-        template: '<div class="loading"><img src="/assets/images/loaders/preang.gif"/></div>',
+        template: '<div class="loading"></div>',
         link: function (scope, element, attr) {
               scope.$watch('loading', function (val) {
                   if (val)
@@ -621,7 +621,7 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
     
     $rootScope.changeSrc = function(imgsrc, title, info, picid) {
         $rootScope.comments = [];
-        $rootScope.loading = true;
+        $rootScope.postloading = true;
         $rootScope.picid = picid;
         $http.get('/comments/' + $rootScope.picid).success(function(data) {
                 var helpdata = [];
@@ -630,7 +630,7 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
                 }
                 data = helpdata;
                    $rootScope.comments = data;
-                    $rootScope.loading = false;
+                    $rootScope.postloading = false;
                    setTimeout(function() {$('.commentcls').scrollTop(0); }, 0);
                });
         $(".mysrcyus").attr("src", imgsrc);
