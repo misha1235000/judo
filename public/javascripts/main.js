@@ -294,15 +294,17 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
                             if ($rootScope.users[i].id == data[j].msgfrom) {
                                 $rootScope.users[i].sent = data[j].amount;
                                 if ($rootScope.users[i].id == $rootScope.currid) {
-                                    $http.post("/chat", {'msgfrom':$rootScope.usr.id,'msgto':id}).success(function(data) {
-                                    $rootScope.chat = data;
-                                    setTimeout(function(){$(".popup-messages").scrollTop(9000);}, 1);
-                                    for (var i = 0; i < data.length; i++) {
-                                        if ($rootScope.chat[i].id == $rootScope.usr.id) {
-                                            $(".mydsn" + $rootScope.chat[i].id).attr("style","/* margin-top: 10px; *//* right: 5px; */padding-right:0px !important;border-radius:20px;background-color: gray;font-weight: bold;color: black;height: 100%;");
-                                        } else {
-                                            $(".mydsn" + $rootScope.chat[i].id).attr("style","/* margin-top: 10px; *//* right: 5px; */padding-right:0px !important;border-radius:20px;background-color: green;font-weight: bold;color: black;height: 100%;");
-                                        }
+                                    $http.post("/chat", {'msgfrom':$rootScope.usr.id,'msgto':$rootScope.users[i].id}).success(function(data) {
+                                    if (data != undefined && data != "") {
+                                        $rootScope.chat = data;
+                                        setTimeout(function(){$(".popup-messages").scrollTop(9000);}, 1);
+                                        $http.post('/chat/read', {'msgto':$rootScope.currid}).success(function() {
+                                            for (var i = 0; i < $rootScope.users.length; i++) {
+                                                if ($rootScope.users[i].id == $rootScope.currid) {
+                                                    $rootScope.users[i].sent = undefined;
+                                                }
+                                            }
+                                        });
                                     }
                 });
                                 }
@@ -316,7 +318,7 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
                     $rootScope.newMsgs = 0;
                 }
             });
-        }, 5000);
+        }, 3000);
     } else {
         for (var i = 0; i < 1000; i++) {
             window.clearInterval(i);
