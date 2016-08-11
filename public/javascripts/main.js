@@ -7,14 +7,13 @@
 
 
 $(document).ready(function() {
-      $('[data-toggle="tooltip"]').tooltip();
+        $('[data-toggle="tooltip"]').tooltip();
         $(".chat-sidebar").attr("class", "chat-sidebar ng-scope slideOutRight animated");
         setTimeout(function() {$(".chat-sidebar").fadeOut(0);});
         $(".mytogglechat").attr("style", "position: fixed; right: 0; bottom: 0;");
         $(".mytogglechat").attr("data-original-title", "הצג צ'אט");
         $("#mytogglechat").attr("class", "fa fa-angle-double-left");
-})
-
+});
 var boom = 0;
 function togglechat() {
     
@@ -34,17 +33,6 @@ function togglechat() {
     }
 }
 
-$('img').css('opacity', function () {
-    $(this).wrap("<div class='img-loading'></div>")
-    return '0';
-}).load(function () {
-    var img = $(this);
-    $(this).unwrap();
-    $(this).animate({
-        opacity: 1
-    }, 500);
-});
-
 var judoApp = angular.module("judoApp", [
   'ngRoute',
   'cloudinary',
@@ -59,7 +47,7 @@ judoApp.directive('loading', function () {
       return {
         restrict: 'E',
         replace:true,
-        template: '<div class="loading"></div>',
+        template: '<diheiv class="loading"></div>',
         link: function (scope, element, attr) {
               scope.$watch('loading', function (val) {
                   if (val)

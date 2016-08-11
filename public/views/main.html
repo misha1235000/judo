@@ -1,13 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="he">
   <head>
-    <meta charset="utf-8" name="viewport" content="width=device-width, user-scalable=no">
+    <meta charset="utf-8" name="viewport" content="width=device-width, user-scalable=no" describtion="The main page of the site.">
     <title>Judo Lior</title>
    <!-- <link type="text/css" rel="stylesheet" media="all" href="/assets/stylesheets/app.css">-->
     <!--The Links-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/assets/stylesheets/bootstrap.css">
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!--Import materialize.css-->
+      <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css">
     <link rel="stylesheet" href="/assets/stylesheets/mdb.css">
     <link rel="stylesheet" href="/assets/stylesheets/animate.css">
@@ -54,7 +57,7 @@
 
             <a href="#/" class="navbar-brand" font-size="28px" style="
     float: right;
-"><b><img src="/assets/images/slogo.jpg" class="img-circle hoverable hm-zoom slideInDown animated" style="max-height:22px;"> דף בית</b></a>
+"><b><img src="/assets/images/slogo.jpg" class="img-circle hoverable hm-zoom slideInDown animated" style="max-height:22px; opacity: initial !important;"> דף בית</b></a>
    <div class="navbar-header" style="
     float: left;
     width: 15%;
@@ -83,7 +86,7 @@
                   <a href="#/compet" ng-hide="1==1" onclick="scrollDown(0)" class="ng-hide">לוח תחרויות</a>
                 </li>
                 <li>
-                  <a class="navthird" href="#/contact" onclick="scrollDown(1);">צור קשר</a>
+                  <a class="navthird" href="#/contact" onclick="scrollDown(0)">צור קשר</a>
                 </li> 
                 <li>
                     <a data-toggle="modal" data-target="#loginm" ng-show="usr.firstName==''" class="loginbtnstyle navfourth">

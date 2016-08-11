@@ -803,5 +803,16 @@ a {
 }
 
 .img-loading {
-    background: url('/images/loaders/preload.gif') 50% 50% no-repeat;
+   / background: url('/assets/images/loaders/preload.gif') 50% 50% no-repeat;
+}
+
+@media only screen and (max-width : 700px) {
+    .changemapmob {
+        padding-left: 0px !important; padding-right: 0px !important;
+        top: 20px;
+    }
+    #gmap_canvas {
+        height: 260px !important;
+        margin-bottom: 50px;
+    }
 }
