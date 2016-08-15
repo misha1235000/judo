@@ -21,15 +21,17 @@ function togglechat() {
     if ($(".chat-sidebar").attr("class") == "chat-sidebar ng-scope" || $(".chat-sidebar").attr("class") == "chat-sidebar ng-scope slideInRight animated") {
         $(".chat-sidebar").attr("class", "chat-sidebar ng-scope slideOutRight animated");
         setTimeout(function() {$(".chat-sidebar").fadeOut("fast");}, 200);
-        $(".mytogglechat").attr("style", "position: fixed; right: 0; bottom: 0;");
+        $(".mytogglechat").attr("style", "position: fixed; right: 0; bottom: 0; display:none;");
         $(".mytogglechat").attr("data-original-title", "הצג צ'אט");
-        $("#mytogglechat").attr("class", "fa fa-angle-double-left");
+        $(".mytogglechat").attr("class", "mdl-button mdl-js-button mdl-button--icon mdl-button--colored mytogglechat slideInLeft animated");
+        $(".mytogglechat").fadeIn(0);
     } else {
         $(".chat-sidebar").attr("class", "chat-sidebar ng-scope slideInRight animated");
         setTimeout(function() {$(".chat-sidebar").fadeIn("fast");});
-        $(".mytogglechat").attr("style", "position: fixed; right: 150px; bottom:0;")
+        $(".mytogglechat").attr("style", "position: fixed; right: 160px; bottom:0; display:none;");
         $(".mytogglechat").attr("data-original-title", "הסתר צ'אט");
-        $("#mytogglechat").attr("class", "fa fa-angle-double-right");
+        $(".mytogglechat").attr("class", "mdl-button mdl-js-button mdl-button--icon mdl-button--colored mytogglechat slideInRight animated");
+        $(".mytogglechat").fadeIn(0);
     }
 }
 

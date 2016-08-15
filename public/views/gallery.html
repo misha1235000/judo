@@ -29,7 +29,7 @@
                                            <div class="col-md-10 col-xs-9 col-sm-9 col-lg-10" style="">
                                               <div class="row">
                                                <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
-                                               <h4 style="float:right; color: black !important;"><a class="namepic" data-toggle="modal" data-target="#postprof" ng-click="changePoster(pic.posterId)"><b>{{pic.posterName}} {{pic.posterLastName}}</b></a></h4>
+                                               <h4 style="float:right; color: black !important;"><a href="" class="namepic" data-toggle="modal" data-target="#postprof" ng-click="changePoster(pic.posterId)"><b>{{pic.posterName}} {{pic.posterLastName}}</b></a></h4>
                                                 </div>
                                                 <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12" style="color:#7A7A7A; text-align:right;">
                                                     {{pic.info}}
@@ -55,9 +55,8 @@
                                         </div>
                                         </div>
                                         <div ng-show="pic.isvideo == 0" style="padding-top:15px;">
+                                        <a href="" ng-click="changeSrc(pic.src, pic.title, pic.info, pic.id);" data-toggle="modal" ng-init="numis = 5;" data-target="#currimg">
                                         <img ng-src="{{pic.src}}" class="postpics thumbnail inline img-fluid" style=" height:380px; width:100%;"/>
-                                        <a ng-click="changeSrc(pic.src, pic.title, pic.info, pic.id);" data-toggle="modal" ng-init="numis = 5;" data-target="#currimg">
-                                            <div class="mask"></div>
                                         </a>
                                         </div>
                                         </div>
@@ -81,19 +80,14 @@
                                       </div>
                                       </div>
                                       <div class="col-md-3 col-sm-1 col-xs-1 col-lg-3"></div>
-                                       <div class="view overlay hm-white-slight hm-zoom img-circle" style="position: fixed;
-                                                                   bottom: 20px;
-                                                                   right: 20px;
-                                                                   width: 100px;
-                                                                   height: 100px;">
-                                       <img class="img-circle z-depth-1" src="/assets/images/signs/plus.png" style="position: fixed;
+                                       <div id="postpict" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" style="position: fixed;
                                                                    bottom: 30px;
-                                                                   right: 30px;
-                                                                   width: 80px;
-                                                                   height: 80px;">
-                                       <a  data-toggle="modal" data-target="#addimg" data-toggle="tooltip" data-placement="top" title="פרסם תמונה" ng-click="rstbtnn()">        
-                                                <div class="mask"></div>
-                                            </a>
+                                                                   left: 30px;" data-toggle="modal" data-target="#addimg" ng-click="rstbtnn()">
+                                       
+                                       <i class="material-icons">add</i>
+                                       </div>
+                                       <div class="mdl-tooltip mdl-tooltip--top" data-mdl-for="postpict">
+                                        פרסם תמונה
                                         </div>
                    <script type="text/javascript">
                                      /* setTimeout(function() {window.scrollTo(0, 900)}, 200);*/</script>

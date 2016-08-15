@@ -5,14 +5,16 @@
     <title>Judo Lior</title>
    <!-- <link type="text/css" rel="stylesheet" media="all" href="/assets/stylesheets/app.css">-->
     <!--The Links-->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <!--<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">-->
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">-->
     <link rel="stylesheet" href="/assets/stylesheets/bootstrap.css">
-    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-      <!--Import materialize.css-->
-      <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css">
+    <link rel="stylesheet" href="assets/stylesheets/material.css">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.2.0/material.blue-indigo.min.css" />
+<!--
     <link rel="stylesheet" href="/assets/stylesheets/mdb.css">
+-->
     <link rel="stylesheet" href="/assets/stylesheets/animate.css">
     <link rel="stylesheet" href="/assets/stylesheets/main.css">
     <!--<link rel="stylesheet" href="/assets/stylesheets/app.css">-->
@@ -46,7 +48,8 @@
         <script type="text/javascript" src="/assets/javascripts/services.js"></script>
         <script type="text/javascript" src="/assets/javascripts/bootstrap.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
-        <script type="text/javascript" src="/assets/javascripts/mdb.js"></script>
+        <script src="/assets/javascripts/material.js"></script>
+        <!--<script type="text/javascript" src="/assets/javascripts/mdb.js"></script>-->
         <script type="text/javascript" src="/assets/javascripts/tether.js"></script>
         <script type="text/javascript">function scrollDown(isreload) { /*setTimeout(function() {window.scrollTo(0, 900)}, 300); if(isreload == 1) {setTimeout(init_map, 100)}}*/}</script>
   </head>
@@ -121,7 +124,7 @@
               </ul>
             </div>
                  <span style="font-size:18px; padding-left:10px;" id="" ng-show="usr.firstName != ''" class="ng-hide">
-                   שלום <a class="fullname" data-toggle="modal" data-target="#profilem"><b class="ng-binding">{{usr.firstName}} {{usr.lastName}}</b></a>, <a ng-click="logout()">התנתק</a>
+                   שלום <a href="" class="fullname" data-toggle="modal" data-target="#profilem"><b class="ng-binding">{{usr.firstName}} {{usr.lastName}}</b></a>, <a href="" ng-click="logout()">התנתק</a>
               </span>
           </div>
          </div>
@@ -430,10 +433,16 @@
               </div>
             </div>
                  <div class="panel-footer">
-                        <a style="float:right;" ng-hide="usr.id == currusr.id" data-original-title="שלח הודעה" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary" ng-click="register_popup(currusr.id, currusr.firstName, currusr.lastName);" onClick="window.setTimeout(function() {$('#postprof').modal('toggle');}, 500);"><i class="fa fa-commenting-o"></i></a>
+                        <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" id="sendpm" style="float:right;" ng-hide="usr.id == currusr.id" ng-click="register_popup(currusr.id, currusr.firstName, currusr.lastName);" onClick="window.setTimeout(function() {$('#postprof').modal('toggle');}, 500);">
+                          <i class="material-icons">comment</i>
+                        </button>
                         <span style="">
-                            <a ng-show="usr.perm == 3" data-original-title="מחק" data-toggle="tooltip" type="button" class="btn btn-sm btn-danger" ng-click="removeusr(currusr.id);"><i class="fa fa-times"></i></a>
-                            <a ng-show="usr.perm == 3 || usr.id == currusr.id" data-original-title="ערוך משתמש" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning"><i class="fa fa-pencil"></i></a>
+                           <button class="mdl-button mdl-js-button mdl-button--icon" id="remusr" ng-show="usr.perm == 3" ng-click="removeusr(currusr.id);">
+                          <i class="material-icons">close</i>
+                            </button>
+                            <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" ng-show="usr.perm == 3 || usr.id == currusr.id" data-original-title="ערוך משתמש" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning">
+                            <i class="material-icons">edit</i>
+                            </button>
                         </span>
                     </div>
             
@@ -613,9 +622,14 @@
                         <input ng-hide="comments.length <= numis" type="button" class="btn btn-primary" value="תגובות ישנות יותר" ng-click="numis = numis + 3">
                     </div>
                     <div class="modal-footer">
-                        <textarea type="text" id="comment" class="md-textarea" dir="rtl" placeholder="כתוב את התגובה שלך כאן..."></textarea>
-                        <div class="wrongcom" dir="rtl"></div>
-                        <button type="button" class="commentbtn btn btn-primary waves-effect" ng-click="addComment()">שלח תגובה</button>
+                        <div class="row">
+                        <div class="col-md-10" style="padding-right:0px !important;">
+                        <textarea type="text" id="comment" class="md-textarea" dir="rtl" placeholder="כתוב את התגובה שלך כאן..." style="width:100%;"></textarea>
+                            </div>
+                        <div class="col-md-2" style="padding-left:0px !important;">
+                        <button type="button" class="commentbtn btn btn-primary waves-effect" ng-click="addComment()" style="width:100%; float:left;">שלח תגובה</button>
+                        </div>
+                        </div>
                     </div>
                 <!--/.Content-->
             </div>
@@ -759,10 +773,10 @@
       {{chtmodel}} AND {{form.input.$valid}}<br/>
        </form>-->
 <form name="form" ng-model="regex" ng-init="regex='^[a-zA-Z0-9.?!@#$%()*_+-\/-\ ;~א-תףךץ]+$'">
-    <input type="text" ng-model="model" ng-init="model=''" name="input" ng-pattern="regex" id="mycht" class="form-control" placeholder="כתוב הודעה..." autocomplete="off" style="background-color:white;  margin-top:5px; -webkit-box-sizing: border-box;     direction: rtl; right:5.6px;"/><br>
+    <input type="text" ng-model="model" ng-init="model=''" name="input" ng-pattern="regex" id="mycht" class="form-control" placeholder="כתוב הודעה..." autocomplete="off" style="background-color:white;  margin-top:5px; -webkit-box-sizing: border-box;     direction: rtl; right:5.6px; margin-left:7px;"/><br>
   </form>
    <span class="input-group-btn">
-        <button class="btn btn-primary" type="button" ng-click="changedChat()" ng-disabled="!form.input.$valid" style="height:105%;"><span class="fa fa-paper-plane"></span></button>
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" type="button" ng-click="changedChat()" ng-disabled="!form.input.$valid" style=""><i class="material-icons">send</i></button>
       </span>
     </div>
     </div>
@@ -772,11 +786,11 @@
 </div>
           
 
-<a ng-show="usr.perm > 0;" type="button" class="mytogglechat btn btn-lg btn-primary" style="position:fixed; bottom:0; right:0;" onClick="togglechat();"><i class="fa fa-angle-double-left" id="mytogglechat"></i><i ng-show="newMsgs > 0" class="fa fa-envelope" style="
+      <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored mytogglechat" ng-show="usr.perm > 0;" type="button" style="position:fixed; bottom:0; right:0;" onClick="togglechat();"><span class="material-icons">chat</span><i ng-show="newMsgs > 0" class="material-icons" style="
     position: absolute;
     color: red;
     top: -10px;
-    left: -7px;"></i></a>
+          left: -7px;">add</i></button>
         <script type="text/javascript">
             $('#fm').on('shown.bs.modal', function () {
                 $('#myInput').focus()
