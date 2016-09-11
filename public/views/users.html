@@ -3,12 +3,22 @@
 
         <div class="row">
             <div class="col-md-1 col-sm-1 col-xs-1"></div>
+        
         <div class="col-md-10 col-sm-10 col-xs-10">
-            <div class="md-form">
-                <i class="fa fa-search prefix" style="float:right; position:relative;"></i>
-                <input ng-model="searchText" type="text" id="form2" class="form-control" style="color:white;">
-                <label for="form2">חיפוש משתמשים</label>
-            </div>
+             <div class="input-group input-group-lg" style="position:relative; bottom:5px; width:35% !important; float:right;">
+                 <span class="input-group-addon" id="sizing-addon1"><i class="material-icons" style="font-size:initial !important;">search</i></span>
+              <input type="text" class="form-control" placeholder="חפש משתמשים..." aria-describedby="sizing-addon1" ng-model="searchText" style="direction:rtl; text-align:right;">
+             </div>
+             
+             <!-- <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable" style="float: right; border:outset; background-color:white; bottom: 10px; height: 25px; border-radius:1000px;">
+                <label class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" for="sample6" style="top:6px !important;" id="srch">
+                  <i class="material-icons">search</i>
+                </label>
+                <div class="mdl-textfield__expandable-holder" style="bottom:5px;">
+                  <input class="input_form" type="text" id="sample6" ng-model="searchText" style="color:black; direction:rtl; text-align:right; padding: 0px 3px !important;">
+                  <label class="mdl-textfield__label" for="sample-expandable">Expandable Input</label>
+                </div>
+              </div>-->
         </div>
     </div>
     <div class="row">
@@ -19,7 +29,7 @@
                     <div class="table-responsive" dir="rtl">
                         <table class="table user-list table-hover">
                             <thead>
-                                <tr>
+                               <tr>
                                 <th style="text-align:right"><span>משתמש</span></th>
                                 </tr>
                             </thead>

@@ -48,6 +48,8 @@ public class authenticationController extends Controller {
 						return ok(rs.getString("firstname"));
 					}
 				}
+				
+				return ok();
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}
@@ -105,7 +107,7 @@ public class authenticationController extends Controller {
 				}
 				
 				int nRows = stmt.executeUpdate("INSERT INTO t_users values(" + nIndex + ", '" + user + "', '" + pass
-						+ "', '" + name + "' ,'" + lastname + "', '" + email + "', 1, '/assets/images/profile/unknown.jpg'), ''");
+						+ "', '" + name + "' ,'" + lastname + "', '" + email + "', 1, '/assets/images/profile/unknown.jpg', '')");
 
 				if (nRows > 0) {
 					return ok("המשתמש נוצר בהצלחה");

@@ -1,7 +1,8 @@
-/*$(window).load(function() {
+$(window).load(function() {
     // Animate loader off screen
     $(".se-pre-con").fadeOut(2000);
-});*/
+    
+});
 
 
 
@@ -13,6 +14,8 @@ $(document).ready(function() {
         $(".mytogglechat").attr("style", "position: fixed; right: 0; bottom: 0;");
         $(".mytogglechat").attr("data-original-title", "הצג צ'אט");
         $("#mytogglechat").attr("class", "fa fa-angle-double-left");
+        setTimeout(function() {$("#myCarousel").carousel().change();}, 1000);
+        
 });
 var boom = 0;
 function togglechat() {
@@ -112,6 +115,13 @@ function Notify(titleText, bodyText)
 judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$location', 'Upload', 'cloudinary', function($rootScope, $http, $routeParams, $location, $upload, cloudinary) {
     $rootScope.loaded = false;
     var regex = RegExp(/^[a-zA-Z0-9.?!@#$%()*_+-\/-\ ;~א-תףךץ]+$/);
+            $rootScope.ChatInputChange = function(event) {
+                
+                if (window.event.keyCode == 13) {
+                    $rootScope.changedChat();
+                }
+            }
+            
             $rootScope.changedChat = function() {
                 if (regex.test($("#mycht").val()) && $("#mycht").val()) {
                     var sent = $("#mycht").val();
@@ -445,7 +455,10 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
     
     $rootScope.addNews = function() {
         $http.post('/news/add', {'message':$("#message").val()}).success(function(data) {
-           swal("המודעה נוספה בהצלחה", "" ,"success");
+          var snackbarContainer = document.querySelector('#demo-toast-example');
+          var showToastButton = document.querySelector('#demo-show-toast');
+          var msgdata = {message: 'המודעה נוספה בהצלחה'};
+          snackbarContainer.MaterialSnackbar.showSnackbar(msgdata);
            $rootScope.news.push(data);
          // location.reload();
         }).error(function() {
@@ -460,7 +473,11 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
                     $rootScope.news[i].hidden = true;
                 }
             }
-            swal("המודעה נמחקה בהצלחה", "" ,"success");
+          var snackbarContainer = document.querySelector('#demo-toast-example');
+          var showToastButton = document.querySelector('#demo-show-toast');
+          var data = {message: 'המודעה נמחקה בהצלחה'};
+          snackbarContainer.MaterialSnackbar.showSnackbar(data);
+           // swal("המודעה נמחקה בהצלחה", "" ,"success");
       //      location.reload();
         }).error(function() {
             

@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="/assets/stylesheets/bootstrap.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css">
-    <link rel="stylesheet" href="assets/stylesheets/material.css">
+  <!--  <link rel="stylesheet" href="assets/stylesheets/material.min.css">-->
     <link rel="stylesheet" href="https://code.getmdl.io/1.2.0/material.blue-indigo.min.css" />
 <!--
     <link rel="stylesheet" href="/assets/stylesheets/mdb.css">
@@ -42,13 +42,14 @@
     <script type='text/javascript' src="/assets/javascripts/jquery.cloudinary.js"></script>
        <script type='text/javascript' src="/assets/javascripts/ng-file-upload.js"></script>
         
-        <script type="text/javascript" src="/assets/javascripts/main.js"></script>
-        <script type="text/javascript" src="/assets/javascripts/config.js"></script>
+        
          <script type="text/javascript" src="/assets/javascripts/animations.js"></script>
         <script type="text/javascript" src="/assets/javascripts/services.js"></script>
         <script type="text/javascript" src="/assets/javascripts/bootstrap.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
-        <script src="/assets/javascripts/material.js"></script>
+        <script src="/assets/javascripts/material.min.js"></script>
+        <script type="text/javascript" src="/assets/javascripts/main.js"></script>
+        <script type="text/javascript" src="/assets/javascripts/config.js"></script>
         <!--<script type="text/javascript" src="/assets/javascripts/mdb.js"></script>-->
         <script type="text/javascript" src="/assets/javascripts/tether.js"></script>
         <script type="text/javascript">function scrollDown(isreload) { /*setTimeout(function() {window.scrollTo(0, 900)}, 300); if(isreload == 1) {setTimeout(init_map, 100)}}*/}</script>
@@ -141,28 +142,31 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
-                        <h3><i class="fa fa-user"></i> התחברות</h3>
+                        <center><h3><i class="material-icons">person</i> התחברות </h3></center>
                     </div>
                     <!--Body-->
                     <div class="modal-body">
-                        <div class="md-form">
-                            <i class="fa fa-envelope prefix"></i>
-                            <input type="text" id="username" class="form-control">
-                            <label for="username">שם משתמש</label>
+                         <div class="row md-form" style="direction: rtl;">
+                          <div class="col-md-3 col-xs-3 col-sm-3"></div>
+                        <input type="text" id="username" class="form-control col-md-8 col-xs-8 col-sm-8" style="width:66%;" placeholder="שם משתמש">
+                          <i class="material-icons col-md-1 col-sm-1 col-xs-1" style="padding-left: 7px;top: 4px;">person</i>
                         </div>
+                        <br>
 
-                        <div class="md-form">
-                            <i class="fa fa-lock prefix"></i>
-                            <input type="password" id="pass" class="form-control">
-                            <label for="pass">סיסמא</label>
+                        <div class="row md-form" style="direction:rtl;">
+                            <div class="col-md-3 col-xs-3 col-sm-3"></div>
+                            <input type="password" id="pass" class="form-control col-md-8 col-xs-8 col-sm-8" style="width:66%;" placeholder="סיסמא">
+                            <i class="material-icons col-md-1 col-sm-1 col-xs-1" style="padding-left: 7px;top: 4px;">lock</i>
                         </div>
                          <div id="wronglog" dir="rtl">
 
                         </div>
                         <div class="text-xs-center">
-                            <button class="btn btn-primary waves-effect btn-lg" ng-click="login()">התחברות</button>
+                            <button class="btn btn-primary waves-effect btn-lg" ng-click="login()" style="position:relative; top:10px;">התחברות</button>
                             <a data-toggle="modal" data-target="#registerm" style="float:right;" onClick="$('#loginm').modal('hide');">
-                                <b>יצירת משתמש</b>
+                                <b style="position: absolute;
+                                          bottom: 10px;
+                                          right: 10px;">יצירת משתמש</b>
                             </a>
                         </div>
                     </div>
@@ -202,15 +206,16 @@
                                     <td ng-hide="new.hidden == true">{{new.message}}</td>
                                     <td ng-hide="new.hidden == true">{{new.date}}</td>
                                     <td ng-hide="new.hidden == true">{{new.time}}</td>
-                                    <td ng-hide="new.hidden == true"><button class="btn btn-danger waves-effect btn-sm" ng-click="deleteNew(new.id)"  ng-show="usr.perm >= 2">X</button></td>
+                                    <td ng-hide="new.hidden == true"><button id="demo-show-toast" class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" style="color:red;" ng-click="deleteNew(new.id)"  ng-show="usr.perm >= 2"><i class="material-icons">close</i></button></td>
+                                    
                                 </tr>
                             </table>
                             </div>
                         </form>
                 <!-- <button class="btn btn-primary btn-lg" ng-click="addNews()">הוסף מודעה</button>-->
                    <!-- Button trigger modal -->
-                <button type="button" class="btn btn-primary waves-effect btn-lg" data-toggle="modal" data-target="#addnewm" ng-show="usr.perm >= 2">
-                    הוסף מודעה
+                <button type="button" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored" data-toggle="modal" data-target="#addnewm" ng-show="usr.perm >= 2">
+                  <i class="material-icons">add</i>
                 </button>
                 </div>
                 <!--/.Content-->
@@ -219,7 +224,11 @@
       </div>
         <!-- /.MESSAGES Modal END-->
         
-        
+ 
+<div id="demo-toast-example" class="mdl-js-snackbar mdl-snackbar" style="z-index:5000; text-align:right; direction:rtl;">
+    <center><div class="mdl-snackbar__text" style="text-align:center;"></div></center>
+  <button class="mdl-snackbar__action" type="button"></button>
+</div>      
         <!-- NEW MESSAGE MODAL -->
 <div class="modal fade" id="addnewm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" dir="rtl">
     <div class="modal-dialog" role="document" dir="rtl">
@@ -237,11 +246,14 @@
             <!--Body-->
             <div class="modal-body" dir="rtl">
                 <!--Textarea with icon prefix-->
-                <div class="md-form" dir="ltr">
-                <i class="fa fa-pencil prefix"></i>
-                    <textarea type="text" id="message" class="md-textarea" dir="rtl"></textarea> 
-                    <label for="form8"></label>
+                <div class="row md-form" dir="ltr">
+                    <textarea class="col-md-11 col-sm-11 col-xs-11" type="text" id="message" dir="rtl" style="
+                " placeholder="כתוב מודעה..."></textarea>
+                  <i class="material-icons col-md-1 col-sm-1 col-xs-1" style="
+                    padding-left: 0px;
+                ">edit</i>
                 </div>
+                <br/>
                 <button type="button" class="btn btn-primary waves-effect" ng-click="addNews()" data-dismiss="modal">הוסף</button>
             </div>
 
@@ -321,34 +333,47 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
-                        <center><h3><a href="#" ngf-select="uploadprof($files)" multiple title="upload" resetOnClick="true"><i class="fa fa-pencil"></i></a><img ng-src="{{usr.profilepic}}" class="img-circle" width="50px" height="50px">פרופיל</h3></center>
+                        <div class="row">
+                        <center><h3><img ng-src="{{usr.profilepic}}" class="img-circle" width="100px" height="100px"><a href="#" ngf-select="uploadprof($files)" multiple title="upload" resetOnClick="true" style="position: relative;
+    right: 20px;
+    top: 45px;"><i class="material-icons">edit</i></a></h3></center>
+                        </div>
                     </div>
                     <!--Body-->
-                    <div class="modal-body">
+                    <div class="modal-body" direction="rtl">
                         <!--Email validation-->
-                        <div class="md-form">
-                            <i class="fa fa-user prefix"></i>
-                            <input type="text" id="updname" class="form-control" value="{{usr.firstName}}">
+                        <div class="row md-form" style="direction: rtl;">
+                          <div class="col-md-3 col-xs-3 col-sm-3"></div>
+                        <input type="text" id="updname" class="form-control col-md-8 col-xs-8 col-sm-8" style="width:66%;" placeholder="שם פרטי" value="{{usr.firstName}}">
+                          <i class="material-icons col-md-1 col-sm-1 col-xs-1" style="padding-left: 7px;top: 4px;">person</i>
                         </div>
-                        <div class="md-form">
-                            <i class="fa fa-user prefix"></i>
-                            <input type="text" id="updlastname" class="form-control" value="{{usr.lastName}}">
+                        <br/>
+                        <div class="row md-form" style="direction: rtl;">
+                          <div class="col-md-3 col-xs-3 col-sm-3"></div>
+                        <input type="text" id="updlastname" class="form-control col-md-8 col-xs-8 col-sm-8" style="width:66%;" placeholder="שם משפחה" value="{{usr.lastName}}">
+                          <i class="material-icons col-md-1 col-sm-1 col-xs-1" style="padding-left: 7px;top: 4px;">person</i>
                         </div>
-                        <div class="md-form">
-                            <i class="fa fa-envelope prefix"></i>
-                            <input type="email" id="updemail" class="form-control validate" value="{{usr.email}}">
+                        <br/>
+                        <div class="row md-form" style="direction: rtl;">
+                          <div class="col-md-3 col-xs-3 col-sm-3"></div>
+                        <input type="text" id="updemail" class="form-control col-md-8 col-xs-8 col-sm-8" style="width:66%;" placeholder='דוא"ל' value="{{usr.email}}">
+                          <i class="material-icons col-md-1 col-sm-1 col-xs-1" style="padding-left: 7px;top: 4px;">mail</i>
                         </div>
+                        <br/>
                        
-                        <div class="md-form">
-                            <i class="fa fa-lock prefix"></i>
-                            <input type="password" id="updpass" class="form-control" value="{{usr.pass}}">
+                        <div class="row md-form" style="direction: rtl;">
+                          <div class="col-md-3 col-xs-3 col-sm-3"></div>
+                        <input type="text" id="updpass" class="form-control col-md-8 col-xs-8 col-sm-8" style="width:66%;" placeholder="סיסמא" value="">
+                          <i class="material-icons col-md-1 col-sm-1 col-xs-1" style="padding-left: 7px;top: 4px;">lock</i>
                         </div>
+                        <br/>
 
-                        <div class="md-form">
-                            <i class="fa fa-lock prefix"></i>
-                            <input type="password" id="updpassconf" class="form-control">
-                            <label for="form4">אימות סיסמא</label>
+                        <div class="row md-form" style="direction: rtl;">
+                          <div class="col-md-3 col-xs-3 col-sm-3"></div>
+                        <input type="text" id="updpassconf" class="form-control col-md-8 col-xs-8 col-sm-8" style="width:66%;" placeholder="אימות סיסמא" value="">
+                          <i class="material-icons col-md-1 col-sm-1 col-xs-1" style="padding-left: 7px;top: 4px;">lock</i>
                         </div>
+                        <br/>
                         
                         <div id="wrongupd" dir="rtl">
                         </div>
@@ -380,6 +405,9 @@
                     <div class="modal-body">
                         <div class="panel panel-info" style="border: none;">
             <div class="panel-heading" dir="rtl" style="background-color: #AAAAAA; border:none; color:white; border:none !important;">
+              <button class="mdl-button mdl-js-button mdl-button--icon" style="float:left;">
+               <i class="material-icons" data-dismiss="modal">close</i>
+                </button>
                 <h3 class="panel-title"><b>{{currusr.firstName}} {{currusr.lastName}}</b></h3>
             </div>
             <div class="panel-body" dir="rtl">
@@ -433,11 +461,11 @@
               </div>
             </div>
                  <div class="panel-footer">
-                        <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" id="sendpm" style="float:right;" ng-hide="usr.id == currusr.id" ng-click="register_popup(currusr.id, currusr.firstName, currusr.lastName);" onClick="window.setTimeout(function() {$('#postprof').modal('toggle');}, 500);">
+                        <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" id="sendpm" direction="ltr" ng-hide="usr.id == currusr.id" ng-click="register_popup(currusr.id, currusr.firstName, currusr.lastName);" onClick="window.setTimeout(function() {$('#postprof').modal('toggle');}, 500);">
                           <i class="material-icons">comment</i>
                         </button>
                         <span style="">
-                           <button class="mdl-button mdl-js-button mdl-button--icon" id="remusr" ng-show="usr.perm == 3" ng-click="removeusr(currusr.id);">
+                           <button class="mdl-button mdl-js-button mdl-button--icon" id="remusr" ng-show="usr.perm == 3" ng-click="removeusr(currusr.id);" style="color:red;">
                           <i class="material-icons">close</i>
                             </button>
                             <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" ng-show="usr.perm == 3 || usr.id == currusr.id" data-original-title="ערוך משתמש" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning">
@@ -467,49 +495,55 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
-                        <h3><i class="fa fa-user"></i>הרשמה</h3>
+                        <center><h3><i class="material-icons">person_add</i> הרשמה</h3></center>
                     </div>
                     <!--Body-->
-                    <div class="modal-body">
+                    <div class="modal-body" style="direction:rtl;">
                         <!--Email validation-->
-                        <div class="md-form">
-                            <i class="fa fa-user prefix"></i>
-                            <input type="text" id="regname" class="form-control">
-                            <label for="form2">שם פרטי</label>
+                        <div class="row md-form" style="direction: rtl;">
+                          <div class="col-md-3 col-xs-3 col-sm-3"></div>
+                        <input type="text" id="regname" class="form-control col-md-8 col-xs-8 col-sm-8" style="width:66%;" placeholder="שם פרטי">
+                          <i class="material-icons col-md-1 col-sm-1 col-xs-1" style="padding-left: 7px;top: 4px;">person</i>
                         </div>
-                        <div class="md-form">
-                            <i class="fa fa-user prefix"></i>
-                            <input type="text" id="reglastname" class="form-control">
-                            <label for="form2">שם משפחה</label>
+                        <br/>
+                        <div class="row md-form" style="direction: rtl;">
+                          <div class="col-md-3 col-xs-3 col-sm-3"></div>
+                        <input type="text" id="reglastname" class="form-control col-md-8 col-xs-8 col-sm-8" style="width:66%;" placeholder="שם משפחה">
+                          <i class="material-icons col-md-1 col-sm-1 col-xs-1" style="padding-left: 7px;top: 4px;">person</i>
                         </div>
-                        <div class="md-form">
-                            <i class="fa fa-envelope prefix"></i>
-                            <input type="email" id="regemail" class="form-control validate">
-                            <label for="form9" data-error="לא-חוקי" data-success="חוקי">דוא"ל</label>
+                        <br/>
+                        <div class="row md-form" style="direction: rtl;">
+                          <div class="col-md-3 col-xs-3 col-sm-3"></div>
+                        <input type="text" id="regemail" class="form-control col-md-8 col-xs-8 col-sm-8" style="width:66%;" placeholder='דוא"ל'>
+                          <i class="material-icons col-md-1 col-sm-1 col-xs-1" style="padding-left: 7px;top: 4px;">mail</i>
                         </div>
+                        <br/>
 
-                        <div class="md-form">
-                            <i class="fa fa-user prefix"></i>
-                            <input type="text" id="reguser" class="form-control">
-                            <label for="form2">שם משתמש</label>
+                        <div class="row md-form" style="direction: rtl;">
+                          <div class="col-md-3 col-xs-3 col-sm-3"></div>
+                        <input type="text" id="reguser" class="form-control col-md-8 col-xs-8 col-sm-8" style="width:66%;" placeholder="שם משתמש">
+                          <i class="material-icons col-md-1 col-sm-1 col-xs-1" style="padding-left: 7px;top: 4px;">person</i>
                         </div>
+                        <br/>
                        
-                        <div class="md-form">
-                            <i class="fa fa-lock prefix"></i>
-                            <input type="password" id="regpass" class="form-control">
-                            <label for="form3">סיסמא</label>
+                        <div class="row md-form" style="direction: rtl;">
+                          <div class="col-md-3 col-xs-3 col-sm-3"></div>
+                        <input type="text" id="regpass" class="form-control col-md-8 col-xs-8 col-sm-8" style="width:66%;" placeholder="סיסמא">
+                          <i class="material-icons col-md-1 col-sm-1 col-xs-1" style="padding-left: 7px;top: 4px;">lock</i>
                         </div>
+                        <br/>
 
-                        <div class="md-form">
-                            <i class="fa fa-lock prefix"></i>
-                            <input type="password" id="regpassconf" class="form-control">
-                            <label for="form4">אימות סיסמא</label>
+                        <div class="row md-form" style="direction: rtl;">
+                          <div class="col-md-3 col-xs-3 col-sm-3"></div>
+                        <input type="text" id="regpassconf" class="form-control col-md-8 col-xs-8 col-sm-8" style="width:66%;" placeholder="אימות סיסמא">
+                          <i class="material-icons col-md-1 col-sm-1 col-xs-1" style="padding-left: 7px;top: 4px;">lock</i>
                         </div>
+                        <br/>
                         
                         <div id="wrongreg" dir="rtl">
                         </div>
                         
-                        <div class="text-xs-center">
+                        <div class="text-xs-center" style="direction:ltr;">
                             <button class="btn btn-primary waves-effect btn-lg" ng-click="checkValid()">הירשם</button>
                         </div>
                     </div>
@@ -588,16 +622,32 @@
                     <!--Header-->
                     <!--Body-->
                     <div class="modal-body">
-                        <img class="mysrcyus thumbnail inline" style="height: 30vh; width:100%;">
+                        <img class="mysrcyus thumbnail inline" style="/*height: 30vh; width:100%;*/max-height: 480px;max-width: 100%; margin:auto;">
                     </div>
                     <br/>
                     <center><div class="myinfoyus md-form" dir="rtl">
                     </div></center>
                     <hr>
                     <br/>
+                    <div class="" ng-show="comments.length == 0" style="
+    text-align: center;
+    background-color: #FFCCCC;
+    position: relative;
+    bottom: 15px;
+    margin: auto;
+    border-radius: 6px;
+    height: 40px;
+    width: 90%;
+    font-weight: bold;">
+  <span style="
+    position: relative;
+    top: 8px;
+">אין תגובות להצגה</span>
+</div>
                     <div class="commentcls md-form" dir="rtl" style="overflow-y: auto;
                                                                      max-height: calc(250px);">
                                                                     <center><div class='uil-ring-css' style='transform:scale(0.30);' ng-show="postloading"><div></div></div></center>
+                   
                         <ul class="row" ng-repeat="comment in comments | limitTo:numis" style="margin-left: 0px !important; margin-right: 0px !important;">
                         
                         
@@ -623,12 +673,14 @@
                     </div>
                     <div class="modal-footer">
                         <div class="row">
-                        <div class="col-md-10" style="padding-right:0px !important;">
+                        <div class="col-md-2 col-xs-2 col-sm-2" style="">
+                        <button type="button" class="commentbtn btn btn-primary waves-effect" ng-click="addComment()">שלח תגובה</button>
+                        </div>
+                        <div class="col-md-1 col-xs-1 col-sm-1"></div>
+                        <div class="col-md-9 col-sm-9 col-xs-9" style="">
                         <textarea type="text" id="comment" class="md-textarea" dir="rtl" placeholder="כתוב את התגובה שלך כאן..." style="width:100%;"></textarea>
                             </div>
-                        <div class="col-md-2" style="padding-left:0px !important;">
-                        <button type="button" class="commentbtn btn btn-primary waves-effect" ng-click="addComment()" style="width:100%; float:left;">שלח תגובה</button>
-                        </div>
+                        
                         </div>
                     </div>
                 <!--/.Content-->
@@ -747,7 +799,7 @@
                     <div class="popup-head-left"><a ng-click="close_popup(current.id); ">✕</a></div>
                      <div class="popup-head-right ng-binding">{{currname}}</div>
                         <div style="clear: both"></div></div>
-<div class="popup-messages scrollbar" id="style-11" style="width:100%; height:75%;background-color:transparent;">
+<div class="popup-messages scrollbar" id="style-11" style="width:100%; height:75%;background-color:transparent; position:relative; top:5px;">
     <center><div class='uil-ring-css' style='transform:scale(0.30);' ng-show="loading"><div></div></div></center>
       <div class="force-overflow" ng-hide="loading" style="min-height:initial !important;">
   <div class="row" style="" ng-repeat="cht in chat">
@@ -766,22 +818,37 @@
 <div class="col-md-12" style="position:absolute; bottom: 0; padding-right:0px; margin-left:7px;">
 <!--<input type="text" id="mycht" style="direction:rtl; height: 30px; border:none; background-color:white; color:black; resize: none; border-radius:6px;
 " ng-keyup="changedChat()"/>-->
-   <div class="input-group" style="direction:rtl;" ng-hide="loading">
+   <div class="input-group" style="direction:rtl;bottom:3px;" ng-hide="loading" >
       
      <!-- <form name="form">
       <input ng-model="chtmodel" name="input" ng-pattern="^[a-zA-Z0-9.?!@#$%()*_+-\/-\ ;~א-תףךץ]+$" id="mycht" type="text" class="form-control" placeholder="כתוב הודעה..." style="background-color:white; border:double; margin-top:5px; border-radius:4px; -webkit-box-sizing: border-box;     direction: rtl;">
       {{chtmodel}} AND {{form.input.$valid}}<br/>
        </form>-->
 <form name="form" ng-model="regex" ng-init="regex='^[a-zA-Z0-9.?!@#$%()*_+-\/-\ ;~א-תףךץ]+$'">
-    <input type="text" ng-model="model" ng-init="model=''" name="input" ng-pattern="regex" id="mycht" class="form-control" placeholder="כתוב הודעה..." autocomplete="off" style="background-color:white;  margin-top:5px; -webkit-box-sizing: border-box;     direction: rtl; right:5.6px; margin-left:7px;"/><br>
+    <input type="text" ng-model="model" ng-init="model=''" name="input" ng-pattern="regex" id="mycht" class="form-control" placeholder="כתוב הודעה..." autocomplete="off" style="margin-top: 5px;
+    box-sizing: border-box;
+    direction: rtl;
+    right: 5.6px;
+    margin-left: 7px;
+    background-color: white;
+    border-radius: 0px;
+    bottom: 1px;" ng-keyup="ChatInputChange(event)"/><br>
   </form>
    <span class="input-group-btn">
-        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" type="button" ng-click="changedChat()" ng-disabled="!form.input.$valid" style=""><i class="material-icons">send</i></button>
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" type="button" ng-click="changedChat()" ng-disabled="!form.input.$valid" style="    top: 2px;
+    height: 34px;
+    padding-right: 10px;
+    border-radius: 0px;
+    min-width: initial;
+    width: 40px;
+    padding-right: 6px;"><i class="material-icons" style="position: relative;
+    bottom: 3.5px;
+    right: 3px;
+    transform: rotate(218deg);">send</i></button>
       </span>
     </div>
     </div>
     </div>
-
         
 </div>
           
@@ -798,18 +865,15 @@
             $('#profilem').on('hide.bs.modal', function() {
                 $('#updpassconf').val("");
             });
-            $('#profilem').draggable();
              $('#newsm').on('shown.bs.modal', function () {
                 $('#myInput').focus()
-            });
-            $('#newsm').draggable();   
+            });  
              $('#addnewm').on('shown.bs.modal', function () {
                 $('#message').focus()
             });
             $('#addnewm').on('hide.bs.modal', function() {
                $('#message').val("");
             });
-            $('#addnewm').draggable();
              $('#registerm').on('shown.bs.modal', function () {
                 $('#regname').focus()
                 
@@ -839,7 +903,6 @@
                $('#pass').val("");
                $('#wronglog').html("");
             });
-            $('#loginm').draggable();
             $('#addimg').on('hide.bs.modal', function() {
                $('.infoim').html("");
                $('.file').html("");
@@ -847,8 +910,6 @@
                $('#picaddinf').val("")
                 file = "";
             });
-            $('#addimg').draggable();
-            $('#postprof').draggable();
          /*   $('.navfirst').on('click', function(){
                 $('.navbar-toggle').click()
             });
