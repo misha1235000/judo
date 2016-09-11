@@ -1,0 +1,3 @@
+DROP TABLE t_users;
+CREATE TABLE t_users(msgfrom INTEGER, msgto INTEGER, amount INTEGER);
+COMMIT;

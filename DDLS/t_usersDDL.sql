@@ -7,6 +7,7 @@ CREATE TABLE t_users(id INTEGER PRIMARY KEY,
 					 lastname  varchar(100),
 					 email	   varchar(100),
 					 perm	   INTEGER,
-					 profilepic varchar(500));
+					 profilepic varchar(500),
+					 newmsg	   varchar(10000));
 CREATE SEQUENCE users_seq;
 COMMIT;

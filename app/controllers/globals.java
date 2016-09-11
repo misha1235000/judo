@@ -35,11 +35,11 @@ public class globals {
 				/*	props.setProperty("user", "judorsa_1440");
 					props.setProperty("password", "dvpuX2KrnZDJAoI--T5u");
 					props.setProperty("sslmode", "disable");*/
-					props.setProperty("user", "judoisr_5644");
-					props.setProperty("password", "XVGjD0gvLda4qCYymEcH");
+					props.setProperty("user", "judosite_3209");
+					props.setProperty("password", "QOzKda5Q9_gG44BJSNL6");
 					props.setProperty("sslmode", "disable");
-//				 con = DriverManager.getConnection(
-//					 "jdbc:postgresql://judoisr-5644.postgresql.dbs.appsdeck.eu:30496/judoisr_5644", props);
+				 con = DriverManager.getConnection(
+					 "jdbc:postgresql://judosite-3209.postgresql.dbs.appsdeck.eu:30769/judosite_3209", props);
 					
 			/*	 con = DriverManager.getConnection(
 					 "jdbc:postgresql://judorsa-1440.postgresql.dbs.appsdeck.eu:30556/judorsa_1440", props);*/
@@ -54,8 +54,8 @@ public class globals {
 					 */
 					// con = DriverManager.getConnection(
 					// "jdbc:postgresql://adminukvryp3:UDrcy6LHnakS@judonow-meitav.rhcloud.com:5432/judonow");
-					 con = DriverManager.getConnection(
-					 "jdbc:postgresql://localhost/mydb", "postgres", "postgres");
+//					 con = DriverManager.getConnection(
+//					 "jdbc:postgresql://localhost/mydb", "postgres", "postgres");
 					if (con != null) {
 						System.out.println("connected!@~#!@#@~!$~$~@!~(*");
 					} else {

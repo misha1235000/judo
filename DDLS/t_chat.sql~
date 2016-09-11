@@ -1,0 +1,11 @@
+DROP TABLE t_chat;
+DROP SEQUENCE chat_seq;
+CREATE TABLE t_users(	 id 	    INTEGER PRIMARY KEY,
+			 msgfrom    INTEGER,
+			 msgto	    INTEGER,
+			 date	    varchar(1000),
+			 time	    varchar(1000),
+			 msg	    varchar(10000),
+			 profilepic varchar(1000));
+CREATE SEQUENCE chat_seq;
+COMMIT;
