@@ -4,8 +4,8 @@
         <div class="row">
             <div class="col-md-1 col-sm-1 col-xs-1"></div>
         
-        <div class="col-md-10 col-sm-10 col-xs-10">
-             <div class="input-group input-group-lg" style="position:relative; bottom:5px; width:35% !important; float:right;">
+        <div class="col-md-10 col-sm-10 col-xs-10" style="padding:1px;">
+             <div class="input-group input-group-lg" style="z-index: 0; position:relative; bottom:5px; width:100% !important; float:right;">
                  <span class="input-group-addon" id="sizing-addon1"><i class="material-icons" style="font-size:initial !important;">search</i></span>
               <input type="text" class="form-control" placeholder="חפש משתמשים..." aria-describedby="sizing-addon1" ng-model="searchText" style="direction:rtl; text-align:right;">
              </div>
@@ -38,8 +38,13 @@
                                     <td>
                                         <img class="img-circle" ng-src="{{currentusr.profilepic}}" alt="">
                                         <a class="user-link">{{currentusr.firstName}} {{currentusr.lastName}}</a>
-                                        <span class="user-subhead">{{currentusr.permdisp}}</span>
                                     </td>
+                                    <td>
+                                        <span class="user-subhead" style="color:#5A5A5A; font-size:15px;">
+                                            <i class="material-icons" style="cursor:default;">{{currentusr.permdisp}}</i>
+                                        </span>
+                                    </td>
+                                    
                                 </tr>
                             </tbody>
                         </table>

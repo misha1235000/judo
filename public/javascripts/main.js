@@ -11,7 +11,7 @@ $(document).ready(function() {
         $('[data-toggle="tooltip"]').tooltip();
         $(".chat-sidebar").attr("class", "chat-sidebar ng-scope slideOutRight animated");
         setTimeout(function() {$(".chat-sidebar").fadeOut(0);});
-        $(".mytogglechat").attr("style", "position: fixed; right: 0; bottom: 0;");
+        $(".mytogglechat").attr("style", "position:fixed; bottom:10px; right:0px; color:rgb(33,150,243); cursor:pointer;");
         $(".mytogglechat").attr("data-original-title", "הצג צ'אט");
         $("#mytogglechat").attr("class", "fa fa-angle-double-left");
         setTimeout(function() {$("#myCarousel").carousel().change();}, 1000);
@@ -24,16 +24,19 @@ function togglechat() {
     if ($(".chat-sidebar").attr("class") == "chat-sidebar ng-scope" || $(".chat-sidebar").attr("class") == "chat-sidebar ng-scope slideInRight animated") {
         $(".chat-sidebar").attr("class", "chat-sidebar ng-scope slideOutRight animated");
         setTimeout(function() {$(".chat-sidebar").fadeOut("fast");}, 200);
-        $(".mytogglechat").attr("style", "position: fixed; right: 0; bottom: 0; display:none;");
+        $(".mytogglechat").attr("style", "position:fixed; bottom:10px; right:0px; color:rgb(33,150,243); cursor:pointer;");
         $(".mytogglechat").attr("data-original-title", "הצג צ'אט");
-        $(".mytogglechat").attr("class", "mdl-button mdl-js-button mdl-button--icon mdl-button--colored mytogglechat slideInLeft animated");
+        $(".mytogglechat").attr("class", "material-icons mdl-badge mdl-badge--overlap mytogglechat slideInLeft animated");
+        
         $(".mytogglechat").fadeIn(0);
     } else {
         $(".chat-sidebar").attr("class", "chat-sidebar ng-scope slideInRight animated");
         setTimeout(function() {$(".chat-sidebar").fadeIn("fast");});
-        $(".mytogglechat").attr("style", "position: fixed; right: 160px; bottom:0; display:none;");
+        $(".mytogglechat").attr("style", "position:fixed; bottom:10px; right:160px; color:rgb(33,150,243); cursor:pointer; ");
         $(".mytogglechat").attr("data-original-title", "הסתר צ'אט");
-        $(".mytogglechat").attr("class", "mdl-button mdl-js-button mdl-button--icon mdl-button--colored mytogglechat slideInRight animated");
+        $(".mytogglechat").attr("class", "material-icons mdl-badge mdl-badge--overlap mytogglechat slideInRight animated");
+        
+     //   $(".mytogglechat").attr("class", "material-icons mdl-badge mdl-badge--overlap mytogglechat slideInRight animated");
         $(".mytogglechat").fadeIn(0);
     }
 }
@@ -315,7 +318,7 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
             $http.post("/news/listen", {'amount': $rootScope.news.length}).success(function(data) {
                 if (data != "bad") {
                     if ($rootScope.news[$rootScope.news.length - 1].id != data.id) {
-                        $rootScope.news.push(data); window.navigator.vibrate([500,110,500,110,450,110,200,110,170,40,450,110,200,110,170,40,500]);
+                        $rootScope.news.push(data);
                         Notify(data.authorname, data.message);
                     }
                 }
@@ -346,8 +349,11 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
                             }
                         }
                     }
+                    
+                    $("#chatsign").attr("data-badge", "");
                     $rootScope.newMsgs = 1;
                 } else {
+                    $("#chatsign").removeAttr("data-badge");
                     $rootScope.newMsgs = 0;
                 }
             });
@@ -432,13 +438,16 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
                 
                 switch ($rootScope.users[i].perm) {
                     case 1:
-                        $rootScope.users[i].permdisp = "משתמש רגיל";
+                        $rootScope.users[i].permdisp = "person";
+                        $rootScope.users[i].permdisplay = "משתמש רגיל";
                     break;
                     case 2:
-                        $rootScope.users[i].permdisp = "מאמן המועדון";                    
+                        $rootScope.users[i].permdisp = "person_add";   
+                        $rootScope.users[i].permdisplay = "מאמן"
                     break;
                     case 3:
-                        $rootScope.users[i].permdisp = "מפתח מערכת";
+                        $rootScope.users[i].permdisp = "lock";
+                        $rootScope.users[i].permdisplay = "מפתח מערכת";
                     break;
                 }
             }

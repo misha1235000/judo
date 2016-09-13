@@ -1,18 +1,19 @@
-                               <div class="col-md-3 col-sm-1 col-xs-1 col-lg-3"></div>
-                                 <div class="col-md-6 col-sm-10 col-xs-10 col-lg-6" style="padding-top:80px;">
-                                <!--ONLY IF LENGTH IS 0-->
-                                 <div class="row" ng-if="pics.length==0">
-                                     <div class="col-md-3 col-xs-2 col-sm-3 col-lg-3"></div>
-                                        <div class="col-md-6 col-xs-8 col-sm-6 col-lg-6">
+                                 <!--ONLY IF LENGTH IS 0-->
+                                  <div class="row" ng-if="pics.length==0" style="padding-top:80px;">
+                                     <div class="col-md-1 col-xs-1 col-sm-1 col-lg-1"></div>
+                                        <div class="col-md-10 col-xs-10 col-sm-10 col-lg-10">
                                          <div style="padding-top:30px;">
                                              <div class="alert alert-danger" style="border-radius: 10px !important;">
                                           <strong>עוד לא הועלו תמונת להצגה</strong>
                                         </div>
                                          </div>
                                      </div>                                     
-                                     <div class="col-md-3 col-xs-2 col-sm-3 col-lg-3"></div>
+                                     <div class="col-md-1 col-xs-1 col-sm-1 col-lg-1"></div>
                                   </div>
-                                <!--ONLY IF LENGTH IS 0 END-->
+                                 <!--ONLY IF LENGTH IS 0 END-->                                  
+                                 <div class="col-md-3 col-sm-1 col-xs-1 col-lg-3"></div>
+                                 <div class="col-md-6 col-sm-10 col-xs-10 col-lg-6" style="padding-top:80px;">
+                                
                                   <div class="row"  dir="rtl" ng-repeat="pic in pics | orderBy:'-id' | limitTo:5">
                                    
                                     <div class="row  myglry z-depth-1 growch" style="border-style: outset; margin-top:20px;">

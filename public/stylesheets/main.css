@@ -450,6 +450,7 @@ a {
             body
             {
                 background-color: #e9eaed;
+                overflow-x:hidden;
             }
             
             .chat-sidebar
@@ -562,7 +563,7 @@ a {
         border-radius: 10px;
         min-width: 20%;
         position: relative; box-sizing: border-box;
-        box-shadow: 7px 6px 10px -3px #101010;
+        box-shadow: 2px 2px 2px 2px rgba(0,0,0,0.54);
     }
     .messenger-container p {
        color: #3D3D3D;
@@ -849,4 +850,23 @@ a {
 *:before,
 *:after{
 	box-sizing: border-box;
+}
+
+#imgpostprofile {
+        height:70px !important;
+        width:70px !important;
+    }
+
+@media only screen and (max-width: 700px){
+    #imgpostprofile {
+        height:50px !important;
+        width:50px !important;
+    }
+}
+
+
+
+.mdl-badge.mdl-badge--overlap:after {
+    background-color:red !important;
+    transform:scale(0.7);
 }

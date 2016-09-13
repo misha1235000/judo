@@ -306,7 +306,7 @@
                                           <option value="2" ng-show="sinuser.perm != 2">מאמן מועדון</option>
                                           <option value="3" ng-show="sinuser.perm != 3">מפתח מערכת</option>
                                         </select>
-                                      </td>
+                                    </td>
                                     
                                     
                                 </tr>
@@ -443,8 +443,8 @@
                       </tr>
                       <tr>
                           <td>סוג משתמש</td>
-                          <td ng-show="{{usr.perm != 'מפתח מערכת'}}">{{currusr.perm}}</td>
-                          <td ng-show="{{usr.perm == 'מפתח מערכת'}}">
+                          <td ng-show="usr.perm != 3">{{currusr.perm}}</td>
+                          <td ng-show="usr.perm == 3">
                                         <select class="form-control input-lg" dir="rtl" ng-model="mymodel" ng-change="changePerm(currusr.id, mymodel)">
                                           <option value="{{currusr.perm}}" selected>{{currusr.perm}}</option>
                                           <option value="1" ng-show="currusr.perm != 'משתמש רגיל'">משתמש רגיל</option>
@@ -468,7 +468,7 @@
                            <button class="mdl-button mdl-js-button mdl-button--icon" id="remusr" ng-show="usr.perm == 3" ng-click="removeusr(currusr.id);" style="color:red;">
                           <i class="material-icons">close</i>
                             </button>
-                            <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" ng-show="usr.perm == 3 || usr.id == currusr.id" data-original-title="ערוך משתמש" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning">
+                            <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" ng-show="usr.perm == 3 || usr.id == currusr.id" data-original-title="ערוך משתמש" data-toggle="tooltip" type="button">
                             <i class="material-icons">edit</i>
                             </button>
                         </span>
@@ -528,14 +528,14 @@
                        
                         <div class="row md-form" style="direction: rtl;">
                           <div class="col-md-3 col-xs-3 col-sm-3"></div>
-                        <input type="text" id="regpass" class="form-control col-md-8 col-xs-8 col-sm-8" style="width:66%;" placeholder="סיסמא">
+                        <input type="password" id="regpass" class="form-control col-md-8 col-xs-8 col-sm-8" style="width:66%;" placeholder="סיסמא">
                           <i class="material-icons col-md-1 col-sm-1 col-xs-1" style="padding-left: 7px;top: 4px;">lock</i>
                         </div>
                         <br/>
 
                         <div class="row md-form" style="direction: rtl;">
                           <div class="col-md-3 col-xs-3 col-sm-3"></div>
-                        <input type="text" id="regpassconf" class="form-control col-md-8 col-xs-8 col-sm-8" style="width:66%;" placeholder="אימות סיסמא">
+                        <input type="password" id="regpassconf" class="form-control col-md-8 col-xs-8 col-sm-8" style="width:66%;" placeholder="אימות סיסמא">
                           <i class="material-icons col-md-1 col-sm-1 col-xs-1" style="padding-left: 7px;top: 4px;">lock</i>
                         </div>
                         <br/>
@@ -664,8 +664,8 @@
                         </div><!-- /col-sm-5 -->
                         
                         <div class="col-md-2 col-sm-2 col-xs-3" style="padding-left 0px !important;" dir="rtl">
-                        <img ng-src="{{comment.src}}" style="float: right; 
-    border-radius: 100%; border: 0px !important; width:100%;">
+                        <img id="imgpostprofile" ng-src="{{comment.src}}" style="float: right; 
+    border-radius: 100%; border: 0px !important; width:70px; height:70px;">
                         </div><!-- /col-sm-1 -->
                         
                         </ul>
@@ -676,8 +676,8 @@
                         <div class="col-md-2 col-xs-2 col-sm-2" style="">
                         <button type="button" class="commentbtn btn btn-primary waves-effect" ng-click="addComment()">שלח תגובה</button>
                         </div>
-                        <div class="col-md-1 col-xs-1 col-sm-1"></div>
-                        <div class="col-md-9 col-sm-9 col-xs-9" style="">
+                        <div class="col-md-2 col-xs-2 col-sm-2"></div>
+                        <div class="col-md-8 col-sm-8 col-xs-8" style="">
                         <textarea type="text" id="comment" class="md-textarea" dir="rtl" placeholder="כתוב את התגובה שלך כאן..." style="width:100%;"></textarea>
                             </div>
                         
@@ -715,6 +715,7 @@
                             <div class="form_controls">
                                 <input type="text" class="form-control" id="picaddinf" placeholder="תיאור..." ng-model="desc" ng-change="checkFill()"/>
                             </div>
+                            <br/><br/>
                         </div>
                         <div class="form_line">
                             <label>תמונה:</label>
@@ -726,7 +727,6 @@
                             </div>
                         </div>
                     </form>
-                    <h2>מצב העלאה:</h2>
                     <div class="file" ng-repeat="file in files">
                         <h3>{{file.name}} {{f.$error}} {{f.$errorParam}}</h3>
 
@@ -763,8 +763,6 @@
                                 <input class="btn btn-primary waves-effect" type="submit" onclick="changePlace()" value="שלח">
                             </p>
                         </form>-->
-            <div class="modal-footer">
-                        </div>
 
                 <!--/.Content-->
             </div>
@@ -785,7 +783,7 @@
                 <a ng-click="register_popup(current.id, current.firstName, current.lastName);">
                     <span style="
     padding-right: 10px; color: white; font-weight:bold; font-size: 14px;
-">{{current.firstName}} {{current.lastName}}</span><img width="30" height="30" ng-src="{{current.profilepic}}"> 
+">{{current.firstName}} {{current.lastName}}</span><img width="30" height="30" ng-src="{{current.profilepic}}" class="img-circle"> 
                 </a>
                 <span class="" style="color:red; position:fixed; left:10px; font-size: 16px; font-weight:bold; padding-top:4px;">{{current.sent}}</span>
             </div>
@@ -831,14 +829,16 @@
     right: 5.6px;
     margin-left: 7px;
     background-color: white;
-    border-radius: 0px;
+    border-top-right-radius: 100px !important;
+    border-bottom-right-radius: 100px !important;
     bottom: 1px;" ng-keyup="ChatInputChange(event)"/><br>
   </form>
    <span class="input-group-btn">
         <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" type="button" ng-click="changedChat()" ng-disabled="!form.input.$valid" style="    top: 2px;
     height: 34px;
     padding-right: 10px;
-    border-radius: 0px;
+    border-bottom-left-radius: 100px !important;
+    border-top-left-radius: 100px !important;
     min-width: initial;
     width: 40px;
     padding-right: 6px;"><i class="material-icons" style="position: relative;
@@ -853,11 +853,11 @@
 </div>
           
 
-      <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored mytogglechat" ng-show="usr.perm > 0;" type="button" style="position:fixed; bottom:0; right:0;" onClick="togglechat();"><span class="material-icons">chat</span><i ng-show="newMsgs > 0" class="material-icons" style="
+      <!--<button class="mdl-button mdl-js-button mdl-button--icon mdl-badge mdl-badge--overlap mdl-button--colored mytogglechat" ng-show="usr.perm > 0;" type="button" style="position:fixed; bottom:0; right:0;" onClick="togglechat();" data-badge="1">--><span id="chatsign" class="material-icons mdl-badge mdl-badge--overlap mytogglechat" ng-show="usr.perm > 0;" style="position:fixed; bottom:10px; right:0px; color:rgb(33,150,243); cursor:pointer;" onClick="togglechat();">chat</span><!--<i ng-show="newMsgs > 0" class="material-icons" style="
     position: absolute;
     color: red;
     top: -10px;
-          left: -7px;">add</i></button>
+          left: -7px;">add</i></button>-->
         <script type="text/javascript">
             $('#fm').on('shown.bs.modal', function () {
                 $('#myInput').focus()
@@ -887,7 +887,6 @@
                $('#reglastname').val("");
                $('#wrongreg').html("");
             });
-            $('#registerm').draggable();
              $('#gallerym').on('show.bs.modal', function() {
                  /////////COMING SOON//////////
              });
