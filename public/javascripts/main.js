@@ -15,8 +15,11 @@ $(document).ready(function() {
         $(".mytogglechat").attr("data-original-title", "הצג צ'אט");
         $("#mytogglechat").attr("class", "fa fa-angle-double-left");
         setTimeout(function() {$("#myCarousel").carousel().change();}, 1000);
+    
+
         
 });
+
 var boom = 0;
 function togglechat() {
     
@@ -301,7 +304,35 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
     $(".mytogglechat").click(function() {
     });
 
+        setTimeout(function() {
+$('body').vegas({
+  overlay: false,
+  transition: 'fade', 
+  transitionDuration: 4000,
+  delay: 10000,
+  color: 'red',
+  animation: 'random',
+  animationDuration: 15000,
+  slides: [
+    { src: '/assets/images/bgcarousel/bg-car1.jpg'},
+    { src: '/assets/images/bgcarousel/bg-car2.jpg'},
+    { src: '/assets/images/bgcarousel/bg-car3.jpg'},
+    { src: '/assets/images/3dcarousel/3dcar1.jpg'},
+    { src: '/assets/images/3dcarousel/3dcar2.jpg'},
+    { src: '/assets/images/3dcarousel/3dcar3.jpg'},
+    { src: '/assets/images/3dcarousel/3dcar4.jpg'},
+    { src: '/assets/images/3dcarousel/3dcar5.jpg'}
+   /* { src: 'https://ununsplash.imgix.net/reserve/RONyPwknRQOO3ag4xf3R_Kinsey.jpg?fit=crop&fm=jpg&h=700&q=75&w=1600' },
+    { src: 'https://unsplash.imgix.net/photo-1414438992182-69e404046f80?fit=crop&fm=jpg&h=625&q=75&w=1600' },
+    { src: 'https://unsplash.imgix.net/photo-1414490929659-9a12b7e31907?fit=crop&fm=jpg&h=800&q=75&w=1600' },
+    { src: 'https://unsplash.imgix.net/uploads/14129863345840df499fc/0165574c?fit=crop&fm=jpg&h=600&q=75&w=1600' }*/
+  ]
+});
+
+}, 3000);
+    
     $http.get('/session').success(function(data) {
+        
        $rootScope.loaded = true;
        $rootScope.usr = data;
     if ($rootScope.usr.firstName != '') {
@@ -376,9 +407,9 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
               if ((window.location.hash == "#/gallery" || window.location.hash=="#/users") && $rootScope.usr.firstName == "") {
             window.location = "/";
         }
-        if (window.location.hash == "#/" && $rootScope.usr.firstName == "") {
-            setTimeout(function(){$('#loginm').modal('show');}, 1000);
-        }
+     //   if (window.location.hash == "#/" && $rootScope.usr.firstName == "") {
+     //       setTimeout(function(){$('#loginm').modal('show');}, 3000);
+     //   }
         
     }).error(function() {       if ((window.location.hash == "#/gallery" || window.location.hash=="#/users") && $rootScope.usr.firstName == "") {
             window.location = "/";
@@ -426,8 +457,9 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
         })
     })
     }
-    
     $rootScope.getUsers = function() {
+        
+        if ($rootScope.usr.perm > 0) {
         $http.get('/users').success(function(data) {
             $rootScope.users = data
             $("#usr" + $rootScope.usr.id).attr("style", "background-color:green;");
@@ -452,6 +484,7 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
                 }
             }
         }).error(function(){});
+        }
     }
     
     $rootScope.logout = function() {

@@ -450,7 +450,7 @@ a {
             body
             {
                 background-color: #e9eaed;
-                overflow-x:hidden;
+                overflow-x:hidden !important;;
             }
             
             .chat-sidebar
@@ -869,4 +869,11 @@ a {
 .mdl-badge.mdl-badge--overlap:after {
     background-color:red !important;
     transform:scale(0.7);
+}
+.vegas-overlay {
+  opacity: .2;
+}
+
+.vegas-timer-progress {
+  background: #fff;
 }
