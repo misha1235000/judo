@@ -14,11 +14,35 @@ $(document).ready(function() {
         $(".mytogglechat").attr("style", "position:fixed; bottom:10px; right:0px; color:rgb(33,150,243); cursor:pointer;");
         $(".mytogglechat").attr("data-original-title", "הצג צ'אט");
         $("#mytogglechat").attr("class", "fa fa-angle-double-left");
-        setTimeout(function() {$("#myCarousel").carousel().change();}, 1000);
-    
-
         
 });
+
+function startVegas() {
+    $('body').vegas({
+      overlay: false,
+      transition: 'fade', 
+      transitionDuration: 4000,
+      delay: 10000,
+      color: 'black',
+      timer: false,
+      animation: 'random',
+      animationDuration: 15000,
+      slides: [
+        { src: '/assets/images/bgcarousel/bg-car1.jpg'},
+        { src: '/assets/images/bgcarousel/bg-car2.jpg'},
+        { src: '/assets/images/bgcarousel/bg-car3.jpg'},
+        { src: '/assets/images/3dcarousel/3dcar1.jpg'},
+        { src: '/assets/images/3dcarousel/3dcar2.jpg'},
+        { src: '/assets/images/3dcarousel/3dcar3.jpg'},
+        { src: '/assets/images/3dcarousel/3dcar4.jpg'},
+        { src: '/assets/images/3dcarousel/3dcar5.jpg'}
+       /* { src: 'https://ununsplash.imgix.net/reserve/RONyPwknRQOO3ag4xf3R_Kinsey.jpg?fit=crop&fm=jpg&h=700&q=75&w=1600' },
+        { src: 'https://unsplash.imgix.net/photo-1414438992182-69e404046f80?fit=crop&fm=jpg&h=625&q=75&w=1600' },
+        { src: 'https://unsplash.imgix.net/photo-1414490929659-9a12b7e31907?fit=crop&fm=jpg&h=800&q=75&w=1600' },
+        { src: 'https://unsplash.imgix.net/uploads/14129863345840df499fc/0165574c?fit=crop&fm=jpg&h=600&q=75&w=1600' }*/
+      ]
+    });
+}
 
 var boom = 0;
 function togglechat() {
@@ -58,7 +82,7 @@ judoApp.directive('loading', function () {
       return {
         restrict: 'E',
         replace:true,
-        template: '<diheiv class="loading"></div>',
+        template: '<div class="loading"></div>',
         link: function (scope, element, attr) {
               scope.$watch('loading', function (val) {
                   if (val)
@@ -303,33 +327,6 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
 
     $(".mytogglechat").click(function() {
     });
-
-        setTimeout(function() {
-$('body').vegas({
-  overlay: false,
-  transition: 'fade', 
-  transitionDuration: 4000,
-  delay: 10000,
-  color: 'red',
-  animation: 'random',
-  animationDuration: 15000,
-  slides: [
-    { src: '/assets/images/bgcarousel/bg-car1.jpg'},
-    { src: '/assets/images/bgcarousel/bg-car2.jpg'},
-    { src: '/assets/images/bgcarousel/bg-car3.jpg'},
-    { src: '/assets/images/3dcarousel/3dcar1.jpg'},
-    { src: '/assets/images/3dcarousel/3dcar2.jpg'},
-    { src: '/assets/images/3dcarousel/3dcar3.jpg'},
-    { src: '/assets/images/3dcarousel/3dcar4.jpg'},
-    { src: '/assets/images/3dcarousel/3dcar5.jpg'}
-   /* { src: 'https://ununsplash.imgix.net/reserve/RONyPwknRQOO3ag4xf3R_Kinsey.jpg?fit=crop&fm=jpg&h=700&q=75&w=1600' },
-    { src: 'https://unsplash.imgix.net/photo-1414438992182-69e404046f80?fit=crop&fm=jpg&h=625&q=75&w=1600' },
-    { src: 'https://unsplash.imgix.net/photo-1414490929659-9a12b7e31907?fit=crop&fm=jpg&h=800&q=75&w=1600' },
-    { src: 'https://unsplash.imgix.net/uploads/14129863345840df499fc/0165574c?fit=crop&fm=jpg&h=600&q=75&w=1600' }*/
-  ]
-});
-
-}, 3000);
     
     $http.get('/session').success(function(data) {
         
@@ -788,9 +785,9 @@ judoApp.config(['$routeProvider', '$locationProvider',function($routeProvider, $
     }).when("/info", {
 			templateUrl: "/assets/views/info.html"
 	}).when("/contact", {
-            templateUrl: "/assets/views/contact.html"    
+            templateUrl: "/assets/views/contact.html"
     }).when("/gallery", {
-            templateUrl: "/assets/views/gallery.html",
+            templateUrl: "/assets/views/gallery.html"
     }).when("/login", {
             templateUrl: "/assets/views/login.html"
     }).when("/myuser", {
