@@ -195,23 +195,26 @@
                     <div class="modal-body">
                         <form class="form-inline">
                            <div class="table-responsive">
-                            <table class="table table-hover" dir="rtl">
-
+                            <table class="table table-hover tblnews" dir="rtl">
+                               <thead>
                                 <tr>
                                     <!--<td><b>מספר</b></td>-->
-                                    <td><b>שם הכותב</b></td>
-                                    <td><b>הודעה</b></td>
-                                    <td><b>תאריך</b></td>
-                                    <td><b>שעה</b></td>
+                                    <th style="text-align: right;"><b>שם הכותב</b></th>
+                                    <th style="text-align: right;"><b>הודעה</b></th>
+                                    <th class="removeit" style="text-align: right;"><b>תאריך</b></th>
+                                    <th style="text-align: right;"><b>שעה</b></th>
                                 </tr>
+                               </thead>
+                               <tbody>
                                 <tr class="" ng-repeat="new in news | orderBy:'-id' | limitTo:5" ng-hide="hideit">
                                     <td ng-hide="new.hidden == true">{{new.authorname}}</td>
                                     <td ng-hide="new.hidden == true">{{new.message}}</td>
-                                    <td ng-hide="new.hidden == true">{{new.date}}</td>
+                                    <td class="removeit" ng-hide="new.hidden == true">{{new.date}}</td>
                                     <td ng-hide="new.hidden == true">{{new.time.split(":")[0] + ":" + new.time.split(":")[1]}}</td>
                                     <td ng-hide="new.hidden == true"><button id="demo-show-toast" class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" style="color:red;" ng-click="deleteNew(new.id)"  ng-show="usr.perm >= 2"><i class="material-icons">close</i></button></td>
                                     
                                 </tr>
+                                </tbody>
                             </table>
                             </div>
                         </form>
@@ -832,16 +835,16 @@
     right: 5.6px;
     margin-left: 7px;
     background-color: white;
-    border-top-right-radius: 100px !important;
-    border-bottom-right-radius: 100px !important;
+    border-radius:0px;
+    border-top-right-radius: 5px !important;
+    border-bottom-right-radius: 5px !important;
     bottom: 1px;" ng-keyup="ChatInputChange(event)"/><br>
   </form>
    <span class="input-group-btn">
         <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" type="button" ng-click="changedChat()" ng-disabled="!form.input.$valid" style="    top: 2px;
     height: 34px;
     padding-right: 10px;
-    border-bottom-left-radius: 100px !important;
-    border-top-left-radius: 100px !important;
+    border-radius:0px;
     min-width: initial;
     width: 40px;
     padding-right: 6px;"><i class="material-icons" style="position: relative;

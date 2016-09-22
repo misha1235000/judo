@@ -21,12 +21,12 @@ function startVegas() {
     $('body').vegas({
       overlay: false,
       transition: 'fade', 
-      transitionDuration: 4000,
-      delay: 10000,
+      transitionDuration: 3000,
+      delay: 5000,
       color: 'black',
       timer: false,
       animation: 'random',
-      animationDuration: 15000,
+      animationDuration: 9000,
       slides: [
         { src: '/assets/images/bgcarousel/bg-car1.jpg'},
         { src: '/assets/images/bgcarousel/bg-car2.jpg'},

@@ -1,8 +1,41 @@
 <script type="text/javascript">
-    if ($('body').attr("class").includes("vegas") == false) {
-        startVegas();
-        $('body').vegas('jump', 1);
-    }
+        if ($('body').attr("class").includes("vegas") == false && window.location.hash == "#/") {
+            startVegas();
+//          $('body').vegas('jump', 1);
+        }
+        
+        setTimeout(function() {
+            if ($('body').attr("class").includes("vegas") == false && window.location.hash == "#/") {
+                startVegas();
+//              $('body').vegas('jump', 1);
+            }
+        }, 4000);
+        
+        
+        setTimeout(function(){
+            if ($('body').attr("class").includes("vegas") == true && window.location.hash == "#/") {
+                $('body').vegas('pause');
+            }
+        }, 1000);
+    
+        setTimeout(function(){
+            if ($('body').attr("class").includes("vegas") == true && window.location.hash == "#/") {
+                $('body').vegas('play');
+            }
+        }, 1100);
+    
+        setTimeout(function(){
+            if ($('body').attr("class").includes("vegas") == true && window.location.hash == "#/") {
+                $('body').vegas('pause');
+            }
+        }, 5000);
+    
+        setTimeout(function(){
+            if ($('body').attr("class").includes("vegas") == true && window.location.hash == "#/") {
+                $('body').vegas('play');
+            }
+        }, 5100);
+    
     
     
 </script>

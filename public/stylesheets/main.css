@@ -889,3 +889,23 @@ a.green.button {
   -webkit-animation-duration: 2s;
   -webkit-animation-iteration-count: infinite;
 }
+
+@media only screen and (max-width:850px) {
+    .demo-card-square.mdl-card.mdl-shadow--2dp {
+        transition: 0.6s;
+        height:421px !important;
+    }
+}
+
+@media only screen and (max-width:700px) { 
+    body {
+        transition: 1s;
+    }
+}
+ 
+@media only screen and (max-width: 640px) {
+    .removeit {
+        transition: 0.6s;
+        display:none;
+    }
+}
