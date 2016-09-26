@@ -893,13 +893,17 @@ a.green.button {
 @media only screen and (max-width:1350px) {
     .demo-card-square.mdl-card.mdl-shadow--2dp {
         transition: 0.6s;
-        height:421px !important;
+        height:415px !important;
     }
 }
 
-@media only screen and (max-width:700px) { 
+@media only screen and (max-width:767px) { 
     body {
         transition: 1s;
+    }
+        .streetview {
+        top: initial !important;
+        bottom: 12px !important;
     }
 }
  
