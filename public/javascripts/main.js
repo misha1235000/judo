@@ -19,7 +19,7 @@ $(document).ready(function() {
 function startVegas() {
     $('body').vegas({
       overlay: true,
-      transition: 'fade', 
+      transition: 'fade',
       transitionDuration: 3000,
       delay: 5000,
       color: 'black',
