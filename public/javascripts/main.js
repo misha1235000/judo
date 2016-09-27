@@ -14,7 +14,6 @@ $(document).ready(function() {
         $(".mytogglechat").attr("style", "position:fixed; bottom:10px; right:0px; color:rgb(33,150,243); cursor:pointer;");
         $(".mytogglechat").attr("data-original-title", "הצג צ'אט");
         $("#mytogglechat").attr("class", "fa fa-angle-double-left");
-        
 });
 
 function startVegas() {
@@ -145,9 +144,12 @@ function Notify(titleText, bodyText)
 judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$location', 'Upload', 'cloudinary', function($rootScope, $http, $routeParams, $location, $upload, cloudinary) {
     $rootScope.loaded = false;
     var regex = RegExp(/^[a-zA-Z0-9.?!@#$%()*_+-\/-\ ;~א-תףךץ]+$/);
-            $rootScope.ChatInputChange = function(event) {
-                
-                if (window.event.keyCode == 13) {
+            $rootScope.ChatInputChange = function(e) {
+                if (!e) {
+                    var e = window.event;
+                }
+	                alert(e.keyCode);
+                if (e.keyCode == 13) {
                     $rootScope.changedChat();
                 }
             }
@@ -777,7 +779,8 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
 }]);
 
 function init_map(){var myOptions = {zoom:13,center:new google.maps.LatLng(32.01,33),mapTypeId: google.maps.MapTypeId.ROADMAP};map = new google.maps.Map(document.getElementById('gmap_canvas'), myOptions);marker = new google.maps.Marker({map: map,position: new google.maps.LatLng(32.0192813,34.75112319999994)});infowindow = new google.maps.InfoWindow({content:'<strong>ג\'ודו ליאור - בת ים</strong><br>בת ים, החשמונאים 27<br>'});google.maps.event.addListener(marker, 'click', function(){infowindow.open(map,marker);});infowindow.open(map,marker);
-google.maps.event.addDomListener(window, 'load', init_map);}
+//google.maps.event.addDomListener(window, 'load', init_map);
+}
 
 judoApp.config(['$routeProvider', '$locationProvider',function($routeProvider, $locationProvider) {
 	$routeProvider.when("/", {
