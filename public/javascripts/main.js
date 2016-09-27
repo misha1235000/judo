@@ -154,7 +154,6 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
                 if (!e) {
                     var e = window.event;
                 }
-	                alert(e.keyCode);
                 if (e.keyCode == 13) {
                     $rootScope.changedChat();
                 }
