@@ -18,7 +18,7 @@ $(document).ready(function() {
 
 function startVegas() {
     $('body').vegas({
-      overlay: false,
+      overlay: true,
       transition: 'fade', 
       transitionDuration: 3000,
       delay: 5000,
@@ -29,12 +29,18 @@ function startVegas() {
       slides: [
         { src: '/assets/images/bgcarousel/bg-car1.jpg'},
         { src: '/assets/images/bgcarousel/bg-car2.jpg'},
+        { src: '/assets/images/3dcarousel/3dcar11.jpg'},
         { src: '/assets/images/bgcarousel/bg-car3.jpg'},
-        { src: '/assets/images/3dcarousel/3dcar1.jpg'},
         { src: '/assets/images/3dcarousel/3dcar2.jpg'},
         { src: '/assets/images/3dcarousel/3dcar3.jpg'},
         { src: '/assets/images/3dcarousel/3dcar4.jpg'},
-        { src: '/assets/images/3dcarousel/3dcar5.jpg'}
+        { src: '/assets/images/3dcarousel/3dcar5.jpg'},
+        { src: '/assets/images/3dcarousel/3dcar6.jpg'},
+        { src: '/assets/images/3dcarousel/3dcar7.jpg'},
+        { src: '/assets/images/3dcarousel/3dcar8.jpg'},
+        { src: '/assets/images/3dcarousel/3dcar9.jpg'},
+        { src: '/assets/images/3dcarousel/3dcar10.jpg'},
+        { src: '/assets/images/3dcarousel/3dcar1.jpg'}
        /* { src: 'https://ununsplash.imgix.net/reserve/RONyPwknRQOO3ag4xf3R_Kinsey.jpg?fit=crop&fm=jpg&h=700&q=75&w=1600' },
         { src: 'https://unsplash.imgix.net/photo-1414438992182-69e404046f80?fit=crop&fm=jpg&h=625&q=75&w=1600' },
         { src: 'https://unsplash.imgix.net/photo-1414490929659-9a12b7e31907?fit=crop&fm=jpg&h=800&q=75&w=1600' },
