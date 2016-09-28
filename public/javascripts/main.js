@@ -7,6 +7,8 @@ $(window).load(function() {
 
 
 
+
+
 $(document).ready(function() {
         $('[data-toggle="tooltip"]').tooltip();
         $(".chat-sidebar").attr("class", "chat-sidebar ng-scope slideOutRight animated");
@@ -15,6 +17,14 @@ $(document).ready(function() {
         $(".mytogglechat").attr("data-original-title", "הצג צ'אט");
         $("#mytogglechat").attr("class", "fa fa-angle-double-left");
 });
+
+function centerModal() {
+    $(this).css('display', 'block');
+    var $dialog = $(this).find(".modal-dialog");
+    var offset = ($(window).height() - $dialog.height()) / 2;
+}
+    // Cente
+$('#misham').on('show.bs.modal', centerModal);
 
 function startVegas() {
     $('body').vegas({
@@ -35,11 +45,11 @@ function startVegas() {
         { src: '/assets/images/3dcarousel/3dcar3.jpg'},
         { src: '/assets/images/3dcarousel/3dcar4.jpg'},
         { src: '/assets/images/3dcarousel/3dcar5.jpg'},
+        { src: '/assets/images/3dcarousel/3dcar10.jpg'},
         { src: '/assets/images/3dcarousel/3dcar6.jpg'},
         { src: '/assets/images/3dcarousel/3dcar7.jpg'},
         { src: '/assets/images/3dcarousel/3dcar8.jpg'},
         { src: '/assets/images/3dcarousel/3dcar9.jpg'},
-        { src: '/assets/images/3dcarousel/3dcar10.jpg'},
         { src: '/assets/images/3dcarousel/3dcar1.jpg'}
        /* { src: 'https://ununsplash.imgix.net/reserve/RONyPwknRQOO3ag4xf3R_Kinsey.jpg?fit=crop&fm=jpg&h=700&q=75&w=1600' },
         { src: 'https://unsplash.imgix.net/photo-1414438992182-69e404046f80?fit=crop&fm=jpg&h=625&q=75&w=1600' },
@@ -330,6 +340,7 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
     $rootScope.currusr = [];
     $rootScope.permlevel = "";
     $rootScope.comments = [];
+    $rootScope.modpic = "";
     $rootScope.usr = {'username':'','pass':'','firstName':'','lastName':'','email':'','perm':0, 'profilepic':''}
 
     $(".mytogglechat").click(function() {
@@ -662,6 +673,10 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
             }
         });  
         }); 
+    }
+    
+    $rootScope.changeModPic = function(src) {
+        $rootScope.modpic = src;
     }
     
     $rootScope.changePoster = function(id) {

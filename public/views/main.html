@@ -178,6 +178,28 @@
         </div>
         <!-- /.Login Modal END-->
         
+         <!-- MISHA -->
+       <!-- <div class="modal fade modal-ext" id="misham" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="z-index:99999999;">
+            <div class="modal-dialog" role="document" >-->
+                <!--Content-->
+       <!--         <div class="modal-content" style="position:relative; top:266px;">
+                    <img ng-src="{{modpic}}" style="width:100%; ;">
+                </div>-->
+                <!--/.Content-->
+  <!--          </div>
+        </div>-->
+        
+        <div id="misham" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="z-index:99999999; top:10vh;">
+  <div class="modal-dialog">
+    <div class="modal-content" style="background-color:transparent;">
+        <div class="modal-body">
+            <img ng-src="{{modpic}}" class="img-responsive" style="margin:auto;">
+        </div>
+    </div>
+  </div>
+</div>
+        <!-- MISHA-->
+        
          <!-- Messages Modal -->
         <div class="modal fade" id="newsm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" ng-controller="mainCont">
             <div class="modal-dialog" role="document">
@@ -430,7 +452,7 @@
                     <dd>Male</dd>
                   </dl>
                 </div>-->
-                <div class="col-md-3 col-lg-3 col-xs-12 col-sm-3" align="center"> <img alt="User Pic" ng-src="{{currusr.profilepic}}" class="img-circle img-responsive" style="width:100px; height:100px;"> </div>
+                  <div class="col-md-3 col-lg-3 col-xs-12 col-sm-3" align="center"> <a ng-click="changeModPic(currusr.profilepic)" data-toggle="modal" data-target="#misham"><img alt="User Pic" ng-src="{{currusr.profilepic}}" class="img-circle img-responsive" style="width:100px; height:100px;"></a> </div>
                 <div class=" col-md-9 col-lg-9 col-sm-9 col-xs-12"> 
                   <table class="table table-user-information table-responsive">
                     <tbody>
@@ -883,6 +905,13 @@
                 $('#regname').focus()
                 
             });
+             $('#misham').on('shown.bs.modal', function() {
+                $('#postprof').fadeOut();
+             });
+             $('#misham').on('hide.bs.modal', function() {
+                $('#postprof').fadeIn(); 
+             });
+            
             $('#registerm').on('hide.bs.modal', function() {
                $('#reguser').val("");
                $('#regpass').val("");

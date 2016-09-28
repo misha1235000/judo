@@ -1,44 +1,58 @@
 <script type="text/javascript">
-        if ($('body').attr("class").includes("vegas") == false && window.location.hash == "#/") {
-            startVegas();
-//          $('body').vegas('jump', 1);
-        }
+        setTimeout(function() {
+            if ($('body').attr("class").includes("vegas") == false && window.location.hash == "#/") {
+                startVegas();
+    //          $('body').vegas('jump', 1);
+            }
+        }, 2500);
         
         setTimeout(function() {
             if ($('body').attr("class").includes("vegas") == false && window.location.hash == "#/") {
                 startVegas();
 //              $('body').vegas('jump', 1);
             }
+        }, 6500);
+        
+        
+        setTimeout(function(){
+            if ($('body').attr("class").includes("vegas") == true && window.location.hash == "#/") {
+                $('body').vegas('pause');
+            }
+        }, 3500);
+    
+        setTimeout(function(){
+            if ($('body').attr("class").includes("vegas") == true && window.location.hash == "#/") {
+                $('body').vegas('play');
+            }
         }, 4000);
-        
-        
-        setTimeout(function(){
-            if ($('body').attr("class").includes("vegas") == true && window.location.hash == "#/") {
-                $('body').vegas('pause');
-            }
-        }, 1000);
     
         setTimeout(function(){
             if ($('body').attr("class").includes("vegas") == true && window.location.hash == "#/") {
+                if ($('body').vegas('current') == 0) {
+                    $('body').vegas('pause');
+                }
+            }
+        }, 7500);
+    
+        setTimeout(function(){
+            if ($('body').attr("class").includes("vegas") == true && window.location.hash == "#/") {
+                if ($('body').vegas('current') == 0) {
+                    $('body').vegas('play');
+                }
+            }
+        }, 8000);
+    
+    setTimeout(function() {
+        if ($('body').attr("class").includes("vegas") == true && window.location.hash == "#/") {
+            if ($('body').vegas('current') == 0) {
+                $('body').vegas('pause');
                 $('body').vegas('play');
             }
-        }, 1500);
-    
-        setTimeout(function(){
-            if ($('body').attr("class").includes("vegas") == true && window.location.hash == "#/") {
-                $('body').vegas('pause');
-            }
-        }, 5000);
-    
-        setTimeout(function(){
-            if ($('body').attr("class").includes("vegas") == true && window.location.hash == "#/") {
-                $('body').vegas('play');
-            }
-        }, 5500);
-    
-    
+        }
+    }, 10000);
     
 </script>
+
    <!--<div id="background-carousel">
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
       <div class="carousel-inner">
