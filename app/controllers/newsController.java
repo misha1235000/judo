@@ -26,7 +26,7 @@ public class newsController extends Controller {
 	public Result add() {
 		DynamicForm requestData = Form.form().bindFromRequest();
 		String message  	= requestData.get("message");
-		if (Integer.parseInt(session().get("perm")) != 3) {
+		if (Integer.parseInt(session().get("perm")) < 2) {
 			return unauthorized();
 		}
 
