@@ -69,7 +69,7 @@ public class globals {
 
 		public static void Filldtst() {
 			Date dt = new Date();
-			dt.setTime(dt.getTime() - dt.getTimezoneOffset());
+			dt.setTime(dt.getTime() + dt.getTimezoneOffset());
 			if (dt.getHours() < 10) {
 				nHoursToAdd = "0" + dt.getHours();
 			} else {
