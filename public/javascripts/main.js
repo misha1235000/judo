@@ -9,6 +9,7 @@ $(window).load(function() {
 
 
 
+
 $(document).ready(function() {
         $('[data-toggle="tooltip"]').tooltip();
         $(".chat-sidebar").attr("class", "chat-sidebar ng-scope slideOutRight animated");
@@ -16,6 +17,7 @@ $(document).ready(function() {
         $(".mytogglechat").attr("style", "position:fixed; bottom:10px; right:0px; color:rgb(33,150,243); cursor:pointer;");
         $(".mytogglechat").attr("data-original-title", "הצג צ'אט");
         $("#mytogglechat").attr("class", "fa fa-angle-double-left");
+    
 });
 
 function centerModal() {
@@ -168,6 +170,59 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
                     $rootScope.changedChat();
                 }
             }
+            
+
+          /*  setTimeout(function() {
+            if ($('body').attr("class").includes("vegas") == false && window.location.hash == "#/") {
+                startVegas();
+    //          $('body').vegas('jump', 1);
+            }
+        }, 2500);
+        
+        setTimeout(function() {
+            if ($('body').attr("class").includes("vegas") == false && window.location.hash == "#/") {
+                startVegas();
+//              $('body').vegas('jump', 1);
+            }
+        }, 6500);
+        
+        
+        setTimeout(function(){
+            if ($('body').attr("class").includes("vegas") == true && window.location.hash == "#/") {
+                $('body').vegas('pause');
+            }
+        }, 3500);
+    
+        setTimeout(function(){
+            if ($('body').attr("class").includes("vegas") == true && window.location.hash == "#/") {
+                $('body').vegas('play');
+            }
+        }, 4000);
+    
+        setTimeout(function(){
+            if ($('body').attr("class").includes("vegas") == true && window.location.hash == "#/") {
+                if ($('body').vegas('current') == 0) {
+                    $('body').vegas('pause');
+                }
+            }
+        }, 7500);
+    
+        setTimeout(function(){
+            if ($('body').attr("class").includes("vegas") == true && window.location.hash == "#/") {
+                if ($('body').vegas('current') == 0) {
+                    $('body').vegas('play');
+                }
+            }
+        }, 8000);
+    
+    setTimeout(function() {
+        if ($('body').attr("class").includes("vegas") == true && window.location.hash == "#/") {
+            if ($('body').vegas('current') == 0) {
+                $('body').vegas('pause');
+                $('body').vegas('play');
+            }
+        }
+    }, 10000);*/
             
             $rootScope.changedChat = function() {
                 if (regex.test($("#mycht").val()) && $("#mycht").val()) {
@@ -405,9 +460,9 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
             });
         }, 5000);
     } else {
-        for (var i = 0; i < 1000; i++) {
+        /*for (var i = 0; i < 1000; i++) {
             window.clearInterval(i);
-        }
+        }*/
     }
         if ($rootScope.usr.profilepic == "none") {
             $rootScope.usr.profilepic = "/assets/images/profile/unknown.jpg";
@@ -659,6 +714,50 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
        for (var i = 0; i < 1000; i++) {
            clearInterval(i);
        }
+                window.setInterval(function() {
+            $http.post("/news/listen", {'amount': $rootScope.news.length}).success(function(data) {
+                if (data != "bad") {
+                    if ($rootScope.news[$rootScope.news.length - 1].id != data.id) {
+                        $rootScope.news.push(data);
+                        Notify(data.authorname, data.message);
+                    }
+                }
+            });
+            $http.post("/chat/listen", {}).success(function(data) {
+                if (data != "") {
+                    for (var i = 0; i < $rootScope.users.length; i++) {
+                        for (var j = 0; j < data.length; j++) {
+                            if ($rootScope.users[i].id == data[j].msgfrom) {
+                                $rootScope.users[i].sent = data[j].amount;
+                                if ($rootScope.users[i].id == $rootScope.currid) {
+                                    $http.post("/chat", {'msgfrom':$rootScope.usr.id,'msgto':$rootScope.users[i].id}).success(function(data) {
+                                    if (data != undefined && data != "") {
+                                        $rootScope.chat = data;
+                                        setTimeout(function(){$(".popup-messages").scrollTop(9000);}, 1);
+                                        $http.post('/chat/read', {'msgto':$rootScope.currid}).success(function() {
+                                            for (var i = 0; i < $rootScope.users.length; i++) {
+                                                if ($rootScope.users[i].id == $rootScope.currid) {
+                                                    $rootScope.users[i].sent = undefined;
+                                                }
+                                            }
+                                        });
+                                    }
+                });
+                                }
+                            } else {
+                                $rootScope.users[i].sent = undefined;
+                            }
+                        }
+                    }
+                    
+                    $("#chatsign").attr("data-badge", "");
+                    $rootScope.newMsgs = 1;
+                } else {
+                    $("#chatsign").removeAttr("data-badge");
+                    $rootScope.newMsgs = 0;
+                }
+            });
+        }, 5000);
         $http.get('/comments/listen/' + $rootScope.picid.toString()).success(function(data) {});
     });
     
