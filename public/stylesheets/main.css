@@ -918,3 +918,9 @@ a.green.button {
 .gm-iv-short-address-description {
     display:none;
 }
+
+.delpic:hover {
+    transition: .3s;
+    color:rgba(255, 0, 0, 0.54) !important;
+    transform:scale(1.1);
+}

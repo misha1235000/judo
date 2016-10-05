@@ -27,6 +27,7 @@ POST	/users/update  			controllers.userController.update
 
 # Pics routes
 GET		/pics					controllers.picsController.getAll
+POST	/pics/delete			controllers.picsController.delete
 
 # Comments routes
 GET		/comments/:id			controllers.commentsController.get(id: String)

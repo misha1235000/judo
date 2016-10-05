@@ -29,7 +29,10 @@
                                        <div class="row " style="border-radius: 8px; /*border-style: outset;*//* background-color:#BABABA;*/">
                                            <div class="col-md-10 col-xs-9 col-sm-9 col-lg-10" style="">
                                               <div class="row">
-                                               <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+                                              <div class="col-md-1 col-sm-1 col-xs-1 col-lg-1" style="padding-left:0 !important; padding-right:0 !important;">
+                                                  <a ng-click="deletePic(pic.id)"><span ng-show="usr.perm == 3" class="material-icons delpic" style="position:relative; float:left; color:rgba(0,0,0,0.54); transition:.3s">clear</span></a>
+                                              </div>
+                                               <div class="col-md-11 col-sm-11 col-xs-11 col-lg-11">
                                                <h4 style="float:right; color: black !important;"><a href="" class="namepic" data-toggle="modal" data-target="#postprof" ng-click="changePoster(pic.posterId)"><b>{{pic.posterName}} {{pic.posterLastName}}</b></a></h4>
                                                 </div>
                                                 <div class="col-md-12 col-sm-12 col-xs-12 col-lg-12" style="color:#7A7A7A; text-align:right;">
@@ -93,5 +96,12 @@
                    <script type="text/javascript">
                        if ($('body').attr('class').includes("vegas")) {
         $('body').vegas('destroy');
+                                           for (var i = 0; i < $rootScope.pics.length; i++) {
+                    for (var j = 0; j < $rootScope.users.length; j++) {
+                        if ($rootScope.pics[i].posterId == $rootScope.users[j].id) {
+                            $rootScope.pics[i].posterimg = $rootScope.users[j].profilepic;
+                        }
+                    }
+                }
     }
                                      /* setTimeout(function() {window.scrollTo(0, 900)}, 200);*/</script>

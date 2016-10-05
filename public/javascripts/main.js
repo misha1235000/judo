@@ -527,6 +527,15 @@ judoApp.controller('mainCont', ['$rootScope', '$http', '$routeParams', '$locatio
         })
     })
     }
+    
+    $rootScope.deletePic = function(id) {
+                swal({   title: "אתה בטוח?",   text: "מהרגע שהתמונה נמחקת לא ניתן להחזירה",   type: "warning",   showCancelButton: true,   confirmButtonColor: "#DD6B55",   confirmButtonText: "מחק",   closeOnConfirm: false }, function(){$http.post("/pics/delete", {'id':id}).success(function() {
+           location.reload();
+        }); 
+        }); 
+
+    }
+    
     $rootScope.getUsers = function() {
         
         if ($rootScope.usr.perm > 0) {
