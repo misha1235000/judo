@@ -96,12 +96,5 @@
                    <script type="text/javascript">
                        if ($('body').attr('class').includes("vegas")) {
         $('body').vegas('destroy');
-                                           for (var i = 0; i < $rootScope.pics.length; i++) {
-                    for (var j = 0; j < $rootScope.users.length; j++) {
-                        if ($rootScope.pics[i].posterId == $rootScope.users[j].id) {
-                            $rootScope.pics[i].posterimg = $rootScope.users[j].profilepic;
-                        }
-                    }
-                }
     }
                                      /* setTimeout(function() {window.scrollTo(0, 900)}, 200);*/</script>
