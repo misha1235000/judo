@@ -56,11 +56,6 @@ public class globals {
 					// "jdbc:postgresql://adminukvryp3:UDrcy6LHnakS@judonow-meitav.rhcloud.com:5432/judonow");
 //					 con = DriverManager.getConnection(
 //					 "jdbc:postgresql://localhost/mydb", "postgres", "postgres");
-					if (con != null) {
-						System.out.println("connected!@~#!@#@~!$~$~@!~(*");
-					} else {
-						System.out.println("NOT CONNECTED AT ALL FOK FOK FOK");
-					}
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
