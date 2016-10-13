@@ -35,11 +35,11 @@ public class globals {
 				/*	props.setProperty("user", "judorsa_1440");
 					props.setProperty("password", "dvpuX2KrnZDJAoI--T5u");
 					props.setProperty("sslmode", "disable");*/
-					props.setProperty("user", "judosite_3209");
-					props.setProperty("password", "QOzKda5Q9_gG44BJSNL6");
+					props.setProperty("user", "liorsjudo_8960");
+					props.setProperty("password", "dcBIU8TiEfNngfG2g1ai");
 					props.setProperty("sslmode", "disable");
 				 con = DriverManager.getConnection(
-					 "jdbc:postgresql://judosite-3209.postgresql.dbs.appsdeck.eu:30769/judosite_3209", props);
+					 "jdbc:postgresql://liorsjudo-8960.postgresql.dbs.appsdeck.eu:30853/liorsjudo_8960", props);
 					
 			/*	 con = DriverManager.getConnection(
 					 "jdbc:postgresql://judorsa-1440.postgresql.dbs.appsdeck.eu:30556/judorsa_1440", props);*/
